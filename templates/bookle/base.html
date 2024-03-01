@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+    <title>
+    Bookle - 
+    {% block title_block %}
+        Default Title 
+    {% endblock %}
+    </title>
+</head>
+<body>
+    <div>
+        <img src="{% static 'images/mainlogo.jpg' %}" 
+        alt="bookle logo" /> <br />
+    {% block body_block %}
+        This is body_block's default content
+    {% endblock %}
+    </div>
+
+    <div> 
+        Find out more 
+        <a href="/bookle/aboutus/">About Us</a>
+    </div>
+</body>
+</html>
