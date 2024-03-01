@@ -1,0 +1,57 @@
+body{
+    background-color: #fdf8ee;
+    margin: 0px
+}
+
+#logo {
+    height: 100px;
+    width: 200px;
+    float: left;
+}
+
+.topIcons{
+    padding-top: 10px;
+    height: 80px;
+    width: 80px;
+    float: right;
+}
+
+#menuBar{
+    width: 100%;
+    position: fixed;
+}
+
+#footer{
+    color: grey;
+    position: fixed;
+    bottom: 0px;
+    text-align: center;
+}
+
+#body{
+    position: absolute;
+    top: 80px;
+}
+
+.instructions{
+    position: relative;
+    top: 20px;
+    width: 1000px;
+    height: 400px;
+    text-align: center;
+    left: 200px;
+    background-color: #fbd779;
+}
+
+#instructions{
+    margin: 50px;
+    font-size: 26px;
+}
+
+h1{
+    float: left;
+    margin: 30px;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+    font-size: 32pt
+}
