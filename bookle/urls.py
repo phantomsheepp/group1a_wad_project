@@ -8,4 +8,6 @@ app_name = 'bookle'
 urlpatterns = [
     path('', views.home, name='home'),
     path('aboutus/', views.aboutus, name='aboutus'),
+    path('leaderboard/', views.leaderboard, name='leaderboard'),
+    path('login/', views.login, name='login'),
 ]

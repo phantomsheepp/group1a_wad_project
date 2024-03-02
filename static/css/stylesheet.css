@@ -33,6 +33,12 @@ body{
     top: 80px;
 }
 
+#instructionsText{
+    margin: 50px;
+    font-size: 24px;
+    top: 140px;
+}
+
 .instructions{
     position: relative;
     top: 20px;
@@ -41,11 +47,6 @@ body{
     text-align: center;
     left: 200px;
     background-color: #fbd779;
-}
-
-#instructions{
-    margin: 50px;
-    font-size: 26px;
 }
 
 h1{

@@ -8,3 +8,11 @@ def home(request):
 def aboutus(request):
     context_dict = {}
     return render(request, 'bookle/aboutus.html', context = context_dict)
+
+def leaderboard(request):
+    context_dict = {}
+    return render(request, 'bookle/leaderboard.html', context=context_dict)
+
+def login(request):
+    context_dict = {}
+    return render(request, 'bookle/login.html', context=context_dict)

@@ -21,7 +21,7 @@ from bookle import views
 app_name = 'bookle'
 
 urlpatterns = [
-    path('', views.home, name='index'),
+    path('', views.home, name='home'),
     path('bookle/', include('bookle.urls')),
     path('admin/', admin.site.urls),
 ]
