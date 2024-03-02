@@ -2,7 +2,7 @@
 {% load staticfiles %}
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="{% static '/css/stylesheet.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static '/css/stylesheet2.css' %}" />
     <title>
     Bookle - 
     {% block title_block %}
@@ -12,15 +12,15 @@
 </head>
 <body>
     <div id="menuBar">
-        <img id="logo" src="{% static 'images/logo.jpg' %}" 
+        <img id="logo" src="{% static 'images/finallogo.png' %}" 
         alt="bookle logo" /> 
 
-        <a href="/bookle/"><img class="topIcons" src="{% static 'images/house.jpg' %}" /></a>
-        <a href="/bookle/login/"><img class="topIcons" src="{% static 'images/user.jpg' %}" /></a>
-        <a href="/bookle/leaderboard/"><img class="topIcons" src="{% static 'images/leaderboard.png' %}" /></a>
+        <a href="/bookle/"><img class="topIcons" src="{% static 'images/finalhome.png' %}" /></a>
+        <a href="/bookle/login/"><img class="topIcons" src="{% static 'images/finaluser.png' %}" /></a>
+        <a href="/bookle/leaderboard/"><img class="topIcons" src="{% static 'images/finalleaderboard.png' %}" /></a>
         <br>
     </div>
-    <div id="body">
+    <div>
     <br>
     {% block body_block %}
         This is body_block's default content
