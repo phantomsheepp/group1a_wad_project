@@ -1,15 +1,15 @@
 import json
 import requests
+from bookle.models import Book
+from django.core.files.base import ContentFile
 
-class Book:
-    def __init__(self, title, author, genre, release_year, country):
-        self.title = title
-        self.author = author
-        self.genre = genre
-        self.release_year = release_year
-        self.country = country
-
-
+# class Book:
+#     def __init__(self, title, author, genre, release_year, country):
+#         self.title = title
+#         self.author = author
+#         self.genre = genre
+#         self.release_year = release_year
+#         self.country = country
 
 def fetch_books(keyword, max_results=20):
     api_url = "https://www.googleapis.com/books/v1/volumes"
@@ -18,7 +18,8 @@ def fetch_books(keyword, max_results=20):
     params = {
         'q': keyword,
         'maxResults': max_results,
-        'printType': 'books'
+        'printType': 'books',
+        'orderBy': 'relevance'
     }
 
     response = requests.get(api_url, params=params)
@@ -27,29 +28,44 @@ def fetch_books(keyword, max_results=20):
     for item in results.get('items', []):
         # Extracting book details
         volume_info = item.get('volumeInfo', {})
-        title = volume_info.get('title', 'No Title')
+        sales_info = item.get('saleInfo', {})
+
         authors = volume_info.get('authors', ['Unknown Author'])
         publishedDate = volume_info.get('publishedDate', '0000')
         categories = volume_info.get('categories', ['Unknown Genre'])
 
-        sales_info = item.get('saleInfo', {})
-        country = sales_info.get('country', 'Unknown Country')
-
-        # Simplify information extraction
+                # Simplify information extraction
+        isbn = next((identifier['identifier'] for identifier in volume_info.get('industryIdentifiers', []) if identifier['type'] == 'ISBN_13'), None)
+        title = volume_info.get('title', 'No Title')
         author = authors[0] if authors else 'Unknown Author'
         genre = categories[0] if categories else 'Unknown Genre'
         release_year = publishedDate.split('-')[0]
+        country = sales_info.get('country', 'Unknown Country')
+        image_url = volume_info.get('imageLinks', {}).get('thumbnail')
+
+        Book.objects.create(isbn=isbn, title=title, author=author, genre=genre, release_year=release_year, country=country)
 
         # Create a Book instance and add it to the list
-        book = Book(title, author, genre, release_year, country)
-        books.append(book)
+    #     book = Book(title, author, genre, release_year, country)
+    #     books.append(book)
 
-    return books
+    # return books
 
+def save_book_image(book_instance, image_url):
+    if image_url:
+        response = requests.get(image_url)
+        if response.status_code == 200:
+            # Assuming `book_instance` is an instance of `Book` model.
+            file_name = image_url.split('/')[-1]  # Simplistic way to get a file name
+            book_instance.image.save(file_name, ContentFile(response.content), save=True)
+
+
+keywords = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+for keyword in keywords:
+    fetch_books(keyword)
 # Example usage
-keyword = "Moby Dick"
-books_db = fetch_books(keyword)
-print(len(books_db))
-# To demonstrate that books are fetched and stored in books_db
-for book in books_db[:5]:  # Just show first 5 books for brevity
-    print(book.title, "-", book.author, "-", book.genre, "-", book.release_year, "-", book.country)
+# books_db = []
+# keywords = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+# for keyword in keywords:
+#     books = fetch_books(keyword)
+#     books_db.extend(books)
