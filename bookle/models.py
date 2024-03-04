@@ -12,7 +12,7 @@ class Book(models.Model):
     release_year = models.CharField(max_length=4)
     country = models.CharField(max_length=255)
     cover = models.ImageField(upload_to='cover_images', blank=True, null = True)
-    description = models.CharField(max_length=500)
+    description = models.TextField(max_length=1000, blank=True, null = True)
 
     def __str__(self):
         return self.isbn
