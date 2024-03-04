@@ -1,7 +1,6 @@
 import json
 import requests
 from models import Book
-from django.core.files.base import ContentFile
 
 # class Book:
 #     def __init__(self, title, author, genre, release_year, country):
