@@ -1,6 +1,6 @@
 import json
 import requests
-from bookle.models import Book
+from models import Book
 from django.core.files.base import ContentFile
 
 # class Book:
@@ -34,30 +34,23 @@ def fetch_books(keyword, max_results=20):
         publishedDate = volume_info.get('publishedDate', '0000')
         categories = volume_info.get('categories', ['Unknown Genre'])
 
-                # Simplify information extraction
+        # Simplify information extraction
         isbn = next((identifier['identifier'] for identifier in volume_info.get('industryIdentifiers', []) if identifier['type'] == 'ISBN_13'), None)
         title = volume_info.get('title', 'No Title')
         author = authors[0] if authors else 'Unknown Author'
         genre = categories[0] if categories else 'Unknown Genre'
         release_year = publishedDate.split('-')[0]
         country = sales_info.get('country', 'Unknown Country')
+        description = volume_info.get('description', 'No Description')
         image_url = volume_info.get('imageLinks', {}).get('thumbnail')
 
-        Book.objects.create(isbn=isbn, title=title, author=author, genre=genre, release_year=release_year, country=country)
+        Book.objects.create(isbn=isbn, title=title, author=author, genre=genre, release_year=release_year, country=country, description=description)
 
         # Create a Book instance and add it to the list
     #     book = Book(title, author, genre, release_year, country)
     #     books.append(book)
 
     # return books
-
-def save_book_image(book_instance, image_url):
-    if image_url:
-        response = requests.get(image_url)
-        if response.status_code == 200:
-            # Assuming `book_instance` is an instance of `Book` model.
-            file_name = image_url.split('/')[-1]  # Simplistic way to get a file name
-            book_instance.image.save(file_name, ContentFile(response.content), save=True)
 
 
 keywords = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
