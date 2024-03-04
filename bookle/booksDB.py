@@ -1,6 +1,6 @@
 import json
 import requests
-from models import Book
+from bookle.models import Book
 
 # class Book:
 #     def __init__(self, title, author, genre, release_year, country):
