@@ -56,3 +56,44 @@ h1{
     text-align: center;
     font-size: 36pt
 }
+
+#black-instructions{
+    position: relative;
+    top: 100px;
+    margin: 1000px;
+    font-family: 'Times New Roman', Times, serif;
+    float:right;
+    font-size: 36pt
+}
+
+#leaderboard-background{
+    position: relative;
+    top: 12em;
+    left: 11em;
+    height: 500px;
+    text-align: left;
+    background-color: #fbd779;
+    width: 75%;
+}
+
+#green-headings{
+    position: relative;
+    top: 80px;
+    margin: 20px;
+    font-family: 'Times New Roman', Times, serif;
+    float: left;
+    color: green;
+    font-size: 36pt
+}
+
+#leaderboard-instructions{
+    position:relative;
+    top: 100px;
+    text-align: center;
+}
+
+.leaderboard-places{
+    padding-left: 50px;
+    font-size: 14pt;
+    display:inline-block;
+}

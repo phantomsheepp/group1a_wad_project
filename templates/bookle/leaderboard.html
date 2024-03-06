@@ -7,5 +7,22 @@
     {% endblock %}
 </head>
 <body>
-    
+    {% block body_block %}
+    <h2 id="leaderboard-instructions">See how fellow players have scored today...</h2>
+    <h1 id="green-headings">Leader-board</h1>
+    <div id="leaderboard-background">
+        <p class="leaderboard-places">Username</p>   &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; <p class="leaderboard-places">Guesses Used</p>
+        <br>
+        <br>
+        <p class="leaderboard-places">1</p> 
+        <br>
+        <p class="leaderboard-places">2</p> 
+        <br>
+        <p class="leaderboard-places">3</p> 
+        <br>
+        <p class="leaderboard-places">4</p> 
+        <br>
+        <p class="leaderboard-places">5</p> 
+    </div>
+    {% endblock%}
 </body>
