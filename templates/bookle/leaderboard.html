@@ -11,18 +11,17 @@
     <h2 id="leaderboard-instructions">See how fellow players have scored today...</h2>
     <h1 id="green-headings">Leader-board</h1>
     <div id="leaderboard-background">
-        <p class="leaderboard-places">Username</p>   &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; <p class="leaderboard-places">Guesses Used</p>
         <br>
+        <strong class="leaderboard-places">Username:</strong>   &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; <strong class="leaderboard-places">Guesses Used:</strong>
         <br>
-        <p class="leaderboard-places">1</p> 
-        <br>
-        <p class="leaderboard-places">2</p> 
-        <br>
-        <p class="leaderboard-places">3</p> 
-        <br>
-        <p class="leaderboard-places">4</p> 
-        <br>
-        <p class="leaderboard-places">5</p> 
+        <!--
+        <ol>
+            {% for user in leaderboard_users %}
+            <li>{{leaderboard_users.userID}}</li>
+            {% endfor %}
+        </ol>
+        -->
+
     </div>
     {% endblock%}
 </body>

@@ -1,5 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from bookle.models import Score
+from bookle.models import Book
+
 
 def home(request):
     context_dict = {}
@@ -10,7 +13,10 @@ def aboutus(request):
     return render(request, 'bookle/aboutus.html', context = context_dict)
 
 def leaderboard(request):
+    # will need to see if this is correct, but it's a first attempt!
+    #leaderboard_data = Score.objects.order_by('-guesses')[:5]
     context_dict = {}
+    #context_dict['leaderboard_users'] = leaderboard_data
     return render(request, 'bookle/leaderboard.html', context=context_dict)
 
 def login(request):

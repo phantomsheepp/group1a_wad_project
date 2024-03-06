@@ -3,6 +3,17 @@
 {% load staticfiles %}
 <html>
     <body>
-        <p>Awesome people made this site</p>
+        {% block body_block %}
+        <div class="about-us-main">
+        <p id="black-headings">This site was made by...</p>
+        <ul id="group-1a">
+            <li>Sophie Lambie (2764964L)</li>
+            <li>Rachel Horton (2733550H)</li>
+            <li>Adam Yuan (2736414Y)</li>
+            <li>Faraj Ahmed (2736261A)</li>
+            <li>Benjamin Darling (2856228D)</li>
+        </ul>
+        </div>
+        {% endblock %}
     </body>
 </html>
