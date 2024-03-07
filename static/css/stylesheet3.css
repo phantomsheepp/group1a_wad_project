@@ -1,4 +1,4 @@
-/* base.html */
+/* --------------------------------------base.html---------------------------------- */
 body{
     background-color: #fdf8ee;
     margin: 0px
@@ -20,15 +20,17 @@ body{
 #menuBar{
     width: 100%;
     height: 6em;
-    position: fixed;
+    position: sticky;
+    overflow: hidden;
+    top: 0px;
+    z-index: 1;
     border-bottom: solid;
-    opacity: 1;
 }
 
 #footer{
     background-color: #fdf8ee;
     color: grey;
-    position: absolute;
+    position: fixed;
     font-size: 14px;
     bottom: 0px;
     width: 100%;
@@ -36,7 +38,7 @@ body{
     text-align:center;
 }
 
-/* home.html */
+/* ------------------------------home.html------------------------------------------ */
 #instructionsText{
     position: relative;
     top: -10px;
@@ -46,10 +48,9 @@ body{
 }
 
 .instructions{
-    position: relative;
-    top: 100px;
-    width: 1000px;
-    height: 400px;
+    position: fixed;
+    margin-top: 100px;
+    height: 600px;
     text-align: center;
     background-color: #fbd779;
     width: 100%
@@ -70,15 +71,26 @@ h1{
     margin: 1000px;
     font-family: 'Times New Roman', Times, serif;
     float:right;
-    font-size: 36pt
+    font-size: 36pt;
 }
 
-/* leaderboard.html */
+.logo-links{
+    height: 10px;
+    width: 20px;
+}
+
+#linkText{
+    position: relative;
+    top: -20px;
+    display:inline;
+}
+
+/* -----------------------------leaderboard.html------------------------------------ */
 #leaderboard-background{
     position: relative;
-    top: 12em;
+    top: 9em;
     left: 11em;
-    height: 350px;
+    height: 35em;
     text-align: left;
     background-color: #fbd779;
     width: 75%;
@@ -86,7 +98,7 @@ h1{
 
 #green-headings{
     position: relative;
-    top: 80px;
+    top: 0.5em;
     margin: 20px;
     font-family: 'Times New Roman', Times, serif;
     float: left;
@@ -96,7 +108,7 @@ h1{
 
 #leaderboard-instructions{
     position:relative;
-    top: 100px;
+    top: 0.5em;
     font-size: 30pt;
     text-align: center;
 }
@@ -107,7 +119,7 @@ h1{
     display:inline-block;
 }
 
-/* aboutus.html */
+/* ---------------------------------aboutus.html------------------------------------ */
 .about-us-main{
     position: relative;
     top: 12em;
@@ -131,10 +143,10 @@ h1{
     text-align:center;
 }
 
-/* login.html */
+/* -------------------------------------login.html----------------------------------- */
 .float-container{
     position: relative;
-    top: 6em;
+    top: 1em;
     height:300px;
 }
 
@@ -151,7 +163,6 @@ h1{
     padding: 20px;
     border-left: 5px solid black;
     height: 500px;
-    
 }
 
 #Signup-green-headings{
@@ -189,4 +200,3 @@ h1{
     color: green;
     font-size: 36pt
 }
-

@@ -11,4 +11,5 @@ urlpatterns = [
     path('leaderboard/', views.leaderboard, name='leaderboard'),
     path('login/', views.login, name='login'),
     path('signup/', views.signup, name='signup'),
+    path('bookle/home/daily-puzzle/', views.daily_puzzle, name='daily_puzzle'),
 ]
