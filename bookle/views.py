@@ -31,3 +31,25 @@ def daily_puzzle(request):
     context_dict = {}
     return render(request, 'bookle/daily_puzzle.html', context=context_dict)
 
+def past_puzzles(request):
+    context_dict = {}
+    return render(request, 'bookle/past_puzzles.html', context=context_dict)
+
+def view_account(request):
+    context_dict = {}
+    return render(request, 'bookle/view_account.html', context=context_dict)
+
+def edit_account(request):
+    context_dict = {}
+    return render(request, 'bookle/edit_account.html', context=context_dict)
+
+def complete(request):
+    context_dict = {}
+    return render(request, 'bookle/complete.html', context=context_dict)
+
+def discussion(request):
+    context_dict = {}
+    return render(request, 'bookle/discussion.html', context=context_dict)
+
+
+
