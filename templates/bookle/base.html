@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static '/css/stylesheet.css' %}" />
+    <title>
+    Bookle - 
+    {% block title_block %}
+        Default Title 
+    {% endblock %}
+    </title>
+</head>
+<body>
+    <div id="menuBar">
+        <img id="logo" src="{% static 'images/logo.png' %}" 
+        alt="bookle logo" /> 
+
+        <a href="/bookle/"><img class="topIcons" src="{% static 'images/home.png' %}" 
+        alt="link to home"/></a>
+        <a href="/bookle/login/"><img class="topIcons" src="{% static 'images/user.png' %}"
+        alt="link to login" /></a>
+        <a href="/bookle/leaderboard/"><img class="topIcons" src="{% static 'images/leaderboard.png' %}" 
+        alt="link to leaderboard"/></a>
+        <br>
+    </div>
+    <div>
+    <br>
+    {% block body_block %}
+        This is body_block's default content
+    {% endblock %}
+    </div>
+
+    <div id="footer"> 
+        <a href="/bookle/aboutus/">Find out more about us</a>
+    </div>
+</body>
+</html>
