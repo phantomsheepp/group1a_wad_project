@@ -6,12 +6,13 @@ class Book(models.Model):
     ISBN_MAX_LENGTH = 13
 
     isbn = models.CharField(max_length=ISBN_MAX_LENGTH, unique=True)
-
     title = models.CharField(max_length=100)
     author = models.CharField(max_length=100)
-    cover = models.ImageField(upload_to='cover_images', blank=True)
     genre = models.CharField(max_length=50)
-    blurb = models.CharField(max_length=500)
+    release_year = models.CharField(max_length=4)
+    country = models.CharField(max_length=255)
+    cover = models.ImageField(upload_to='cover_images', blank=True, null = True)
+    description = models.TextField(max_length=1000, blank=True, null = True)
 
     def __str__(self):
         return self.isbn
