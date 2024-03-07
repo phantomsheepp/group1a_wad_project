@@ -22,3 +22,7 @@ def leaderboard(request):
 def login(request):
     context_dict = {}
     return render(request, 'bookle/login.html', context=context_dict)
+
+def signup(request):
+    context_dict = {}
+    return render(request, 'bookle/signup.html', context=context_dict)
