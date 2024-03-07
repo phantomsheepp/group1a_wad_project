@@ -1,5 +1,6 @@
 import json
 import requests
+import os
 from bookle.models import Book
 
 # class Book:
@@ -51,10 +52,13 @@ def fetch_books(keyword, max_results=20):
 
     # return books
 
-
-keywords = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
-for keyword in keywords:
-    fetch_books(keyword)
+if __name__ == '__main__':
+    keywords = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+    for keyword in keywords:
+        fetch_books(keyword)
+    books = Book.objects.all()
+    for book in books:
+        print(book.title, book.author)
 # Example usage
 # books_db = []
 # keywords = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
