@@ -46,11 +46,6 @@ def fetch_books(keyword, max_results=20):
 
         Book.objects.create(isbn=isbn, title=title, author=author, genre=genre, release_year=release_year, country=country, description=description)
 
-        # Create a Book instance and add it to the list
-    #     book = Book(title, author, genre, release_year, country)
-    #     books.append(book)
-
-    # return books
 
 if __name__ == '__main__':
     keywords = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
