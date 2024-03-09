@@ -9,8 +9,8 @@ class Book(models.Model):
     title = models.CharField(max_length=100)
     author = models.CharField(max_length=100)
     genre = models.CharField(max_length=50)
-    release_year = models.CharField(max_length=4)
-    country = models.CharField(max_length=255)
+    release_year = models.CharField(max_length=4, null=True)
+    country = models.CharField(max_length=255, default = "N/A")
     cover = models.ImageField(upload_to='cover_images', blank=True, null = True)
     description = models.TextField(max_length=1000, blank=True, null = True)
 
