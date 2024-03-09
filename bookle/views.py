@@ -10,7 +10,7 @@ def home(request):
 
 def aboutus(request):
     context_dict = {}
-    return render(request, 'bookle/aboutus.html', context = context_dict)
+    return render(request, 'bookle/about_us.html', context = context_dict)
 
 def leaderboard(request):
     # will need to see if this is correct, can't use until models are put in!

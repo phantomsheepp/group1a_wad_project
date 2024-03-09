@@ -123,7 +123,7 @@ h1{
 /* ---------------------------------aboutus.html------------------------------------ */
 .about-us-main{
     position: relative;
-    top: 10em;
+    top: 9em;
     left: 11em;
     height: 350px;
     text-align: left;
@@ -133,7 +133,7 @@ h1{
 
 #black-headings{
     position:relative;
-    top: -6em;
+    top: 0em;
     font-size: 30pt;
     text-align: center;
 }
