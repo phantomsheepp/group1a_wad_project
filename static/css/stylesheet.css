@@ -1,3 +1,4 @@
+/* --------------------------------------base.html---------------------------------- */
 body{
     background-color: #fdf8ee;
     margin: 0px
@@ -18,18 +19,27 @@ body{
 
 #menuBar{
     width: 100%;
-    position: fixed;
+    background-color: #fdf8ee;
+    height: 6em;
+    position: sticky;
+    overflow: hidden;
+    top: 0px;
+    z-index: 1;
+    border-bottom: solid;
 }
 
 #footer{
+    background-color: #fdf8ee;
     color: grey;
     position: fixed;
     font-size: 14px;
     bottom: 0px;
     width: 100%;
-    text-align: center;
+    height: 40px;
+    text-align:center;
 }
 
+/* ------------------------------home.html------------------------------------------ */
 #instructionsText{
     position: relative;
     top: -10px;
@@ -40,9 +50,8 @@ body{
 
 .instructions{
     position: relative;
-    top: 100px;
-    width: 1000px;
-    height: 400px;
+    margin-top: 80px;
+    height: 600px;
     text-align: center;
     background-color: #fbd779;
     width: 100%
@@ -55,4 +64,149 @@ h1{
     font-family: 'Times New Roman', Times, serif;
     text-align: center;
     font-size: 36pt
+}
+
+#black-instructions{
+    position: relative;
+    top: 100px;
+    margin: 1000px;
+    font-family: 'Times New Roman', Times, serif;
+    float:right;
+    font-size: 36pt;
+}
+
+.logo-links{
+    height: 100px;
+    width: 200px;
+}
+
+#linkText{
+    position: relative;
+    top: -20px;
+    display:inline;
+}
+
+/* -----------------------------leaderboard.html------------------------------------ */
+#leaderboard-background{
+    position: relative;
+    top: 9em;
+    left: 11em;
+    height: 35em;
+    text-align: left;
+    background-color: #fbd779;
+    width: 75%;
+}
+
+#green-headings{
+    position: relative;
+    top: 0.5em;
+    margin: 20px;
+    font-family: 'Times New Roman', Times, serif;
+    float: left;
+    color: green;
+    font-size: 36pt
+}
+
+#leaderboard-instructions{
+    position:relative;
+    top: 0.5em;
+    font-size: 30pt;
+    text-align: center;
+}
+
+.leaderboard-places{
+    padding-left: 50px;
+    font-size: 16pt;
+    display:inline-block;
+}
+
+/* ---------------------------------aboutus.html------------------------------------ */
+.about-us-main{
+    position: relative;
+    top: 9em;
+    left: 11em;
+    height: 350px;
+    text-align: left;
+    background-color: #fbd779;
+    width: 75%;
+}
+
+#black-headings{
+    position:relative;
+    top: 0em;
+    font-size: 30pt;
+    text-align: center;
+}
+
+#group-1a{
+    line-height: 50px;
+    font-size: 26px;
+    text-align:center;
+}
+
+/* -------------------------------------login.html----------------------------------- */
+.float-container{
+    position: relative;
+    top: 1em;
+    height:300px;
+}
+
+.login-child{
+    width: 60%;
+    float: left;
+    padding: 20px;
+    height: 500px;
+}
+
+.signup-child{
+    width: 30%;
+    float: right;
+    padding: 20px;
+    border-left: 5px solid black;
+    height: 500px;
+}
+
+#Signup-green-headings{
+    position: relative;
+    top: 80px;
+    margin: 20px;
+    font-family: 'Times New Roman', Times, serif;
+    float: left;
+    color: green;
+    font-size: 36pt
+}
+
+#signup-link{
+    position:absolute;
+    right: 180px;
+    top:255px;
+    text-align:center;
+    font-size: 20pt;
+}
+
+#signup-text{
+    position:absolute;
+    padding:50px;
+    top:240px;
+    text-align:center;
+    font-size: 20pt;
+}
+
+#Login-green-headings{
+    position: relative;
+    top: 10px;
+    margin: 20px;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+    color: green;
+    font-size: 36pt
+}
+
+.login-text{
+    position: relative;
+    padding-top: 600px;
+    padding-left: 20px;
+    font-size: 18pt;
+    text-align: center;
+    display: inline;
 }
