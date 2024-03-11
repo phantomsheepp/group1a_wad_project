@@ -4,8 +4,10 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE',
 
 import requests
 import django
+import datetime
+import random
 django.setup()
-from bookle.models import Book, Puzzle, UserProfile, Score, Comment
+from bookle.models import Book, Puzzle, UserProfile, Score, Comment, User
 
 
 def fetch_books(keyword, max_results=20):
@@ -39,16 +41,46 @@ def fetch_books(keyword, max_results=20):
             add_book(isbn, title, author, genre, release_year, country, description)
 
 def populate():
-    get_books_from_isbns(20)  
+    get_books_from_isbns(11)  
+    
+    users = [{'username':"BookLuvr3"},
+             {'username':"bookle__xXx"},
+             {'username':"lotr_is_my_fave"}]
+    
+    for u in users:
+        add_user(u['username'])
 
     puzzles = []
+    for i in range(10):
+        puzzles.append({'puzzleID':i+1,'isbn':Book.objects.all()[i],'date':datetime.date(2024,1,i+1), 'difficulty':round(random.uniform(0,5),2), 'popularity':round(random.uniform(0,5),2)})
+    puzzles.append({'puzzleID':11,'isbn':Book.objects.all()[10],'date':datetime.date.today(), 'difficulty':round(random.uniform(0,5),2), 'popularity':round(random.uniform(0,5),2)})
+
+    comments = [{'commentID':1, 'puzzleID': 11, 'user':User.objects.get(username="BookLuvr3"), 'comment':"Love this book!"},
+                {'commentID':2, 'puzzleID': 11, 'user':User.objects.get(username="bookle__xXx"), 'comment':"tough puzzle today ://"},
+                {'commentID':3, 'puzzleID': 11, 'user':User.objects.get(username="lotr_is_my_fave"), 'comment':"too EZ - hope tmrw's puzzle is harder!"},
+                {'commentID':4, 'puzzleID': 3, 'user':User.objects.get(username="bookle__xXx"), 'comment':"THIS IS MY FAVOURITE BOOK"},
+                {'commentID':5, 'puzzleID': 6, 'user':User.objects.get(username="lotr_is_my_fave"), 'comment':"i didn't like this book when i read it ..."}] 
+
+    scores = [{'scoreID':1, 'puzzleID':11, 'user':User.objects.get(username="BookLuvr3"), 'guesses':4, 'difficulty':3, 'popularity':2},
+              {'scoreID':2, 'puzzleID':11, 'user':User.objects.get(username="bookle__xXx"), 'guesses':2, 'difficulty':1, 'popularity':5},
+              {'scoreID':3, 'puzzleID':11, 'user':User.objects.get(username="lotr_is_my_fave"), 'guesses':5, 'difficulty':5, 'popularity':1}]   
 
     for p in puzzles:
-        add_puzzle(p['puzzleID'], p['date'], p['isbn'], p['difficulty'], p['popularity'])
+        puzzle = add_puzzle(p['puzzleID'], p['date'], p['isbn'], p['difficulty'], p['popularity'])
+
+        for c in comments:
+            if p['puzzleID'] == c['puzzleID']:
+                add_comment(c['commentID'], puzzle, c['user'], c['comment'])
+
+        for s in scores:
+            if p['puzzleID'] == s['puzzleID']:
+                add_score(s['scoreID'], s['user'], puzzle, s['guesses'], s['difficulty'], s['popularity'])
+
 
 def add_puzzle(puzzleID, date, isbn, difficulty=0, popularity=0):
-    p = Puzzle.objects.get_or_create(puzzleID=puzzleID, date=date, isbn=isbn, 
-                                     difficulty=difficulty, popularity=popularity)[0]
+    p = Puzzle.objects.get_or_create(puzzleID=puzzleID, date=date, isbn=isbn)[0]
+    p.difficulty=difficulty
+    p.popularity=popularity
     p.save()
     return p
 
@@ -60,8 +92,29 @@ def add_book(isbn, title, author,genre, release_year, country, description):
     b.country=country
     b.description=description
     b.save()
+    return b
+
+def add_comment(commentID, puzzleID, userID, comment=""):
+    c = Comment.objects.get_or_create(commentID=commentID, puzzleID=puzzleID, userID=userID)[0]
+    c.comment=comment
+    c.save()
+    return c
+
+def add_user(username):
+    u = User.objects.get_or_create(username=username)[0]
+    u.save()
+    return u
+
+def add_score(scoreID, userID, puzzleID, guesses, difficulty=0, popularity=0):
+    s = Score.objects.get_or_create(scoreID=scoreID, puzzleID=puzzleID, userID=userID)[0]
+    s.guesses=guesses
+    s.difficulty=difficulty
+    s.popularity=popularity
+    s.save()
+    return s
 
 def get_books_from_isbns(max=300):
+    """ """
     count = 0
 
     with open("isbns.txt","r") as file:
