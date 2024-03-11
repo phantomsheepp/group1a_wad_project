@@ -7,19 +7,9 @@ import django
 django.setup()
 from bookle.models import Book, Puzzle, UserProfile, Score, Comment
 
+
 def fetch_books(keyword, max_results=20):
-    api_url = "https://www.googleapis.com/books/v1/volumes"
-    books = []
-
-    params = {
-        'q': keyword,
-        'maxResults': max_results,
-        'printType': 'books',
-        'orderBy': 'relevance'
-    }
-
-    response = requests.get(api_url, params=params)
-    results = response.json()
+    results = requests.get(f"https://www.googleapis.com/books/v1/volumes?q=isbn:{keyword}").json()
 
     for item in results.get('items', []):
         # Extracting book details
@@ -31,7 +21,9 @@ def fetch_books(keyword, max_results=20):
         categories = volume_info.get('categories', ['Unknown Genre'])
 
         # Simplify information extraction
-        isbn = next((identifier['identifier'] for identifier in volume_info.get('industryIdentifiers', []) if identifier['type'] == 'ISBN_13'), None)
+        for identifier in volume_info.get('industryIdentifiers',[]):
+            if identifier['type'] == "ISBN_13":
+                isbn = identifier['identifier']
         title = volume_info.get('title', 'No Title')
         author = authors[0] if authors else 'Unknown Author'
         genre = categories[0] if categories else 'Unknown Genre'
@@ -39,17 +31,16 @@ def fetch_books(keyword, max_results=20):
         country = sales_info.get('country', 'Unknown Country')
         description = volume_info.get('description', 'No Description')
         image_url = volume_info.get('imageLinks', {}).get('thumbnail')
-
-        #print(type(isbn),type(title),type(author),type(genre),type(release_year),type(country),type(description))
-        no_isbn=None
-        if isbn == None:
-            no_isbn = title
-        else:
-            Book.objects.get_or_create(isbn=isbn, title=title, author=author, genre=genre, release_year=release_year, country=country, description=description)
         
-        return isbn, no_isbn
+        # Genre is a bit weird - might need removing
+        # print(genre)
+
+        if isbn != None:
+            add_book(isbn, title, author, genre, release_year, country, description)
 
 def populate():
+    get_books_from_isbns(20)  
+
     puzzles = []
 
     for p in puzzles:
@@ -61,21 +52,27 @@ def add_puzzle(puzzleID, date, isbn, difficulty=0, popularity=0):
     p.save()
     return p
 
-def get_isbns():
-    no_isbn = []
-    with open("isbns.txt","w") as isbn_file:
-        with open("books.txt","r") as title_file:
-            for line in title_file:
-                title = line.split("–")[0][:-1]
-                isbn, title = fetch_books(title,1)
-                if isbn != None:
-                    isbn_file.write(isbn+"\n")
-                else:
-                    no_isbn.append(title)
+def add_book(isbn, title, author,genre, release_year, country, description):
+    b = Book.objects.get_or_create(isbn=isbn, title=title)[0]
+    b.author=author
+    b.genre=genre
+    b.release_year=release_year
+    b.country=country
+    b.description=description
+    b.save()
 
-    print(no_isbn)
+def get_books_from_isbns(max=300):
+    count = 0
+
+    with open("isbns.txt","r") as file:
+        for line in file:
+            if count >= max:
+                break
+
+            isbn = fetch_books(line.strip(),1)
+            count += 1
 
 
 if __name__ == '__main__':
-    print('Starting Rango population script...')    
+    print('Starting Rango population script...')  
     populate()
