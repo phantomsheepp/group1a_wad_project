@@ -2,8 +2,32 @@
 {% extends 'bookle/base.html' %}
 {% load staticfiles %}
 <head>
-    
+
     {% block title_block %}
         Daily Puzzle
     {% endblock %}
 </head>
+<body>
+    {% block body_block %}
+        <div class ="user-guesses-submit">
+            <form action = "" method = "get">
+                <label for="user-guess">Your Guess: </label>
+                <input id="user-guess" type="text" name="user-guess">
+                <input id="submit-button" type="submit" value="SUBMIT">
+                &emsp; &emsp; 
+                <label>(8 guesses left)</label>
+            </form>
+        </div>
+        <div class="user-guess-results">
+            <div class="user-guess-left-child">
+                <img id = "temp-cover" src ="{% static 'images/question.png' %}"/>
+            </div>
+            <div class="user-guess-right-child">
+                <strong id ="guess-title">Title:</strong> <br>
+                <strong id ="guess-release-year">Release year:</strong> <br>
+                <strong id="guess-author">Author:</strong> <br>
+                <strong id="guess-title-words">Number of words in title:</strong> <br>
+            </div>
+        </div>
+    {% endblock %}
+</body>
