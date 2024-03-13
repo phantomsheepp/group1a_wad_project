@@ -1,13 +1,12 @@
-<!DOCTYPE html>
 {% extends 'bookle/base.html' %}
 {% load staticfiles %}
-<head>
-    {% block title_block %}
-        Signup
-    {% endblock %}
-</head>
-<body>
-    {% block body_block %}
+
+{% block title_block %}
+    Sign-Up
+{% endblock %}
+
+
+{% block body_block %}
     <div class="float-container">
         <div class="login-child">
             <h2 id="Login-green-headings">Sign Up Here!</h2>
@@ -19,6 +18,5 @@
             <a id="signup-link" href="/bookle/login/">Login</a>
             <p id="signup-text">to view your account or edit too!</p>
         </div>
-   </div>
-    {% endblock %}
-</body>
+    </div>
+{% endblock %}

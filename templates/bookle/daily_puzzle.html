@@ -13,13 +13,13 @@
 
 {% block body_block %}
     <div class ="user-guesses-submit">
-        <label for="user-guess">Your Guess: </label>
-        <input id="user-guess" type="text" name="user-guess">
-
-        <button id="submit-button">Guess</button>
-        &emsp; &emsp; 
-        <label id="guess-label">(8 guesses left)</label>
-        
+        <form action = "" method = "get">
+            <label for="user-guess">Your Guess: </label>
+            <input id="user-guess" type="text" name="user-guess">
+            <input id="submit-button" type="submit" value="SUBMIT">
+            &emsp; &emsp; 
+            <label>(8 guesses left)</label>
+        </form>
     </div>
 
     <div class="user-guess-results">
