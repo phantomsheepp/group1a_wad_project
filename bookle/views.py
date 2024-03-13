@@ -1,14 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from bookle.models import Score
-from bookle.models import Book
+from bookle.models import Score, Book
 
 
 def home(request):
     context_dict = {}
     return render(request, 'bookle/home.html', context = context_dict)
 
-def aboutus(request):
+def about_us(request):
     context_dict = {}
     return render(request, 'bookle/about_us.html', context = context_dict)
 
@@ -51,5 +50,8 @@ def discussion(request):
     context_dict = {}
     return render(request, 'bookle/discussion.html', context=context_dict)
 
-
+def daily_puzzle(request):
+    context_dict = {}
+    context_dict['books'] = Book.objects.all().order_by('title')
+    return render(request, 'bookle/daily_puzzle.html', context=context_dict)
 

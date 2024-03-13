@@ -2,12 +2,18 @@
 {% load staticfiles %}
 <html>
 <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {% block assets_block %}
+    {% endblock %}
+
     <link rel="stylesheet" type="text/css" href="{% static '/css/stylesheet.css' %}" />
     <title>
     Bookle - 
     {% block title_block %}
         Default Title 
     {% endblock %}
+
+    
     </title>
 </head>
 <body>
