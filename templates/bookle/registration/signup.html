@@ -1,0 +1,17 @@
+{% extends 'bookle/base.html' %} 
+{% block title_block %} Register {% endblock %}
+{% block body_block %}
+<div class="block-title">
+  <h1 class="jumbotron-heading">Register Here</h1>
+</div>
+
+<div class="block-body">
+  <div class="form-style">
+    <form method="post" action=".">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -17,8 +17,14 @@
 
         <a href="/bookle/"><img class="topIcons" src="{% static 'images/home.png' %}" 
         alt="link to home"/></a>
-        <a href="/bookle/login/"><img class="topIcons" src="{% static 'images/user.png' %}"
-        alt="link to login" /></a>
+        {% if user.is_authenticated %}
+            <a href="/bookle/logout/">LOGOUT</a>
+            <a href="/bookle/profile/"><img class="topIcons" src="{% static 'images/user.png' %}"
+                alt="link to profile" /></a>
+        {% else %}
+            <a href="/bookle/login/"><img class="topIcons" src="{% static 'images/user.png' %}"
+            alt="link to login" /></a>
+        {% endif %}
         <a href="/bookle/leaderboard/"><img class="topIcons" src="{% static 'images/leaderboard.png' %}" 
         alt="link to leaderboard"/></a>
         <br>

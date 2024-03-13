@@ -1,0 +1,34 @@
+{% load staticfiles %}
+
+{% block title_block %}
+    {{ user.username }}
+{% endblock %}
+
+{% block body_block %}
+    {% if user %}
+        <div class="image-container" background="{{ user.userprofile.profile_picture }}">
+            <div class="profile-picture">
+                {% if user.userprofile.profile_picture %}
+                    <img src="{{ user.userprofile.profile_picture.url }}">
+                {% else %}
+                    <img src="{% static 'images/defaultpfp.png' %}">
+                {% endif %}
+            </div>
+        </div>
+        <div class="user-profile-information" background>
+            <h3 class="h3-subtitle-block">{{ user.username }}</h3>
+            <div id="bio-paragraph">
+                <p class="main-paragraph">{{ user.userprofile.bio }}</p>
+            </div>
+        </div>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Update</button>
+        </form>
+
+    {% else %}
+        <h3 class="h3-subtitle-block">This user appears to not exist.... mysterious...</h3>
+    {% endif %}
+{% endblock %}

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.template.defaultfilters import slugify
 
 
 class Book(models.Model):
@@ -32,12 +33,29 @@ class Puzzle(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    userID = models.IntegerField(unique=True, primary_key=True)
-    
-    # Faraj to complete
+    user_picture = models.ImageField(upload_to='userprofiles')  
+    bio = models.CharField(blank=True, default="Write a bio! ", max_length=250)
+    user_picture_file=str(user_picture)+'.pdf'
+
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.user.username)
+        super(UserProfile, self).save(*args, **kwargs)
+
+  
 
     def __str__(self):
         return self.user.username
+
+    class Meta:
+        verbose_name = 'UserProfile'
+        verbose_name_plural = 'UserProfiles'
+
+
+# @receiver(post_save, sender=User)
+# def create_user_profile(sender, instance, created, **kwargs):
+#     if created:
+#         UserProfile.objects.create(user=instance)
         
 
 class Score(models.Model):
