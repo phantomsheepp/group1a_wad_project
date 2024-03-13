@@ -1,10 +1,13 @@
-<!DOCTYPE html>
 {% extends 'bookle/base.html' %}
 {% load staticfiles %}
-<html>
-    <body>
-        {% block body_block %}
-        <div class="about-us-main">
+
+{% block title_block %}
+    About Us
+{% endblock %}
+
+
+{% block body_block %}
+    <div class="about-us-main">
         <p id="black-headings">This site was made by...</p>
         <ul id="group-1a">
             <li>Sophie Lambie (2764964L)</li>
@@ -12,7 +15,5 @@
             <li>Adam Yuan (2736414Y)</li>
             <li>Faraj Ahmed (2736261A)</li>
         </ul>
-        </div>
-        {% endblock %}
-    </body>
-</html>
+    </div>
+{% endblock %}

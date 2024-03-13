@@ -1,13 +1,12 @@
-<!DOCTYPE html>
 {% extends 'bookle/base.html' %}
 {% load staticfiles %}
-<head>
-    {% block title_block %}
-        Leaderboard
-    {% endblock %}
-</head>
-<body>
-    {% block body_block %}
+
+{% block title_block %}
+    Leaderboard
+{% endblock %}
+
+
+{% block body_block %}
     <h2 id="leaderboard-instructions">See how fellow players have scored today...</h2>
     <h1 id="green-headings">Leaderboard</h1>
     <div id="leaderboard-background">
@@ -23,5 +22,4 @@
         -->
 
     </div>
-    {% endblock%}
-</body>
+{% endblock%}
