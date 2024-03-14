@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from bookle.models import Score, Book
 from django.views.generic import View
@@ -76,4 +76,35 @@ class CheckGuess(View):
         else:
             guess = ''
 
-        return render(request, 'bookle/guess.html', {'title':guess})
+        if 'count' in request.GET:
+            count = request.GET['count']
+        else:
+            count = 0
+
+        finished = False
+
+        """while guess_count < max_guesses:
+        user_guess = input("Guess the book title: ")
+        found, result, guessed_book = guess_book(user_guess)
+        
+        if not found:
+            print(f"The book is not in our database. Did you mean '{', '.join(result)}'? Try again.")
+            continue
+        
+        guess_count += 1
+        if all(value == True for value in result.values()):
+            print(f"Congratulations! You've guessed the book correctly in {guess_count} guesses.")
+            print("Here are some information about the book:", guessed_book.description)
+            break
+        else:
+            if guessed_book:
+                print("Feedback on your guess:", result)
+                print("Author:", guessed_book.author, "-", result["author"],
+                      "Genre:", guessed_book.genre, "-", result["genre"],
+                      "Release Year:", guessed_book.release_year, "-", result["release_year"],
+                      "Country:", guessed_book.country, "-", result["country"])
+"""
+        if finished:
+            return redirect()
+        else:    
+            return render(request, 'bookle/guess.html', {'title':guess})

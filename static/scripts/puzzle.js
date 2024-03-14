@@ -27,11 +27,17 @@ $(document).ready(function() {
 
     $("#submitButton").click(function() {
         var guess = $("#guessInput").val();
-        $.get('/bookle/check-guess', {'guess': guess}, function(data) {
+        $.get('/bookle/check-guess', {'guess': guess, 'count':count}, function(data) {
             $("#guessResults").prepend(data);
         });
         
         count -= 1;
+        if (count == 0) {
+            $.get('bookle/complete', {'count':count}, function(data) {
+
+            });
+        }
+
         $("#guessCount").text(count + " guesses left");
     });
 });
