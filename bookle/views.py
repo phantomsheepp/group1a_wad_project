@@ -61,7 +61,11 @@ def signup(request):
             username = form.cleaned_data.get('username')
             if User.objects.filter(username=username).exists():
                 return render(request, 'bookle/registration/signup.html', {'form': form, 'error': 'Username already exists'})
-            form.save()
+            user = form.save()
+            # Authenticate the user
+            user = authenticate(username=user.username, password=form.cleaned_data.get('password1'))
+            # Log the user in
+            login(request, user)
             return redirect('bookle:home')
     else:
         form = RegisterForm()
@@ -73,6 +77,7 @@ def signup_closed(request):
 
 @login_required
 def profile(request):
+    
     if request.method == 'POST':
         form = UserProfileForm(request.POST, request.FILES, instance=request.user.userprofile)
         if form.is_valid():

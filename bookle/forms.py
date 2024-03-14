@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth.models import User
 from bookle.models import UserProfile
 from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
+from django.contrib.auth.forms import UserCreationForm
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
@@ -17,29 +19,39 @@ class UserProfileForm(forms.ModelForm):
         model = UserProfile
         exclude = ('user','bio','user_picture_file')
 
-class RegisterForm(forms.Form):
-    username = forms.CharField(max_length=30, help_text='Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only.')
+class RegisterForm(UserCreationForm):
     email = forms.EmailField()
-    password1 = forms.CharField(widget=forms.PasswordInput)
-    password2 = forms.CharField(widget=forms.PasswordInput, label='Password confirmation')
-    user_picture = forms.ImageField(required=False)
+    user_picture = forms.ImageField()
 
-    def clean(self):
-        cleaned_data = super().clean()
-        password1 = cleaned_data.get("password1")
-        password2 = cleaned_data.get("password2")
-        if password1 != password2:
-            raise ValidationError("Passwords must match")
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password1', 'password2', 'user_picture')
 
-    def save(self):
-        cleaned_data = self.cleaned_data
-        user = User.objects.create_user(
-            username=cleaned_data.get("username"),
-            email=cleaned_data.get("email"),
-            password=cleaned_data.get("password1")
-        )
-        user_profile = UserProfile.objects.create(
-            user=user,
-            user_picture_file=cleaned_data.get("user_picture")
-        )
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+
+        # Check if email is in the correct format
+        try:
+            validate_email(email)
+        except ValidationError:
+            raise ValidationError("Invalid email format.")
+
+        # Check if email is unique
+        if User.objects.filter(email=email).exists():
+            raise ValidationError("Email already in use.")
+
+        return email
+
+    def clean_user_picture(self):
+        user_picture = self.cleaned_data.get('user_picture')
+        if not user_picture:
+            raise ValidationError("You must upload a profile picture.")
+        return user_picture
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.email = self.cleaned_data['email']
+        if commit:
+            user.save()
+            UserProfile.objects.create(user=user, user_picture_file=self.cleaned_data['user_picture'])
         return user
