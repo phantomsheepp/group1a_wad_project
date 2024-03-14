@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from bookle.models import Score, Book
+from django.views.generic import View
 from bookle.helpers import get_book_names
 
 
