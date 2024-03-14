@@ -7,16 +7,14 @@ function showOptions() {
 }
 */
 
-function autofill(guess) {
-    //console.log(guess);
-    
-}
+let count = 8
 
 
 // JQuery
 $(document).ready(function() {
+    $("#guessCount").text(count + " guesses left");
+
     $("#guessInput").keyup(function() {
-        //autofill($("#guessInput").val())
         var guess = $(this).val();
         $.get('/bookle/suggestions', {'guess': guess}, function(data) {
             $("#options").html(data);
@@ -28,6 +26,12 @@ $(document).ready(function() {
     }); */
 
     $("#submitButton").click(function() {
+        var guess = $("#guessInput").val();
+        $.get('/bookle/check-guess', {'guess': guess}, function(data) {
+            $("#guessResults").prepend(data);
+        });
         
+        count -= 1;
+        $("#guessCount").text(count + " guesses left");
     });
 });

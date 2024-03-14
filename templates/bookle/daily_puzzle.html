@@ -17,22 +17,10 @@
         <input id="guessInput" type="text" placeholder="Enter book here...">
         <button id="submitButton">Guess</button>
         &emsp; &emsp; 
-        <label id="guessCount">(8 guesses left)</label>
+        <label id="guessCount"></label>
     </div>
 
     <div id="options"></div>
 
-
-    <div class="guessResults">
-        <div class="guessResultsCover">
-            <img id = "tempCover" src ="{% static 'images/question.png' %}"/>
-        </div>
-        
-        <div class="guessResultsCategories">
-            <strong id ="title">Title:</strong> <br>
-            <strong id ="releaseYear">Release year:</strong> <br>
-            <strong id="author">Author:</strong> <br>
-            <strong id="titleWordCount">Number of words in title:</strong> <br>
-        </div>
-    </div>
+    <div id="guessResults"></div>
 {% endblock %}

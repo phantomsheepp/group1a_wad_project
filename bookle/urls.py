@@ -21,4 +21,5 @@ urlpatterns = [
     
     # Views used for AJAX
     path('suggestions/', views.BookSuggestions.as_view(), name='suggestions'),
+    path('check-guess/', views.CheckGuess.as_view(), name="check_guess"),
 ]

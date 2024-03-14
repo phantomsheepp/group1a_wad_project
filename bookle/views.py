@@ -68,3 +68,12 @@ class BookSuggestions(View):
         
         
         return render(request, 'bookle/suggestions.html', {'books': books})
+
+class CheckGuess(View):
+    def get(self, request):
+        if 'guess' in request.GET:
+            guess = request.GET['guess']
+        else:
+            guess = ''
+
+        return render(request, 'bookle/guess.html', {'title':guess})

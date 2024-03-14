@@ -238,13 +238,13 @@ h1{
     font-size: 12pt;
 }
 
-#tempCover{
+#cover{
     float:right;
-    height: 300px;
-    width: 250px;
+    height: 245px;
+    width: 160px;
 }
 
-.guessResults{
+#guessResults{
     position: relative;
     top: 2.5em;
     align-content: center;
