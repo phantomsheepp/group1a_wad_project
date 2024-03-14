@@ -37,7 +37,6 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     user_picture = models.ImageField(upload_to='profile_images', blank=True, default=None)
     bio = models.CharField(blank=True, default="Write a bio! ", max_length=250)
-    slug = models.SlugField(blank=True, default='')  # Add this line
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.user.username)
