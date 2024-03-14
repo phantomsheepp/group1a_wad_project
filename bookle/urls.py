@@ -18,4 +18,7 @@ urlpatterns = [
     path('login/view-account/edit-account/', views.edit_account, name='edit_account'),
     path('home/daily-puzzle/complete/', views.complete, name='complete'),
     path('home/daily-puzzle/complete/discussion/', views.discussion, name='discussion'),
+    
+    # Views used for AJAX
+    path('suggestions/', views.BookSuggestions.as_view(), name='suggestions'),
 ]

@@ -12,26 +12,27 @@
 
 
 {% block body_block %}
-    <div class ="user-guesses-submit">
-        <form action = "" method = "get">
-            <label for="user-guess">Your Guess: </label>
-            <input id="user-guess" type="text" name="user-guess">
-            <input id="submit-button" type="submit" value="SUBMIT">
-            &emsp; &emsp; 
-            <label>(8 guesses left)</label>
-        </form>
+    <div class ="guesses">
+        <label for="guessInput">Your Guess: </label>
+        <input id="guessInput" type="text" placeholder="Enter book here...">
+        <button id="submitButton">Guess</button>
+        &emsp; &emsp; 
+        <label id="guessCount">(8 guesses left)</label>
     </div>
 
-    <div class="user-guess-results">
-        <div class="user-guess-left-child">
-            <img id = "temp-cover" src ="{% static 'images/question.png' %}"/>
+    <div id="options"></div>
+
+
+    <div class="guessResults">
+        <div class="guessResultsCover">
+            <img id = "tempCover" src ="{% static 'images/question.png' %}"/>
         </div>
         
-        <div class="user-guess-right-child">
-            <strong id ="guess-title">Title:</strong> <br>
-            <strong id ="guess-release-year">Release year:</strong> <br>
-            <strong id="guess-author">Author:</strong> <br>
-            <strong id="guess-title-words">Number of words in title:</strong> <br>
+        <div class="guessResultsCategories">
+            <strong id ="title">Title:</strong> <br>
+            <strong id ="releaseYear">Release year:</strong> <br>
+            <strong id="author">Author:</strong> <br>
+            <strong id="titleWordCount">Number of words in title:</strong> <br>
         </div>
     </div>
 {% endblock %}

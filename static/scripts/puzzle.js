@@ -7,22 +7,27 @@ function showOptions() {
 }
 */
 
+function autofill(guess) {
+    //console.log(guess);
+    
+}
+
 
 // JQuery
-/*$("#submit-button").on("click", function() {
-    $("#submit-button").text("hello");
-});
-
 $(document).ready(function() {
-    $("#submit-button").text("hello");
-})*/
+    $("#guessInput").keyup(function() {
+        //autofill($("#guessInput").val())
+        var guess = $(this).val();
+        $.get('/bookle/suggestions', {'guess': guess}, function(data) {
+            $("#options").html(data);
+        });
+    });
 
-$(document).ready(function() {
-    alert("HELLO");
+    /*$("li").click(function() {
+        alert($(this).text());
+    }); */
 
-    $("#submit-button").click(function() {
-        alert("button");
-        $("#guess-label").css("color","blue");
-      });
+    $("#submitButton").click(function() {
+        
+    });
 });
-

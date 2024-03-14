@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from bookle.models import Score, Book
+from bookle.helpers import get_book_names
 
 
 def home(request):
@@ -55,3 +56,14 @@ def daily_puzzle(request):
     context_dict['books'] = Book.objects.all().order_by('title')
     return render(request, 'bookle/daily_puzzle.html', context=context_dict)
 
+class BookSuggestions(View):
+    def get(self, request):
+        if 'guess' in request.GET:
+            guess = request.GET['guess']
+        else:
+            guess = ''
+        
+        books = get_book_names(max_results=5, starts_with=guess)
+        
+        
+        return render(request, 'bookle/suggestions.html', {'books': books})

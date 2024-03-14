@@ -120,7 +120,7 @@ h1{
     display:inline-block;
 }
 
-/* ---------------------------------aboutus.html------------------------------------ */
+/* ---------------------------------about_us.html------------------------------------ */
 .about-us-main{
     position: relative;
     top: 9em;
@@ -211,9 +211,9 @@ h1{
     display: inline;
 }
 
-/* --------------------------daily puzzle-----------------------------------*/
+/* --------------------------daily_puzzle.html-----------------------------------*/
 
-.user-guesses-submit{
+.guesses{
     position:sticky;
     height: 100px;
     width: 100%;
@@ -222,14 +222,14 @@ h1{
     display: inline;
 }
 
-#user-guess{
+#guessInput{
     position: relative;
     top: -5px;
     height: 30px;
     width: 300px;
 }
 
-#submit-button{
+#submitButton{
     position: relative;
     top: -5px;
     height: 35px;
@@ -238,13 +238,13 @@ h1{
     font-size: 12pt;
 }
 
-#temp-cover{
+#tempCover{
     float:right;
     height: 300px;
     width: 250px;
 }
 
-.user-guess-results{
+.guessResults{
     position: relative;
     top: 2.5em;
     align-content: center;
@@ -254,18 +254,22 @@ h1{
     display:inline;
 }
 
-.user-guess-left-child{
+.guessResultsCover{
     width: 38%;
     float: left;
     padding: 20px;
     height: 300px;
 }
 
-.user-guess-right-child{
+.guessResultsCategories{
     padding-top: 40px;
     width: 48%;
     float: right;
     padding: 20px;
     height: 300px;
     line-height: 60px;
+}
+
+#options{
+    position:absolute;
 }
