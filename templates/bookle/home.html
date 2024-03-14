@@ -1,31 +1,27 @@
-<!DOCTYPE html>
 {% extends 'bookle/base.html' %}
 {% load staticfiles %}
-<html>
-<head>
-    {% block title_block %}
-        Home Page
-    {% endblock %}
-</head>
-<body>
-    {% block body_block %}
-        <div class="instructions">
-            <h1>Welcome to Bookle!</h1>
-            <p id="instructionsText"> To play the game, start entering the name of a novel then select it from the drop down menu. 
-                If any of the details of your guessed novel match the answer, those details will go green. 
-                If the release year is within the five years of the answre or number of words in the title 
-                if within 2 words of the answer, these will go yellow - the arrows are there to help too! There 
-                is a daily puzzle but you can also play the past most difficult and popular puzzles if one isn't 
-                enough! </p>
 
-            <h2 id="linkText">Play today's</h2> &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
-            <h2 id="linkText">Play past puzzles</h2>
-            <br>
-            <a href="home/daily-puzzle"><img class="logo-links" src="{% static 'images/logo.png' %}"/></a>
-            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
-            <a href="home/past-puzzles"><img class="logo-links" src="{% static 'images/logo.png' %}"/></a>
-            
-        </div>
-    {% endblock %}
-</body>
-</html>
+{% block title_block %}
+    Home Page
+{% endblock %}
+
+
+{% block body_block %}
+    <div class="instructions">
+        <h1>Welcome to Bookle!</h1>
+        <p id="instructionsText"> To play the game, start entering the name of a novel then select it from the drop down menu. 
+            If any of the details of your guessed novel match the answer, those details will go green. 
+            If the release year is within the five years of the answre or number of words in the title 
+            if within 2 words of the answer, these will go yellow - the arrows are there to help too! There 
+            is a daily puzzle but you can also play the past most difficult and popular puzzles if one isn't 
+            enough! </p>
+
+        <h2 id="linkText">Play today's</h2> &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+        <h2 id="linkText">Play past puzzles</h2>
+        <br>
+        <a href="home/daily-puzzle"><img class="logo-links" src="{% static 'images/logo.png' %}"/></a>
+        &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+        <a href="home/past-puzzles"><img class="logo-links" src="{% static 'images/logo.png' %}"/></a>
+        
+    </div>
+{% endblock %}

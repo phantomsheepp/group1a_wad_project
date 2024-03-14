@@ -30,7 +30,7 @@ class Puzzle(models.Model):
     popularity = models.FloatField(default=0.0)
 
     def __str__(self):
-        return self.date
+        return str(self.date)
 
 
 class UserProfile(models.Model):
@@ -69,7 +69,7 @@ class Score(models.Model):
     puzzleID = models.ForeignKey(Puzzle, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.guesses
+        return str(self.guesses)
     
 class Comment(models.Model):
     commentID = models.IntegerField(unique=True, primary_key=True)
