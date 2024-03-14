@@ -1,23 +1,21 @@
-<!DOCTYPE html>
 {% extends 'bookle/base.html' %}
 {% load staticfiles %}
-<head>
-    {% block title_block %}
-        Past Puzzles
-    {% endblock %}
-</head>
-</body>
+
+{% block title_block %}
+    Past Puzzles
+{% endblock %}
+
+
 {% block body_block %}
-<h2 id="leaderboard-instructions">Take a look at our most popular and difficult puzzles, as voted by users!</h2>
-<div id="leaderboard-background">
-    <div id="instructionsText">
-        <p class="leaderboard-places" id="green">Most popular puzzles:</p>   &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; <p class="leaderboard-places" id="green">Most difficult puzzles:</p>  
-        <ul>
-            <!--{% for p in puzzle %}-->
-            <li class="leaderboard-places">01/01/01</li> &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; <li class="leaderboard-places">01/01/01</li>
-            <!--{% endfor %}-->
-        </ul>
+    <h2 id="leaderboard-instructions">Take a look at our most popular and difficult puzzles, as voted by users!</h2>
+    <div id="leaderboard-background">
+        <div id="instructionsText">
+            <p class="leaderboard-places" id="green">Most popular puzzles:</p>   &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; <p class="leaderboard-places" id="green">Most difficult puzzles:</p>  
+            <ul>
+                <!--{% for p in puzzle %}-->
+                <li class="leaderboard-places">01/01/01</li> &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; <li class="leaderboard-places">01/01/01</li>
+                <!--{% endfor %}-->
+            </ul>
+        </div>
     </div>
-</div>
 {% endblock%}
-</body>
