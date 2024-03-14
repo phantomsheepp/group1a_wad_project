@@ -27,12 +27,13 @@ def aboutus(request):
     context_dict = {}
     return render(request, 'bookle/about_us.html', context = context_dict)
 
+@login_required
 def leaderboard(request):
-    # will need to see if this is correct, can't use until models are put in!
-    #leaderboard_data = Score.objects.order_by('-guesses')[:5]
-    context_dict = {}
-    #context_dict['leaderboard_users'] = leaderboard_data
-    return render(request, 'bookle/leaderboard.html', context=context_dict)
+    # Uncomment the following lines when the models are ready
+    # leaderboard_data = Score.objects.order_by('-guesses')[:5]
+    # context = {'leaderboard_users': leaderboard_data}
+    # return render(request, 'bookle/leaderboard.html', context)
+    return render(request, 'bookle/leaderboard.html')
 
 def login(request):
     context_dict = {}
@@ -67,7 +68,7 @@ def signup(request):
             # Authenticate the user
             user = authenticate(username=user.username, password=form.cleaned_data.get('password1'))
             # Log the user in
-            login(request, user)
+            auth_login(request, user)
             return redirect('bookle:home')
     else:
         form = RegisterForm()

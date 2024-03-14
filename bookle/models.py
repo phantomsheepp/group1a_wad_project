@@ -34,8 +34,7 @@ class Puzzle(models.Model):
 
 
 class UserProfile(models.Model):
-    id = models.AutoField(primary_key=True, default=1)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     user_picture = models.ImageField(upload_to='profile_images', blank=True, default=None)
     bio = models.CharField(blank=True, default="Write a bio! ", max_length=250)
     slug = models.SlugField(blank=True, default='')  # Add this line
@@ -55,6 +54,10 @@ class UserProfile(models.Model):
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         UserProfile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.userprofile.save()
         
 
 class Score(models.Model):

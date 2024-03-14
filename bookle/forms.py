@@ -21,7 +21,7 @@ class UserProfileForm(forms.ModelForm):
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField()
-    user_picture = forms.ImageField()
+    user_picture = forms.ImageField(required=False)  # Make this field optional
 
     class Meta:
         model = User
@@ -44,8 +44,7 @@ class RegisterForm(UserCreationForm):
 
     def clean_user_picture(self):
         user_picture = self.cleaned_data.get('user_picture')
-        if not user_picture:
-            raise ValidationError("You must upload a profile picture.")
+        # Don't raise a ValidationError if user_picture is not provided
         return user_picture
 
     def save(self, commit=True):
@@ -53,5 +52,5 @@ class RegisterForm(UserCreationForm):
         user.email = self.cleaned_data['email']
         if commit:
             user.save()
-            UserProfile.objects.create(user=user, user_picture_file=self.cleaned_data['user_picture'])
+            # Don't create a UserProfile here if you have a signal that does it
         return user
