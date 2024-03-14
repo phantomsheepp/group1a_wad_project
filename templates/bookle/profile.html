@@ -1,34 +1,27 @@
+{% extends 'bookle/base.html' %}
 {% load staticfiles %}
-
 {% block title_block %}
-    {{ user.username }}
+    Profile
 {% endblock %}
-
 {% block body_block %}
-    {% if user %}
-        <div class="image-container" background="{{ user.userprofile.profile_picture }}">
-            <div class="profile-picture">
-                {% if user.userprofile.profile_picture %}
-                    <img src="{{ user.userprofile.profile_picture.url }}">
-                {% else %}
-                    <img src="{% static 'images/defaultpfp.png' %}">
-                {% endif %}
-            </div>
-        </div>
-        <div class="user-profile-information" background>
-            <h3 class="h3-subtitle-block">{{ user.username }}</h3>
-            <div id="bio-paragraph">
-                <p class="main-paragraph">{{ user.userprofile.bio }}</p>
-            </div>
-        </div>
 
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Update</button>
-        </form>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
 
-    {% else %}
-        <h3 class="h3-subtitle-block">This user appears to not exist.... mysterious...</h3>
-    {% endif %}
+<h1>{{ user.username }}'s Profile</h1>
+<p>Email: {{ user.email }}</p>
+<!-- Display other user information here -->
+
+<h2>Edit Profile</h2>
+<form id="profile_form" method="post" action="{% url 'bookle:profile' username=user.username %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit" />
+</form>
+
 {% endblock %}

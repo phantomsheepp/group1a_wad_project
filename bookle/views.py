@@ -15,6 +15,8 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from bookle.forms import UserProfileForm
+from django.shortcuts import get_object_or_404
+from django.contrib import messages
 
 
 def home(request):
@@ -33,21 +35,21 @@ def leaderboard(request):
     return render(request, 'bookle/leaderboard.html', context=context_dict)
 
 def login(request):
+    context_dict = {}
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(username=username, password=password)
         if user:
             if user.is_active:
-                    auth_login(request, user)
-                    return redirect(reverse('bookle:home'))
+                auth_login(request, user)
+                return redirect(reverse('bookle:home'))
             else:
                 return HttpResponse("Your Bookle account is disabled.")
         else:
             print(f"Invalid login details: {username}, {password}")
-            return HttpResponse("Invalid login details supplied.")
-    else:
-        return render(request, 'bookle/registration/login.html')
+            context_dict['error_message'] = "Invalid login details supplied."
+    return render(request, 'bookle/registration/login.html', context_dict)
     
 @login_required
 def logout(request):
@@ -76,16 +78,19 @@ def signup_closed(request):
     return render(request, 'bookle/registration/signup_closed.html', context=context_dict)
 
 @login_required
-def profile(request):
-    
+def profile(request, username=None):
+    if username is None:
+        username = request.user.username
+    user = get_object_or_404(User, username=username)
     if request.method == 'POST':
-        form = UserProfileForm(request.POST, request.FILES, instance=request.user.userprofile)
-        if form.is_valid():
+        form = UserProfileForm(request.POST, request.FILES, instance=user.userprofile)
+        if form.is_valid() and request.user.username == username:
             form.save()
-            return redirect('bookle:profile')
-    else:
-        form = UserProfileForm(instance=request.user.userprofile)
-    return render(request, 'bookle/profile.html', {'form': form})
+            messages.success(request, 'Your profile was successfully updated!')
+            return redirect('bookle:profile', username=user.username)
+    else:  # This is the GET request handler
+        form = UserProfileForm(instance=user.userprofile)
+    return render(request, 'bookle/profile.html', {'form': form, 'user': user})
 
 def daily_puzzle(request):
     context_dict = {}

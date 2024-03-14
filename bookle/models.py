@@ -8,24 +8,24 @@ from django.dispatch import receiver
 class Book(models.Model):
     ISBN_MAX_LENGTH = 13
 
-    isbn = models.CharField(max_length=ISBN_MAX_LENGTH, unique=True)
-    title = models.CharField(max_length=100)
-    author = models.CharField(max_length=100)
-    genre = models.CharField(max_length=50)
-    release_year = models.CharField(max_length=4)
-    country = models.CharField(max_length=255)
-    cover = models.ImageField(upload_to='cover_images', blank=True, null = True)
-    description = models.TextField(max_length=1000, blank=True, null = True)
+    isbn = models.CharField(max_length=ISBN_MAX_LENGTH, unique=True, default='Unknown')
+    title = models.CharField(max_length=100, default='Unknown')
+    author = models.CharField(max_length=100, default='Unknown')
+    genre = models.CharField(max_length=50, default='Unknown')
+    release_year = models.CharField(max_length=4, default='0000')
+    country = models.CharField(max_length=255, default='Unknown')
+    cover = models.ImageField(upload_to='cover_images', blank=True, null=True)
+    description = models.TextField(max_length=1000, blank=True, null=True)
 
     def __str__(self):
         return self.isbn
     
 
 class Puzzle(models.Model):
-    puzzleID = models.IntegerField(unique=True, primary_key=True)
+    puzzleID = models.IntegerField(unique=True, primary_key=True, default=0)
 
-    date = models.DateField(unique=True)
-    isbn = models.OneToOneField(Book, on_delete=models.CASCADE)
+    date = models.DateField(unique=True, default='2000-01-01')
+    isbn = models.OneToOneField(Book, on_delete=models.CASCADE, default=None)
     difficulty = models.FloatField(default=0.0)
     popularity = models.FloatField(default=0.0)
 
@@ -34,9 +34,11 @@ class Puzzle(models.Model):
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    user_picture = models.ImageField(upload_to='profile_images', blank=True)
+    id = models.AutoField(primary_key=True, default=1)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
+    user_picture = models.ImageField(upload_to='profile_images', blank=True, default=None)
     bio = models.CharField(blank=True, default="Write a bio! ", max_length=250)
+    slug = models.SlugField(blank=True, default='')  # Add this line
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.user.username)
