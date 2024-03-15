@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from bookle.forms import RegisterForm, LoginForm
+from bookle.forms import RegisterForm, ProfileEditForm
 
 def home(request):
     context_dict = {}
@@ -70,13 +70,13 @@ def profile(request, username=None):
         username = request.user.username
     user = get_object_or_404(User, username=username)
     if request.method == 'POST':
-        form = LoginForm(request.POST, request.FILES, instance=user.userprofile)
+        form = ProfileEditForm(request.POST, request.FILES, instance=user.userprofile)
         if form.is_valid() and request.user.username == username:
             form.save()
             messages.success(request, 'Your profile was successfully updated!')
             return redirect('bookle:profile', username=user.username)
     else:  # This is the GET request handler
-        form = LoginForm(instance=user.userprofile)
+        form = ProfileEditForm(instance=user.userprofile)
     return render(request, 'bookle/profile.html', {'form': form, 'user': user})
 
 def daily_puzzle(request):

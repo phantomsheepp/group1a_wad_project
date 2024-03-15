@@ -13,15 +13,17 @@ class UserForm(forms.ModelForm):
         model = User
         fields = ('username', 'email', 'password')
     
-class LoginForm(forms.ModelForm):
-    user_picture = forms.ImageField()
+class ProfileEditForm(forms.ModelForm):
+    bio = forms.CharField(required=False)
+    user_picture = forms.ImageField(required=False)
     
     class Meta:
-        model = User
-        fields = ('username', 'password')
+        model = UserProfile
+        fields = ('bio', 'user_picture')
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField()
+    bio = forms.CharField(required=False)
     user_picture = forms.ImageField(required=False)  # Make this field optional
 
     class Meta:
@@ -51,6 +53,7 @@ class RegisterForm(UserCreationForm):
     def save(self, commit=True):
         user = super().save(commit=False)
         user.email = self.cleaned_data['email']
+        
         if commit:
             user.save()
             # Don't create a UserProfile here if you have a signal that does it
