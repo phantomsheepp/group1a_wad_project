@@ -6,10 +6,11 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from bookle.models import Comment
+from bookle.models import Comment, Vote
 from bookle.forms import CommentForm
 from bookle.models import Puzzle
 from bookle.forms import RegisterForm, ProfileEditForm
+from django.http import JsonResponse
 
 def home(request):
     context_dict = {}
@@ -109,6 +110,12 @@ def discussion(request, puzzle_id=None):
     puzzle = get_object_or_404(Puzzle, pk=puzzle_id)
     comments = Comment.objects.filter(puzzleID=puzzle).order_by('-commentID')
 
+    for comment in comments:
+        comment.upvotes = Vote.objects.filter(comment=comment, vote_type='up').count()
+        comment.downvotes = Vote.objects.filter(comment=comment, vote_type='down').count()
+
+    comments = sorted(comments, key=lambda x: x.upvotes, reverse=True)
+
     if request.method == 'POST':
         form = CommentForm(request.POST, user=request.user)
         if form.is_valid():
@@ -126,5 +133,18 @@ def discussion(request, puzzle_id=None):
 
     return render(request, 'bookle/discussion.html', context)
 
+def upvote(request, comment_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
+    Vote.objects.get_or_create(user=request.user, comment=comment, vote_type='up')
+    upvotes = Vote.objects.filter(comment=comment, vote_type='up').count()
+    downvotes = Vote.objects.filter(comment=comment, vote_type='down').count()
+    return JsonResponse({'upvotes': upvotes, 'downvotes': downvotes})
+
+def downvote(request, comment_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
+    Vote.objects.get_or_create(user=request.user, comment=comment, vote_type='down')
+    upvotes = Vote.objects.filter(comment=comment, vote_type='up').count()
+    downvotes = Vote.objects.filter(comment=comment, vote_type='down').count()
+    return JsonResponse({'upvotes': upvotes, 'downvotes': downvotes})
 
 

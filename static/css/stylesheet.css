@@ -211,6 +211,18 @@ h1{
     display: inline;
 }
 
+#signup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 /* --------------------------daily puzzle-----------------------------------*/
 
 .user-guesses-submit{
