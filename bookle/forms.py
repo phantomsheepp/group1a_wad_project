@@ -4,6 +4,8 @@ from bookle.models import UserProfile
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.contrib.auth.forms import UserCreationForm
+from django import forms
+from bookle.models import Comment
 
 # Is this used anywhere?
 class UserForm(forms.ModelForm):
@@ -58,3 +60,21 @@ class RegisterForm(UserCreationForm):
             user.save()
             # Don't create a UserProfile here if you have a signal that does it
         return user
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['comment']
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        self.puzzle = kwargs.pop('puzzle', None)  # Add this line
+        super().__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        comment = super().save(commit=False)
+        comment.userID = self.user
+        comment.puzzleID_id = self.puzzle  # Add this line
+        if commit:
+            comment.save()
+        return comment

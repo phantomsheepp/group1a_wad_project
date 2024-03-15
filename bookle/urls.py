@@ -16,10 +16,10 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),
     path('home/daily-puzzle/', views.daily_puzzle, name='daily_puzzle'),
     path('home/past-puzzles/', views.past_puzzles, name='past_puzzles'),
+    path('discussion/<int:puzzle_id>/', views.discussion, name='discussion'),
     #I've written these but have no way of testing them at the moment as it needs the form logic! -sophie 
     path('login/view-account/', views.view_account, name='view_account'),
     path('login/view-account/edit-account/', views.edit_account, name='edit_account'),
     path('home/daily-puzzle/complete/', views.complete, name='complete'),
-    path('home/daily-puzzle/complete/discussion/', views.discussion, name='discussion'),
-
+    path('home/daily-puzzle/complete/discussion/<int:puzzle_id>/', views.discussion, name='complete_discussion'),
 ]

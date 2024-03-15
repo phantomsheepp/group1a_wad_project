@@ -5,7 +5,28 @@
     Discussion
 {% endblock %}
 
-
 {% block body_block %}
-
+<div class="container">
+    <h2>Discussion</h2>
+    <hr>
+    {% for comment in comments %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">{{ comment.userID.username }}</h5>
+            <p class="card-text">{{ comment.comment }}</p>
+            <button class="upvote-button" data-comment-id="{{ comment.id }}">Upvote</button>
+            <button class="downvote-button" data-comment-id="{{ comment.id }}">Downvote</button>
+        </div>
+    </div>
+    {% empty %}
+    <p>No comments yet.</p>
+    {% endfor %}
+    <hr>
+    <h4>New Comment</h4>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
 {% endblock %}

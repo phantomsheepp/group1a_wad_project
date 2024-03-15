@@ -6,7 +6,9 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
+from bookle.models import Comment
+from bookle.forms import CommentForm
+from bookle.models import Puzzle
 from bookle.forms import RegisterForm, ProfileEditForm
 
 def home(request):
@@ -99,9 +101,30 @@ def complete(request):
     context_dict = {}
     return render(request, 'bookle/complete.html', context=context_dict)
 
-def discussion(request):
-    context_dict = {}
-    return render(request, 'bookle/discussion.html', context=context_dict)
+@login_required
+def discussion(request, puzzle_id=None):
+    if puzzle_id is None:
+        puzzle_id = 1 # Replace with your default puzzle ID
+
+    puzzle = get_object_or_404(Puzzle, pk=puzzle_id)
+    comments = Comment.objects.filter(puzzleID=puzzle).order_by('-commentID')
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST, user=request.user)
+        if form.is_valid():
+            new_comment = form.save(commit=False)
+            new_comment.puzzleID = puzzle
+            new_comment.save()
+    else:
+        form = CommentForm(user=request.user)
+
+    context = {
+        'puzzle': puzzle,
+        'comments': comments,
+        'form': form,
+    }
+
+    return render(request, 'bookle/discussion.html', context)
 
 
 

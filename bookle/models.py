@@ -65,13 +65,28 @@ class Score(models.Model):
         return str(self.guesses)
     
 
+class Vote(models.Model):
+    VOTE_TYPE_CHOICES = [
+        ('up', 'Upvote'),
+        ('down', 'Downvote'),
+    ]
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment = models.ForeignKey('Comment', on_delete=models.CASCADE)
+    vote_type = models.CharField(max_length=4, choices=VOTE_TYPE_CHOICES)
+    
+
 class Comment(models.Model):
     commentID = models.IntegerField(unique=True, primary_key=True)
-
     puzzleID = models.ForeignKey(Puzzle, on_delete=models.CASCADE)
     comment = models.CharField(max_length=300)
     userID = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.comment
+    
+    def votes(self):
+        upvotes = Vote.objects.filter(comment=self, vote_type='up').count()
+        downvotes = Vote.objects.filter(comment=self, vote_type='down').count()
+        return upvotes - downvotes
+
 
