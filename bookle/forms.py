@@ -5,6 +5,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.contrib.auth.forms import UserCreationForm
 
+# Is this used anywhere?
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
     
@@ -12,12 +13,12 @@ class UserForm(forms.ModelForm):
         model = User
         fields = ('username', 'email', 'password')
     
-class UserProfileForm(forms.ModelForm):
+class LoginForm(forms.ModelForm):
     user_picture = forms.ImageField()
     
     class Meta:
-        model = UserProfile
-        exclude = ('user','bio','user_picture_file')
+        model = User
+        fields = ('username', 'password')
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField()
