@@ -14,7 +14,7 @@ class Book(models.Model):
     genre = models.CharField(max_length=50)
     release_year = models.CharField(max_length=4)
     country = models.CharField(max_length=255)
-    cover = models.ImageField(upload_to='cover_images', blank=True, null=True)
+    cover = models.CharField(max_length=300, default='')
     description = models.TextField(max_length=1000, blank=True, null=True)
 
     def __str__(self):
@@ -26,8 +26,8 @@ class Puzzle(models.Model):
 
     date = models.DateField(unique=True)
     isbn = models.OneToOneField(Book, on_delete=models.CASCADE)
-    difficulty = models.FloatField()
-    popularity = models.FloatField()
+    difficulty = models.FloatField(null=True)
+    popularity = models.FloatField(null=True)
 
     def __str__(self):
         return str(self.date)
@@ -35,7 +35,7 @@ class Puzzle(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    user_picture = models.ImageField(upload_to='profile_images', blank=True, default=None)
+    user_picture = models.ImageField(upload_to='profile_images', blank=True, default='profile_images/default.png')
     bio = models.CharField(blank=True, max_length=250)
 
     def __str__(self):
@@ -56,14 +56,15 @@ class Score(models.Model):
     scoreID = models.IntegerField(unique=True, primary_key=True)
 
     userID = models.ForeignKey(User, on_delete=models.CASCADE)
-    guesses = models.IntegerField()
-    difficulty = models.IntegerField()
-    popularity = models.IntegerField()
+    guesses = models.IntegerField(default = 8)
+    difficulty = models.IntegerField(null=True)
+    popularity = models.IntegerField(null=True)
     puzzleID = models.ForeignKey(Puzzle, on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.guesses)
     
+
 class Comment(models.Model):
     commentID = models.IntegerField(unique=True, primary_key=True)
 
