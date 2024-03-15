@@ -87,7 +87,7 @@ h1{
 }
 
 /* -----------------------------leaderboard.html------------------------------------ */
-#leaderboard-background{
+#leaderboardBackground{
     position: relative;
     top: 9em;
     left: 11em;
@@ -97,7 +97,7 @@ h1{
     width: 75%;
 }
 
-#green-headings{
+#greenHeadings{
     position: relative;
     top: 0.5em;
     margin: 20px;
@@ -107,21 +107,21 @@ h1{
     font-size: 36pt
 }
 
-#leaderboard-instructions{
+#leaderboardInstructions{
     position:relative;
     top: 0.5em;
     font-size: 30pt;
     text-align: center;
 }
 
-.leaderboard-places{
+.leaderboardPlaces{
     padding-left: 50px;
     font-size: 16pt;
     display:inline-block;
 }
 
 /* ---------------------------------aboutus.html------------------------------------ */
-.about-us-main{
+.aboutUsMain{
     position: relative;
     top: 9em;
     left: 11em;
@@ -131,14 +131,14 @@ h1{
     width: 75%;
 }
 
-#black-headings{
+#blackHeadings{
     position:relative;
     top: 0em;
     font-size: 30pt;
     text-align: center;
 }
 
-#group-1a{
+#group1a{
     line-height: 50px;
     font-size: 26px;
     text-align:center;
@@ -148,14 +148,14 @@ h1{
 .float-container{
     position: relative;
     top: 1em;
-    height:300px;
+    height:1000px;
 }
 
 .login-child{
     width: 60%;
     float: left;
     padding: 20px;
-    height: 500px;
+    height: 100%;
 }
 
 .signup-child{
@@ -163,7 +163,7 @@ h1{
     float: right;
     padding: 20px;
     border-left: 5px solid black;
-    height: 500px;
+    height: 100%;
 }
 
 #Signup-green-headings{

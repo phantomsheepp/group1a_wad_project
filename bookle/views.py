@@ -13,10 +13,9 @@ def aboutus(request):
     return render(request, 'bookle/about_us.html', context = context_dict)
 
 def leaderboard(request):
-    # will need to see if this is correct, can't use until models are put in!
-    #leaderboard_data = Score.objects.order_by('-guesses')[:5]
+    leaderboard_guesses = Score.objects.order_by('guesses')[:5]
     context_dict = {}
-    #context_dict['leaderboard_users'] = leaderboard_data
+    context_dict['leaderboard_guesses'] = leaderboard_guesses
     return render(request, 'bookle/leaderboard.html', context=context_dict)
 
 def login(request):
