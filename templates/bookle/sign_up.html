@@ -1,9 +1,6 @@
-{% extends 'bookle/base.html' %}
-{% load staticfiles %}
+{% extends 'bookle/base.html' %} 
 
-{% block title_block %}
-    Sign-Up
-{% endblock %}
+{% block title_block %} Register {% endblock %}
 
 
 {% block body_block %}
@@ -11,6 +8,11 @@
         <div class="login-child">
             <h2 id="Login-green-headings">Sign Up Here!</h2>
 
+            <form method="post" action=".">
+              {% csrf_token %}
+              {{ form.as_p }}
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
         </div>
 
         <div class="signup-child">
