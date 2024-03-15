@@ -8,15 +8,32 @@
 
 {% block body_block %}
     <div class="float-container">
+
         <div class="login-child">
             <h2 id="Login-green-headings">Welcome Back!</h2>
 
-        </div>
+            {% if error_message %}
+                <p style="color: red;">{{ error_message }}</p>
+            {% endif %}
 
+            <form id="login_form" method="post" action="{% url 'bookle:login' %}">
+                {% csrf_token %}
+                Username: <input type="text" name="username" value="" size="50" />
+                <br />
+                Password: <input type="password" name="password" value="" size="50" />
+                <br />
+                <input type="submit" value="Submit" />
+            </form>
+        </div>
+        
+
+        
         <div class="signup-child">
             <h2 id="Signup-green-headings">New Here?</h2>
             <a id="signup-link" href="/bookle/sign-up/">Sign up</a>
             <p id="signup-text">to enter the leaderboard, discuss the daily puzzle with fellow players and more!</p>
         </div>
     </div>
+
 {% endblock %}
+
