@@ -26,8 +26,8 @@ class Puzzle(models.Model):
 
     date = models.DateField(unique=True)
     isbn = models.OneToOneField(Book, on_delete=models.CASCADE)
-    difficulty = models.FloatField()
-    popularity = models.FloatField()
+    difficulty = models.FloatField(default=0)
+    popularity = models.FloatField(default=0)
 
     def __str__(self):
         return str(self.date)
@@ -56,9 +56,9 @@ class Score(models.Model):
     scoreID = models.IntegerField(unique=True, primary_key=True)
 
     userID = models.ForeignKey(User, on_delete=models.CASCADE)
-    guesses = models.IntegerField()
-    difficulty = models.IntegerField()
-    popularity = models.IntegerField()
+    guesses = models.IntegerField(default=10)
+    difficulty = models.IntegerField(default=0)
+    popularity = models.IntegerField(default=0)
     puzzleID = models.ForeignKey(Puzzle, on_delete=models.CASCADE)
 
     def __str__(self):

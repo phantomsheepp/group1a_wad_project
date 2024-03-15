@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.urls import reverse
 from django.contrib.auth.models import User
+from bookle.models import Score
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
@@ -19,11 +20,10 @@ def aboutus(request):
 
 @login_required
 def leaderboard(request):
-    # Uncomment the following lines when the models are ready
-    # leaderboard_data = Score.objects.order_by('-guesses')[:5]
-    # context = {'leaderboard_users': leaderboard_data}
-    # return render(request, 'bookle/leaderboard.html', context)
-    return render(request, 'bookle/leaderboard.html')
+    leaderboard_data = Score.objects.order_by('guesses')[:5]
+    context = {'leaderboard_guesses': leaderboard_data}
+    return render(request, 'bookle/leaderboard.html', context)
+    #return render(request, 'bookle/leaderboard.html')
 
 def login(request):
     context_dict = {}
