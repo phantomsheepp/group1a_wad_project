@@ -13,7 +13,11 @@
     </head>
 
     <body>
-        <div>
+        <div id="menuBar">
+            
+            <img id="logo" src="{% static 'images/logo.png' %}" 
+            alt="bookle logo" /> 
+
             <a href="/bookle/"><img class="topIcons" src="{% static 'images/home.png' %}" 
             alt="link to home"/></a>
             {% if user.is_authenticated %}
@@ -26,6 +30,10 @@
             {% endif %}
             <a href="/bookle/leaderboard/"><img class="topIcons" src="{% static 'images/leaderboard.png' %}" 
             alt="link to leaderboard"/></a>
+            <br>
+        </div>
+
+        <div>
             <br>
             {% block body_block %}
                 This is body_block's default content
