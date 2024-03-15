@@ -4,9 +4,6 @@ from bookle.models import UserProfile, Book, Puzzle, Score, Comment
 class BookAdmin(admin.ModelAdmin):
     list_display = ('title', 'author', 'isbn', 'release_year')
 
-class UserAdmin(admin.ModelAdmin):
-    list_display = ('username', 'email')
-
 class UserProfileAdmin(admin.ModelAdmin):
     list_display = ('user', 'bio')
 
