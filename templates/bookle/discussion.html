@@ -32,26 +32,26 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-    $(document).ready(function() {
-        var upvoteUrl = "{% url 'bookle:upvote' 0 %}";
-        var downvoteUrl = "{% url 'bookle:downvote' 0 %}";
-    
-        $('.upvote-button').click(function() {
-            var commentId = $(this).data('comment-id');
-            $.post(upvoteUrl.replace('0', commentId), function(data) {
-                $('.upvote-button[data-comment-id="' + commentId + '"]').text('↑ (' + data.upvotes + ')');
-                $('.downvote-button[data-comment-id="' + commentId + '"]').text('↓ (' + data.downvotes + ')');
-            });
-        });
-    
-        $('.downvote-button').click(function() {
-            var commentId = $(this).data('comment-id');
-            $.post(downvoteUrl.replace('0', commentId), function(data) {
-                $('.upvote-button[data-comment-id="' + commentId + '"]').text('↑ (' + data.upvotes + ')');
-                $('.downvote-button[data-comment-id="' + commentId + '"]').text('↓ (' + data.downvotes + ')');
-            });
+$(document).ready(function() {
+    var upvoteUrl = "{% url 'bookle:upvote' 0 %}";
+    var downvoteUrl = "{% url 'bookle:downvote' 0 %}";
+
+    $('.upvote-button').click(function() {
+        var commentId = $(this).data('comment-id');
+        $.post(upvoteUrl.replace('0', commentId), function(data) {
+            $('.upvote-button[data-comment-id="' + commentId + '"]').text('↑ (' + data.upvotes + ')');
+            $('.downvote-button[data-comment-id="' + commentId + '"]').text('↓ (' + data.downvotes + ')');
         });
     });
-    </script>
+
+    $('.downvote-button').click(function() {
+        var commentId = $(this).data('comment-id');
+        $.post(downvoteUrl.replace('0', commentId), function(data) {
+            $('.upvote-button[data-comment-id="' + commentId + '"]').text('↑ (' + data.upvotes + ')');
+            $('.downvote-button[data-comment-id="' + commentId + '"]').text('↓ (' + data.downvotes + ')');
+        });
+    });
+});
+</script>
 
 {% endblock %}
