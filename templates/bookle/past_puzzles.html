@@ -12,9 +12,15 @@
     <div id="instructionsText">
         <p class="leaderboard-places" id="green">Most popular puzzles:</p>   &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; <p class="leaderboard-places" id="green">Most difficult puzzles:</p>  
         <ul>
-            <!--{% for p in puzzle %}-->
-            <li class="leaderboard-places">01/01/01</li> &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; <li class="leaderboard-places">01/01/01</li>
-            <!--{% endfor %}-->
+            {% for pop in popular%}
+            <li><a href="/pastpuzzles/{{ pop.puzzleID }}/">{{ pop.date }}</a></li>
+
+            {% endfor %}
+        </ul>
+        <ul>
+            {% for diff in difficult%}
+            <li><a href="/pastpuzzles/{{ diff.puzzleID }}/">{{ diff.date }}</a></li>
+            {% endfor %}
         </ul>
     </div>
 </div>

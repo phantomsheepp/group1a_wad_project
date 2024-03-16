@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 from bookle.forms import RegisterForm, ProfileEditForm
+from bookle.models import Puzzle
 
 def home(request):
     context_dict = {}
@@ -84,7 +85,12 @@ def daily_puzzle(request):
     return render(request, 'bookle/daily_puzzle.html', context=context_dict)
 
 def past_puzzles(request):
+
+    pop_list = Puzzle.objects.order_by('-popularity')[:6]
+    diff_list = Puzzle.objects.order_by('-difficulty')[:6]
     context_dict = {}
+    context_dict['popular'] = pop_list
+    context_dict['difficult'] = diff_list
     return render(request, 'bookle/past_puzzles.html', context=context_dict)
 
 def view_account(request):
