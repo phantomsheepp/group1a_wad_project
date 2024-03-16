@@ -99,10 +99,6 @@ def edit_account(request):
     context_dict = {}
     return render(request, 'bookle/edit_account.html', context=context_dict)
 
-def complete(request):
-    context_dict = {}
-    return render(request, 'bookle/complete.html', context=context_dict)
-
 def discussion(request):
     context_dict = {}
     return render(request, 'bookle/discussion.html', context=context_dict)
@@ -112,6 +108,11 @@ def daily_puzzle(request):
     context_dict['books'] = Book.objects.all().order_by('title')
     return render(request, 'bookle/daily_puzzle.html', context=context_dict)
 
+class Complete(View):
+    def get(self, request):
+        context_dict = {}
+        return render(request, 'bookle/complete.html', context=context_dict)
+
 class BookSuggestions(View):
     def get(self, request):
         if 'guess' in request.GET:
@@ -120,23 +121,21 @@ class BookSuggestions(View):
             guess = ''
         
         books = get_book_names(max_results=5, starts_with=guess)
-        
-        
+              
         return render(request, 'bookle/suggestions.html', {'books': books})
 
 class CheckGuess(View):
     def get(self, request):
-        if 'guess' in request.GET:
-            guess = request.GET['guess']
-        else:
-            guess = ''
+        context_dict = {}
 
-        if 'count' in request.GET:
-            count = request.GET['count']
-        else:
-            count = 0
+        guess = request.GET.get('guess','')
+        count = request.GET.get('count',0)
 
-        finished = False
+        
+        if guess in Book.objects.all():
+            context_dict['count'] = count-1
+        else:
+            context_dict['count'] = count
 
         """while guess_count < max_guesses:
         user_guess = input("Guess the book title: ")
@@ -159,7 +158,16 @@ class CheckGuess(View):
                       "Release Year:", guessed_book.release_year, "-", result["release_year"],
                       "Country:", guessed_book.country, "-", result["country"])
 """
-        if finished:
-            return redirect()
-        else:    
-            return render(request, 'bookle/guess.html', {'title':guess})
+        # need to notify whether or not successful
+        return render(request, 'bookle/guess.html', context_dict)
+        
+class SaveScore(View):
+    def post(self, request):
+        if 'count' in request.PUT:
+            count = request.PUT['count']
+            #s = Score.objects.get_or_create(user=request.user,)
+
+            # save score using user and puzzle
+            # save no. of guesses
+        else:
+            count = 0

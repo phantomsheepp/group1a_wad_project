@@ -7,7 +7,14 @@ function showOptions() {
 }
 */
 
-let count = 8
+let count = 3;
+
+function finished(success, count) {
+    $.post('/bookle/save-score', {'success':success, 'count':count}, function(data) {
+        // 
+    });
+    window.location.replace(window.location.href+"complete");
+}
 
 
 // JQuery
@@ -29,15 +36,22 @@ $(document).ready(function() {
         var guess = $("#guessInput").val();
         $.get('/bookle/check-guess', {'guess': guess, 'count':count}, function(data) {
             $("#guessResults").prepend(data);
+            // need to be able to access data as well as page
+            //var success = data['success']
         });
         
-        count -= 1;
-        if (count == 0) {
-            $.get('bookle/complete', {'count':count}, function(data) {
 
-            });
+        
+        count -= 1;
+        if (count <= 0) {
+            finished(false, count)
+            /*$.get('/bookle/puzzle/daily/complete', {'count':count}, function(data) {
+                //$("#completeGuesses").text("hello");
+                // $("#finalGuessCount").text(JSON.parse(data)["count"]);
+                //window.location.replace(window.location.href+"complete");
+            });*/
         }
 
-        $("#guessCount").text(count + " guesses left");
+        $("#guessCount").text( + " guesses left");
     });
 });
