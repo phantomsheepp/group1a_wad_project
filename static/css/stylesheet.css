@@ -210,3 +210,62 @@ h1{
     text-align: center;
     display: inline;
 }
+
+/* --------------------------daily puzzle-----------------------------------*/
+
+.user-guesses-submit{
+    position:sticky;
+    height: 100px;
+    width: 100%;
+    font-size: 28pt;
+    text-align: center;
+    display: inline;
+}
+
+#user-guess{
+    position: relative;
+    top: -5px;
+    height: 30px;
+    width: 300px;
+}
+
+#submit-button{
+    position: relative;
+    top: -5px;
+    height: 35px;
+    width: 80px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 12pt;
+}
+
+#temp-cover{
+    float:right;
+    height: 300px;
+    width: 250px;
+}
+
+.user-guess-results{
+    position: relative;
+    top: 2.5em;
+    align-content: center;
+    height: 400px;
+    width: 100%;
+    font-size: 18pt;
+    display:inline;
+}
+
+.user-guess-left-child{
+    width: 38%;
+    float: left;
+    padding: 20px;
+    height: 300px;
+}
+
+.user-guess-right-child{
+    padding-top: 40px;
+    width: 48%;
+    float: right;
+    padding: 20px;
+    height: 300px;
+    line-height: 60px;
+}
