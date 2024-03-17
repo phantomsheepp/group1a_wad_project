@@ -30,7 +30,7 @@ def fetch_books(keyword, max_results=20):
         title = volume_info.get('title', 'No Title')
         author = authors[0] if authors else 'Unknown Author'
         genre = categories[0] if categories else 'Unknown Genre'
-        release_year = publishedDate.split('-')[0]
+        release_year = int(publishedDate.split('-')[0])
         country = sales_info.get('country', 'Unknown Country')
         description = volume_info.get('description', 'No Description')
         cover = volume_info.get('imageLinks', {}).get('thumbnail')
@@ -42,7 +42,7 @@ def fetch_books(keyword, max_results=20):
             add_book(isbn, title, author, genre, release_year, country, description, cover)
 
 def populate():
-    get_books_from_isbns(11)  
+    get_books_from_isbns(15)  
     
     users = [{'username':"BookLuvr3", 'password':'secretBooks'},
              {'username':"bookle__xXx", 'password':'password1'},
@@ -103,10 +103,11 @@ def add_comment(commentID, puzzleID, userID, comment=""):
     return c
 
 def add_user(username, password):
-    u = User.objects.create_user(username=username)
-    u.set_password(password)
-    u.save()
-    return u
+    if not User.objects.filter(username=username):
+        u = User.objects.create_user(username=username)
+        u.set_password(password)
+        u.save()
+        return u
 
 def add_score(scoreID, userID, puzzleID, guesses, difficulty=0, popularity=0):
     s = Score.objects.get_or_create(scoreID=scoreID, puzzleID=puzzleID, userID=userID)[0]
