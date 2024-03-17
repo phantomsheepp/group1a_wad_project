@@ -150,7 +150,7 @@ class CheckGuess(View):
         guess = request.GET.get('guess','')
         date = request.GET.get('date', '0000-0-0')
 
-        correct_guess, valid_guess, feedback = check_guess(guess, date)
+        correct_guess, valid_guess = check_guess(guess, date)
         
         #context_dict['correct_guess'] = json.dumps(correct_guess)
         #context_dict['valid_guess'] = json.dumps(valid_guess)
@@ -158,7 +158,6 @@ class CheckGuess(View):
         
         context_dict['correct_guess'] = (correct_guess)
         context_dict['valid_guess'] = (valid_guess)
-        context_dict['feedback'] = (feedback)
 
         # need to notify whether or not successful
         return HttpResponse(json.dumps(context_dict))

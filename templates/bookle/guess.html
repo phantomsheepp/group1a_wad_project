@@ -1,20 +1,17 @@
 {% load staticfiles %}
 
-<!--<head>
-    <script src="{% static 'scripts/guess.js' %}"
-            defer
-            data-correct-guess="{{ correct_guess }}">
-    </script>
-</head>-->
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static '/css/stylesheet.css' %}" />
+</head>
 
 <div class="guessResultsCover">
     <br><br>
     <img id = "cover" src="{{ cover }}"/>
 </div>
 
-<div class="guessResultsCategories">
-    <strong id ="title">Title:</strong> {{ title }}<br>
-    <strong id ="author">Author:</strong> {{ author }}<br>
-    <strong id="releaseYear">Release Year:</strong> {{ release_year }}<br>
-    <strong id="titleWordCount">Number of words in title:</strong> {{ no_of_words }}<br>
+<div class="guessResultsCategories"> 
+    <strong>Title:</strong> <label id="title">{{ title }}</label> <br>
+    <strong>Author:</strong> <label class="{{ author_class }}" id="author"></label> {{ author }}<br>
+    <strong>Release Year:</strong> <label class="{{ release_year_class }}" id="releaseYear">{{ release_year }}</label><br>
+    <strong>Number of words in title:</strong> <label class="{{ no_of_words_class }}" id="noOfWords">{{ no_of_words }}</label><br>
 </div>

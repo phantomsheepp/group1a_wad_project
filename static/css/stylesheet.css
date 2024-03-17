@@ -273,3 +273,19 @@ h1{
 #options{
     position:absolute;
 }
+
+.correctGuess{
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    background-color: rgb(35, 179, 35);
+}
+
+.closeGuess{
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    background-color: orange;
+}

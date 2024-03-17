@@ -1,16 +1,5 @@
-/*var button = document.getElementById("submit-button");
-button.addEventListener("click", showOptions);
-
-function showOptions() {
-    print("hi");
-    document.getElementById("guess-title").style.BackgroundColor = "green";
-}
-*/
-
 var maxGuesses = 3;
-
 let count = 0;
-
 var data = document.currentScript.dataset;
 
 function finished(success, count) {
@@ -21,7 +10,7 @@ function finished(success, count) {
 }
 
 
-// JQuery
+
 $(document).ready(function() {
     
     date = data.puzzleDate;
@@ -48,43 +37,22 @@ $(document).ready(function() {
             if (jsonData["valid_guess"]) {
                 $("#validGuess").text("");
                 count++;
+                $("#guessCount").text((maxGuesses-count) + " guesses left");
 
                 if (jsonData["correct_guess"]) {
                     finished(true, count);
                 } else {
-                    // display guess
                     $.get('/bookle/display-guess', {'guess':guess, 'date':date}, function(data) {
                         $("#guessResults").prepend(data);
-                        //console.log(data);
                     });
-                    for (const [key, value] of Object.entries(jsonData["feedback"])) {
-                        console.log(key, value);
-                    }
                 }
             } else {
                 $("#validGuess").text("Invalid guess, try again");
             }
 
-            //$("#guessResults").prepend(data);
-            //$("#guessResults").load("guess.html"); 
-            
-            
-            // need to be able to access data as well as page
-            //var success = data['success']
-        });
-        
-
-        
-        
-        if (count >= maxGuesses) {
-            finished(false, count);
-            /*$.get('/bookle/puzzle/daily/complete', {'count':count}, function(data) {
-                //$("#completeGuesses").text("hello");
-                // $("#finalGuessCount").text(JSON.parse(data)["count"]);
-                //window.location.replace(window.location.href+"complete");
-            });*/
-        }
-
-        $("#guessCount").text((maxGuesses-count) + " guesses left");
+            if (count >= maxGuesses) {
+                finished(false, count);
+            }
+        }); 
     });
 });
