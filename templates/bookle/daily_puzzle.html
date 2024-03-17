@@ -2,7 +2,9 @@
 {% load staticfiles %}
 
 {% block assets_block %}
-    <script type="text/javascript" src="{% static 'scripts/puzzle.js' %}"></script>
+    <script src="{% static 'scripts/puzzle.js' %}" 
+            defer
+            data-puzzle-date="{{ puzzleDate }}"></script>
 {% endblock %}
 
 
@@ -13,6 +15,8 @@
 
 {% block body_block %}
     <div class ="guesses">
+        <p id="validGuess"></p>
+        
         <label for="guessInput">Your Guess: </label>
         <input id="guessInput" type="text" placeholder="Enter book here...">
         <button id="submitButton">Guess</button>
