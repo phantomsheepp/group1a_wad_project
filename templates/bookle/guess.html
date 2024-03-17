@@ -1,5 +1,12 @@
 {% load staticfiles %}
 
+<!--<head>
+    <script src="{% static 'scripts/guess.js' %}"
+            defer
+            data-correct-guess="{{ correct_guess }}">
+    </script>
+</head>-->
+
 <div class="guessResultsCover">
     <br><br>
     <img id = "cover" src ="http://books.google.com/books/content?id=yYAlAAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"/>
@@ -7,7 +14,7 @@
 
 <div class="guessResultsCategories">
     <strong id ="title">Title:</strong> {{ title }}<br>
-    <strong id ="releaseYear">Release year:</strong> <br>
-    <strong id="author">Author:</strong> <br>
-    <strong id="titleWordCount">Number of words in title:</strong> <br>
+    <strong id ="author">Author:</strong> {{ author }}<br>
+    <strong id="releaseYear">Release Year:</strong> {{ release_year }}<br>
+    <strong id="titleWordCount">Number of words in title:</strong> {{ no_of_words }}<br>
 </div>

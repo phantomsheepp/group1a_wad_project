@@ -30,5 +30,6 @@ urlpatterns = [
     # Views used for AJAX
     path('suggestions/', views.BookSuggestions.as_view(), name='suggestions'),
     path('check-guess/', views.CheckGuess.as_view(), name="check_guess"),
+    path('display-guess/', views.DisplayGuess.as_view(), name="display_guess"),
     path('save-score/', views.SaveScore.as_view(), name="save_score"),
 ]

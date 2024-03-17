@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.urls import reverse
@@ -10,8 +10,9 @@ from django.contrib import messages
 from bookle.forms import RegisterForm, ProfileEditForm
 from bookle.models import Score, Book, Puzzle
 from django.views.generic import View
-from bookle.helpers import get_book_names
-import datetime
+from bookle.helpers import get_book_names, get_guess_data, check_guess
+from datetime import date
+import json
 
 
 def home(request):
@@ -108,12 +109,13 @@ def discussion(request):
     return render(request, 'bookle/discussion.html', context=context_dict)
 
 def daily_puzzle(request):
-    if not Puzzle.objects.filter(date=datetime.date.today()):
-        Puzzle.objects.create(date=datetime.date.today())
+    if not Puzzle.objects.filter(date=date.today()):
+        puzzleCount = len(Puzzle.objects.all())
+        Puzzle.objects.create(puzzleID=puzzleCount, date=date.today(), isbn=Book.objects.all()[puzzleCount])
 
     context_dict = {}
     #context_dict['books'] = Book.objects.all().order_by('title')
-    context_dict['puzzleDate'] = datetime.date.today()
+    context_dict['puzzleDate'] = str(date.today())
     return render(request, 'bookle/daily_puzzle.html', context=context_dict)
 
 class Complete(View):
@@ -132,42 +134,34 @@ class BookSuggestions(View):
               
         return render(request, 'bookle/suggestions.html', {'books': books})
 
+class DisplayGuess(View):
+    def get(self, request):
+        guess = request.GET.get('guess','')
+        date = request.GET.get('date', '0000-0-0')
+
+        context_dict = get_guess_data(guess, date)        
+
+        return render(request, 'bookle/guess.html', context_dict)
+        
 class CheckGuess(View):
     def get(self, request):
         context_dict = {}
-        print(request)
+        
         guess = request.GET.get('guess','')
-        count = request.GET.get('count',0)
+        date = request.GET.get('date', '0000-0-0')
 
+        correct_guess, valid_guess, feedback = check_guess(guess, date)
         
-        if guess in Book.objects.all():
-            context_dict['count'] = count-1
-        else:
-            context_dict['count'] = count
+        #context_dict['correct_guess'] = json.dumps(correct_guess)
+        #context_dict['valid_guess'] = json.dumps(valid_guess)
+        #context_dict['feedback'] = json.dumps(feedback)
+        
+        context_dict['correct_guess'] = (correct_guess)
+        context_dict['valid_guess'] = (valid_guess)
+        context_dict['feedback'] = (feedback)
 
-        """while guess_count < max_guesses:
-        user_guess = input("Guess the book title: ")
-        found, result, guessed_book = guess_book(user_guess)
-        
-        if not found:
-            print(f"The book is not in our database. Did you mean '{', '.join(result)}'? Try again.")
-            continue
-        
-        guess_count += 1
-        if all(value == True for value in result.values()):
-            print(f"Congratulations! You've guessed the book correctly in {guess_count} guesses.")
-            print("Here are some information about the book:", guessed_book.description)
-            break
-        else:
-            if guessed_book:
-                print("Feedback on your guess:", result)
-                print("Author:", guessed_book.author, "-", result["author"],
-                      "Genre:", guessed_book.genre, "-", result["genre"],
-                      "Release Year:", guessed_book.release_year, "-", result["release_year"],
-                      "Country:", guessed_book.country, "-", result["country"])
-"""
         # need to notify whether or not successful
-        return render(request, 'bookle/guess.html', context_dict)
+        return HttpResponse(json.dumps(context_dict))
         
 class SaveScore(View):
     def post(self, request):
