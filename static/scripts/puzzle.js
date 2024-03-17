@@ -11,6 +11,8 @@ var maxGuesses = 3;
 
 let count = 0;
 
+var data = document.currentScript.dataset;
+
 function finished(success, count) {
     $.post('/bookle/save-score', {'success':success, 'count':count}, function(data) {
         // 
@@ -21,7 +23,9 @@ function finished(success, count) {
 
 // JQuery
 $(document).ready(function() {
-    console.log("{{ puzzleDate }}");
+    
+    date = data.puzzleDate;
+
     $("#guessCount").text(maxGuesses + " guesses left");
 
     $("#guessInput").keyup(function() {
@@ -37,15 +41,41 @@ $(document).ready(function() {
 
     $("#submitButton").click(function() {
         var guess = $("#guessInput").val();
-        $.get('/bookle/check-guess', {'guess': guess, 'count':count}, function(data) {
-            $("#guessResults").prepend(data);
+        $.get('/bookle/check-guess', {'guess': guess, 'date':date}, function(data) {
+            console.log(data);
+            const jsonData = JSON.parse(data);
+
+            if (jsonData["valid_guess"]) {
+                $("#validGuess").text("");
+                count++;
+
+                if (jsonData["correct_guess"]) {
+                    finished(true, count);
+                } else {
+                    // display guess
+                    $.get('/bookle/display-guess', {'guess':guess, 'date':date}, function(data) {
+                        $("#guessResults").prepend(data);
+                        //console.log(data);
+                    });
+                    for (const [key, value] of Object.entries(jsonData["feedback"])) {
+                        console.log(key, value);
+                    }
+                }
+            } else {
+                $("#validGuess").text("Invalid guess, try again");
+            }
+
+            //$("#guessResults").prepend(data);
+            //$("#guessResults").load("guess.html"); 
+            
+            
             // need to be able to access data as well as page
             //var success = data['success']
         });
         
 
         
-        count++;
+        
         if (count >= maxGuesses) {
             finished(false, count);
             /*$.get('/bookle/puzzle/daily/complete', {'count':count}, function(data) {
