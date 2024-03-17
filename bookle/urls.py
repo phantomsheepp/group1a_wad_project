@@ -22,8 +22,4 @@ urlpatterns = [
     path('login/view-account/edit-account/', views.edit_account, name='edit_account'),
     path('home/daily-puzzle/complete/', views.complete, name='complete'),
     path('home/daily-puzzle/complete/discussion/<int:puzzle_id>/', views.discussion, name='complete_discussion'),
-    path('discussion/1/upvote/<int:comment_id>/', views.upvote, name='upvote'),
-    path('discussion/1/downvote/<int:comment_id>/', views.downvote, name='downvote'),
-    # path('discussion/<int:puzzle_id>/upvote/<int:comment_id>/', views.upvote, name='upvote'),
-    # path('discussion/<int:puzzle_id>/downvote/<int:comment_id>/', views.downvote, name='downvote'),
 ]

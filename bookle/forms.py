@@ -64,7 +64,7 @@ class RegisterForm(UserCreationForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ['comment']
+        fields = ['comment', 'rating']
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
