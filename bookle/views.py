@@ -8,9 +8,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 from bookle.forms import RegisterForm, ProfileEditForm
-from bookle.models import Score, Book
+from bookle.models import Score, Book, Puzzle
 from django.views.generic import View
 from bookle.helpers import get_book_names
+import datetime
 
 
 def home(request):
@@ -28,6 +29,9 @@ def leaderboard(request):
     # context = {'leaderboard_users': leaderboard_data}
     # return render(request, 'bookle/leaderboard.html', context)
     return render(request, 'bookle/leaderboard.html')
+
+def leaderboard(request):
+    return render(request, 'bookle/login.html')
 
 def login(request):
     context_dict = {}
@@ -104,8 +108,12 @@ def discussion(request):
     return render(request, 'bookle/discussion.html', context=context_dict)
 
 def daily_puzzle(request):
+    if not Puzzle.objects.filter(date=datetime.date.today()):
+        Puzzle.objects.create(date=datetime.date.today())
+
     context_dict = {}
-    context_dict['books'] = Book.objects.all().order_by('title')
+    #context_dict['books'] = Book.objects.all().order_by('title')
+    context_dict['puzzleDate'] = datetime.date.today()
     return render(request, 'bookle/daily_puzzle.html', context=context_dict)
 
 class Complete(View):
@@ -127,7 +135,7 @@ class BookSuggestions(View):
 class CheckGuess(View):
     def get(self, request):
         context_dict = {}
-
+        print(request)
         guess = request.GET.get('guess','')
         count = request.GET.get('count',0)
 

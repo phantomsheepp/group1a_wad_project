@@ -7,7 +7,9 @@ function showOptions() {
 }
 */
 
-let count = 3;
+var maxGuesses = 3;
+
+let count = 0;
 
 function finished(success, count) {
     $.post('/bookle/save-score', {'success':success, 'count':count}, function(data) {
@@ -19,7 +21,8 @@ function finished(success, count) {
 
 // JQuery
 $(document).ready(function() {
-    $("#guessCount").text(count + " guesses left");
+    console.log("{{ puzzleDate }}");
+    $("#guessCount").text(maxGuesses + " guesses left");
 
     $("#guessInput").keyup(function() {
         var guess = $(this).val();
@@ -42,9 +45,9 @@ $(document).ready(function() {
         
 
         
-        count -= 1;
-        if (count <= 0) {
-            finished(false, count)
+        count++;
+        if (count >= maxGuesses) {
+            finished(false, count);
             /*$.get('/bookle/puzzle/daily/complete', {'count':count}, function(data) {
                 //$("#completeGuesses").text("hello");
                 // $("#finalGuessCount").text(JSON.parse(data)["count"]);
@@ -52,6 +55,6 @@ $(document).ready(function() {
             });*/
         }
 
-        $("#guessCount").text( + " guesses left");
+        $("#guessCount").text((maxGuesses-count) + " guesses left");
     });
 });
