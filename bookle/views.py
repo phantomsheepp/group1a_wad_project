@@ -88,6 +88,10 @@ def past_puzzles(request):
 
     pop_list = Puzzle.objects.order_by('-popularity')[:6]
     diff_list = Puzzle.objects.order_by('-difficulty')[:6]
+    for p in pop_list:
+        p.dateurl = str(p.date) 
+    for p in diff_list:
+        p.dateurl = str(p.date)   
     context_dict = {}
     context_dict['popular'] = pop_list
     context_dict['difficult'] = diff_list
