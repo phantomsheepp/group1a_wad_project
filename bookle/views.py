@@ -111,7 +111,7 @@ def discussion(request):
 def daily_puzzle(request):
     if not Puzzle.objects.filter(date=date.today()):
         puzzleCount = len(Puzzle.objects.all())
-        Puzzle.objects.create(puzzleID=puzzleCount, date=date.today(), isbn=Book.objects.all()[puzzleCount])
+        Puzzle.objects.create(puzzleID=puzzleCount+1, date=date.today(), isbn=Book.objects.all()[puzzleCount])
 
     context_dict = {}
     #context_dict['books'] = Book.objects.all().order_by('title')

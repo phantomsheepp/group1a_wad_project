@@ -40,6 +40,7 @@ $(document).ready(function() {
                 $("#guessCount").text((maxGuesses-count) + " guesses left");
 
                 if (jsonData["correct_guess"]) {
+                    console.log("HI");
                     finished(true, count);
                 } else {
                     $.get('/bookle/display-guess', {'guess':guess, 'date':date}, function(data) {

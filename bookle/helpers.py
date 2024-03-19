@@ -26,7 +26,7 @@ def get_guess_data(guess, date):
     feedback["title"] = guessed_book.title
     feedback["author"] = guessed_book.author 
     feedback["release_year"] = str(guessed_book.release_year)
-    feedback["no_of_words"] = len(guessed_book.title.split(" ")) 
+    feedback["no_of_words"] = str(len(guessed_book.title.split(" ")))
     feedback["cover"] = guessed_book.cover
 
 
@@ -44,7 +44,7 @@ def get_guess_data(guess, date):
             feedback["release_year"] += " ↑"
 
     no_of_words_diff = len(guessed_book.title.split(" ")) - len(target_book.title.split(" "))
-    if no_of_words_diff:
+    if no_of_words_diff == 0:
         feedback["no_of_words_class"] = "correctGuess"
 
     elif abs(no_of_words_diff) < 3:
