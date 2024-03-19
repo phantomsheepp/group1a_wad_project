@@ -114,11 +114,12 @@ h1{
     text-align: center;
 }
 
-.leaderboardPlaces{
+.leaderboardHeaders{
     padding-left: 50px;
-    font-size: 16pt;
+    font-size: 20pt;
     display:inline-block;
 }
+
 
 /* ---------------------------------aboutus.html------------------------------------ */
 .aboutUsMain{
@@ -133,7 +134,7 @@ h1{
 
 #blackHeadings{
     position:relative;
-    top: 0em;
+    top: -2em;
     font-size: 30pt;
     text-align: center;
 }
