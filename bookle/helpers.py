@@ -4,8 +4,9 @@ from datetime import datetime
 
 
 def get_book_names(max_results=0, starts_with=''):
-    """Finds a specified number of book titles that start with the given
-    string."""
+    """
+    Finds a specified number of book titles that start with the given string.
+    """
     names = []
     if starts_with:
         names = Book.objects.filter(title__istartswith=starts_with) | Book.objects.filter(title__istartswith="the "+starts_with)
@@ -17,6 +18,15 @@ def get_book_names(max_results=0, starts_with=''):
     return names
 
 def get_guess_data(guess, date):
+    """
+    Retrieves guessed book's data and compares it to the target book's data. By comparing the data,
+    it checks whether the attributes should be displayed as a correct guess or close guess. This 
+    information is returned as the appropriate CSS class to be used to display the attribute.
+
+    :param guess: user guess as string
+    :param date: date of the puzzle being checked against
+    :returns: dictionary containing the guessed book's data and the CSS class for each attribute 
+    """
     puzzle = Puzzle.objects.filter(date=datetime.strptime(date, '%Y-%m-%d').date())[0]
     target_book = puzzle.isbn
 
@@ -57,6 +67,14 @@ def get_guess_data(guess, date):
     return feedback
 
 def check_guess(guess, date):
+    """
+    Checks whether the string inputted by the user corresponds to an existing book in the database,
+    or whether it is the title of the chosen puzzle's book. 
+
+    :param guess: user guess as string
+    :param date: date of the puzzle being checked against
+    :returns: (boolean, boolean) corresponding to (correct guess, valid guess)
+    """
     puzzle = Puzzle.objects.filter(date=datetime.strptime(date, '%Y-%m-%d').date())[0]
     target_book = puzzle.isbn
     

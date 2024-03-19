@@ -17,6 +17,7 @@ $(document).ready(function() {
 
     $("#guessCount").text(maxGuesses + " guesses left");
 
+    // Show book suggestions as the user types a guess
     $("#guessInput").keyup(function() {
         var guess = $(this).val();
         $.get('/bookle/suggestions', {'guess': guess}, function(data) {
@@ -28,8 +29,11 @@ $(document).ready(function() {
         alert($(this).text());
     }); */
 
+    
     $("#submitButton").click(function() {
         var guess = $("#guessInput").val();
+
+        // Check and validate user guess input
         $.get('/bookle/check-guess', {'guess': guess, 'date':date}, function(data) {
             console.log(data);
             const jsonData = JSON.parse(data);
@@ -39,8 +43,8 @@ $(document).ready(function() {
                 count++;
                 $("#guessCount").text((maxGuesses-count) + " guesses left");
 
+                // Finish puzzle if correct guess, else display guess information
                 if (jsonData["correct_guess"]) {
-                    console.log("HI");
                     finished(true, count);
                 } else {
                     $.get('/bookle/display-guess', {'guess':guess, 'date':date}, function(data) {
@@ -51,6 +55,7 @@ $(document).ready(function() {
                 $("#validGuess").text("Invalid guess, try again");
             }
 
+            // Finish puzzle if out of guesses 
             if (count >= maxGuesses) {
                 finished(false, count);
             }
