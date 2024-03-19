@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.urls import reverse
@@ -8,12 +8,18 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 from bookle.forms import RegisterForm, ProfileEditForm
+from bookle.models import Score, Book, Puzzle
+from django.views.generic import View
+from bookle.helpers import get_book_names, get_guess_data, check_guess
+from datetime import date
+import json
+
 
 def home(request):
     context_dict = {}
     return render(request, 'bookle/home.html', context = context_dict)
 
-def aboutus(request):
+def about_us(request):
     context_dict = {}
     return render(request, 'bookle/about_us.html', context = context_dict)
 
@@ -24,6 +30,9 @@ def leaderboard(request):
     # context = {'leaderboard_users': leaderboard_data}
     # return render(request, 'bookle/leaderboard.html', context)
     return render(request, 'bookle/leaderboard.html')
+
+def leaderboard(request):
+    return render(request, 'bookle/login.html')
 
 def login(request):
     context_dict = {}
@@ -95,13 +104,71 @@ def edit_account(request):
     context_dict = {}
     return render(request, 'bookle/edit_account.html', context=context_dict)
 
-def complete(request):
-    context_dict = {}
-    return render(request, 'bookle/complete.html', context=context_dict)
-
 def discussion(request):
     context_dict = {}
     return render(request, 'bookle/discussion.html', context=context_dict)
 
+def daily_puzzle(request):
+    if not Puzzle.objects.filter(date=date.today()):
+        puzzleCount = len(Puzzle.objects.all())
+        Puzzle.objects.create(puzzleID=puzzleCount+1, date=date.today(), isbn=Book.objects.all()[puzzleCount])
 
+    context_dict = {}
+    #context_dict['books'] = Book.objects.all().order_by('title')
+    context_dict['puzzleDate'] = str(date.today())
+    return render(request, 'bookle/daily_puzzle.html', context=context_dict)
 
+class Complete(View):
+    def get(self, request):
+        context_dict = {}
+        return render(request, 'bookle/complete.html', context=context_dict)
+
+class BookSuggestions(View):
+    def get(self, request):
+        if 'guess' in request.GET:
+            guess = request.GET['guess']
+        else:
+            guess = ''
+        
+        books = get_book_names(max_results=5, starts_with=guess)
+              
+        return render(request, 'bookle/suggestions.html', {'books': books})
+
+class DisplayGuess(View):
+    def get(self, request):
+        guess = request.GET.get('guess','')
+        date = request.GET.get('date', '0000-0-0')
+
+        context_dict = get_guess_data(guess, date)        
+
+        return render(request, 'bookle/guess.html', context_dict)
+        
+class CheckGuess(View):
+    def get(self, request):
+        context_dict = {}
+        
+        guess = request.GET.get('guess','')
+        date = request.GET.get('date', '0000-0-0')
+
+        correct_guess, valid_guess = check_guess(guess, date)
+        
+        #context_dict['correct_guess'] = json.dumps(correct_guess)
+        #context_dict['valid_guess'] = json.dumps(valid_guess)
+        #context_dict['feedback'] = json.dumps(feedback)
+        
+        context_dict['correct_guess'] = (correct_guess)
+        context_dict['valid_guess'] = (valid_guess)
+
+        # need to notify whether or not successful
+        return HttpResponse(json.dumps(context_dict))
+        
+class SaveScore(View):
+    def post(self, request):
+        if 'count' in request.PUT:
+            count = request.PUT['count']
+            #s = Score.objects.get_or_create(user=request.user,)
+
+            # save score using user and puzzle
+            # save no. of guesses
+        else:
+            count = 0

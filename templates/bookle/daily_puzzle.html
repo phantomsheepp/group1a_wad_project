@@ -1,32 +1,30 @@
 {% extends 'bookle/base.html' %}
 {% load staticfiles %}
 
+{% block assets_block %}
+    <script src="{% static 'scripts/puzzle.js' %}" 
+            defer
+            data-puzzle-date="{{ puzzleDate }}"></script>
+{% endblock %}
+
+
 {% block title_block %}
     Daily Puzzle
 {% endblock %}
 
 
 {% block body_block %}
-    <div class ="user-guesses-submit">
-        <form action = "" method = "get">
-            <label for="user-guess">Your Guess: </label>
-            <input id="user-guess" type="text" name="user-guess">
-            <input id="submit-button" type="submit" value="SUBMIT">
-            &emsp; &emsp; 
-            <label>(8 guesses left)</label>
-        </form>
+    <div class ="guesses">
+        <p id="validGuess"></p>
+        
+        <label for="guessInput">Your Guess: </label>
+        <input id="guessInput" type="text" placeholder="Enter book here...">
+        <button id="submitButton">Guess</button>
+        &emsp; &emsp; 
+        <label id="guessCount"></label>
     </div>
 
-    <div class="user-guess-results">
-        <div class="user-guess-left-child">
-            <img id = "temp-cover" src ="{% static 'images/question.png' %}"/>
-        </div>
-        
-        <div class="user-guess-right-child">
-            <strong id ="guess-title">Title:</strong> <br>
-            <strong id ="guess-release-year">Release year:</strong> <br>
-            <strong id="guess-author">Author:</strong> <br>
-            <strong id="guess-title-words">Number of words in title:</strong> <br>
-        </div>
-    </div>
+    <div id="options"></div>
+
+    <div id="guessResults"></div>
 {% endblock %}
