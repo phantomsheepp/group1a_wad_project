@@ -7,7 +7,7 @@
 
 
 {% block body_block %}
-    <div class="container">
+    <div class="container-fluid">
 
         <div class="login-child">
             <h2 id="Login-green-headings">Welcome Back!</h2>
@@ -16,13 +16,15 @@
                 <p style="color: red;">{{ error_message }}</p>
             {% endif %}
 
-            <form id="login_form" method="post" action="{% url 'bookle:login' %}">
+            <form class="form-signin" role="form" id="login_form" method="post" action=".">
                 {% csrf_token %}
-                Username: <input type="text" name="username" value="" size="50" />
+                <label for="inputUsername" id="input-label"> Username:</label>
+                <input type="text" name="username" id="id_username" class="form-control" value="" size="50" placeholder="Enter username here..." />
                 <br />
-                Password: <input type="password" name="password" value="" size="50" />
+                <label for="inputPassword" id="input-labels">Password:</label> 
+                <input type="password" name="password" id="id_password" class="form-control" value="" size="50" placeholder="Enter password here..."/>
                 <br />
-                <input type="submit" value="Submit" />
+                <button type="submit" class="btn btn-success">Submit</button>
             </form>
         </div> 
 
@@ -33,5 +35,5 @@
         </div>
     </div> 
 
-{% endblock %}
+{% endblock %} 
 
