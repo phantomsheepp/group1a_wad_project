@@ -233,6 +233,7 @@ h1{
 }
 
 #guessInput{
+    display:block;
     position: relative;
     top: -5px;
     height: 30px;
