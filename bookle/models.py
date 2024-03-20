@@ -56,7 +56,7 @@ class Score(models.Model):
     scoreID = models.IntegerField(unique=True, primary_key=True)
 
     userID = models.ForeignKey(User, on_delete=models.CASCADE)
-    guesses = models.IntegerField(default = 8)
+    guesses = models.IntegerField(null=True)
     difficulty = models.IntegerField(null=True)
     popularity = models.IntegerField(null=True)
     puzzleID = models.ForeignKey(Puzzle, on_delete=models.CASCADE)
