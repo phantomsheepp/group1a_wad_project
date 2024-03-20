@@ -15,9 +15,12 @@ function getCookie(name) {
 }
 const csrftoken = getCookie('csrftoken');
 
-var maxGuesses = 3;
+const maxGuesses = 3;
 let count = 0;
 var data = document.currentScript.dataset;
+var today = (new Date().toJSON().slice(0,10))
+
+
 
 function finished(success, count, date) {
     var user = data.user;
@@ -31,13 +34,18 @@ function finished(success, count, date) {
         success: function(data) {}
     });
 
-    //$.get('/bookle/puzzle/.../complete');
+    if (today == date) {
+        $.get('/bookle/puzzle/daily/complete');
+    } else {
+        $.get('/bookle/puzzle/${date}/complete');
+    }
+    
 }
 
 
 $(document).ready(function() {
-    
-    date = data.puzzleDate;
+
+    var date = data.puzzleDate;
 
     $("#guessCount").text(maxGuesses + " guesses left");
 
