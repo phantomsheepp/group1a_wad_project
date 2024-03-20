@@ -8,8 +8,21 @@
 
 {% block body_block %}
 <div class="container-fluid">
-    <div id="completeGuesses">
+    <h2 id="complete-title" >Congratulations! Today's Bookle was...</h2>
+    <div id="complete-guesses">
         <p id="finalGuessCount"></p>
+        <strong>Title:</strong> <label id="title"></label> <br>
+        <strong>Author:</strong> <label class="{{ author_class }}" id="author"></label><br>
+        <strong>Release Year:</strong> <label class="{{ release_year_class }}" id="releaseYear"></label><br>
+        <strong>Number of words in title:</strong> <label class="{{ no_of_words_class }}" id="noOfWords"></label><br>
+    </div>
+    <div class="discussion-link">
+        <h2>..Join the discussion with fellow players</h2>
+       <a href="{% url 'bookle:discussion' %}"><strong><h2> here!</h2></strong></a>
+    </div>
+    <div class="past-puzzles-link">
+        <h2>...Play past puzzles</h2>
+        <a href="{% url 'bookle:past_puzzles' %}"><strong><h2> here!</h2></strong></a>
     </div>
 </div>
 {% endblock %}

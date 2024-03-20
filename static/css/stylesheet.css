@@ -52,7 +52,7 @@ body{
 .instructions{
     position: relative;
     margin-top: 40px;
-    height: 100%;
+    height: auto;
     text-align: center;
     background-color: #fbd779;
     width: 100%
@@ -94,8 +94,8 @@ h1{
 #leaderboardBackground{
     position: relative;
     top: 9em;
-    left: 11em;
-    height: 35em;
+    height: auto;
+    margin:auto;
     text-align: left;
     background-color: #fbd779;
     width: 75%;
@@ -226,10 +226,11 @@ h1{
 
 #text-surrounding-guess{
     font-family:'Times New Roman', Times, serif;
-    font-size: 16pt;
+    font-size: 18pt;
 }
 
 .guesses{
+    margin:auto;
     position:sticky;
     height: 100px;
     width: 100%;
@@ -239,7 +240,7 @@ h1{
 }
 
 #guessInput{
-    display:inline-block;
+    display:inline;
     visibility: visible;
     position: relative;
     font-size: 12pt;
@@ -263,6 +264,7 @@ h1{
 }
 
 #guessResults{
+    font-family:'Times New Roman', Times, serif;
     position: relative;
     top: 2.5em;
     align-content: center;
@@ -280,6 +282,7 @@ h1{
 }
 
 .guessResultsCategories{
+    font-family:'Times New Roman', Times, serif;
     padding-top: 40px;
     width: 48%;
     float: right;
@@ -290,7 +293,7 @@ h1{
 
 #guess-count{
     font-family:'Times New Roman', Times, serif;
-    font-size: 16pt;
+    font-size: 18pt;
 }
 
 #options{
@@ -313,11 +316,49 @@ h1{
     background-color: orange;
 }
 
-
-
-/* --------------------------profile.html-----------------------------------*/
+/* -------------------------- profile.html -----------------------------------*/
 
 #pfp{
     height: 200px;
     width: 200px;
+}
+
+/* -------------------------- complete.html -----------------------------------*/
+
+#complete-guesses{
+    top: 2em;
+    position:relative;
+    margin: auto;
+    background-color: green;
+    width: 75%;
+    height: auto;
+    color: white;
+    line-height: 80px;
+    font-family:'Times New Roman', Times, serif;
+    font-size: 18pt;
+    overflow:hidden;
+}
+
+.discussion-link, .past-puzzles-link{
+    top:3em;
+    position: relative;
+    display:block;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: right;
+    width: 100%;
+    font-size: 18pt;
+    line-height:60px;
+    font-weight: bold;
+}
+
+.discussion-link a, .discussion-link h2{
+    display:inline;
+}
+
+.past-puzzles-link a, .past-puzzles-link h2{
+    display:inline;
+}
+
+#complete-title{
+    font-family: 'Times New Roman', Times, serif;
 }
