@@ -20,8 +20,8 @@
     <body>
         <div id="menuBar">
             
-            <img id="logo" src="{% static 'images/logo.png' %}" 
-            alt="bookle logo" /> 
+            <a href="{% url 'bookle:daily_puzzle' %}"><img id="logo" src="{% static 'images/logo.png' %}" 
+            alt="bookle logo"/></a>
 
             <a href="{% url 'bookle:home' %}"><img class="topIcons" src="{% static 'images/home.png' %}" 
             alt="link to home"/></a>
