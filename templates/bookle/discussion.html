@@ -14,7 +14,6 @@
         <div class="card-body">
             <h5 class="card-title">{{ comment.userID.username }}</h5>
             <p class="card-text">{{ comment.comment }}</p>
-            <p>Rating: {{ comment.rating }} Stars</p>
         </div>
     </div>
     {% empty %}
@@ -24,8 +23,19 @@
     <h4>New Comment</h4>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ comment_form.as_p }}
+        <input type="hidden" name="puzzle_id" value="{{ puzzle.id }}">
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+    {% if not has_rated %}
+    <hr>
+    <h4>Rate this Puzzle</h4>
+    <form method="post">
+        {% csrf_token %}
+        {{ rating_form.as_p }}
+        <input type="hidden" name="puzzle_id" value="{{ puzzle.id }}">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    {% endif %}
 </div>
 {% endblock %}

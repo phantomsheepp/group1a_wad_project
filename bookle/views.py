@@ -7,8 +7,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from bookle.models import Comment
-from bookle.forms import CommentForm
-from bookle.models import Puzzle
+from bookle.forms import CommentForm, ScoreForm
+from bookle.models import Puzzle, Score
 from bookle.forms import RegisterForm, ProfileEditForm
 from django.http import JsonResponse
 
@@ -105,25 +105,39 @@ def complete(request):
 @login_required
 def discussion(request, puzzle_id=None):
     if puzzle_id is None:
-        puzzle_id = 1 # Replace with your default puzzle ID
+        puzzle_id = 1
 
     puzzle = get_object_or_404(Puzzle, pk=puzzle_id)
-    comments = Comment.objects.filter(puzzleID=puzzle).order_by('-commentID')
+    has_rated = Score.objects.filter(userID=request.user, puzzleID=puzzle).exists()
+
+    comment_form = CommentForm(user=request.user)
+    rating_form = ScoreForm(user=request.user, puzzle=puzzle)
 
     if request.method == 'POST':
-        form = CommentForm(request.POST, user=request.user)
-        if form.is_valid():
-            new_comment = form.save(commit=False)
-            new_comment.puzzleID = puzzle
-            new_comment.rating = request.POST.get('rating')  # Get the rating from the form data
-            new_comment.save()
+        if 'submit_comment' in request.POST:
+            comment_form = CommentForm(request.POST, user=request.user)
+            if comment_form.is_valid():
+                comment = comment_form.save(commit=False)
+                comment.puzzleID = puzzle
+                comment.save()
+            rating_form = ScoreForm(user=request.user, puzzle=puzzle)
+        elif 'submit_rating' in request.POST:
+            rating_form = ScoreForm(request.POST, user=request.user, puzzle=puzzle)
+            if rating_form.is_valid() and not has_rated:
+                rating_form.save()
+            comment_form = CommentForm(user=request.user)
     else:
-        form = CommentForm(user=request.user)
+        comment_form = CommentForm(user=request.user, puzzle=puzzle)
+        rating_form = ScoreForm(user=request.user, puzzle=puzzle)
+
+    comments = Comment.objects.filter(puzzleID=puzzle).order_by('-commentID')
 
     context = {
         'puzzle': puzzle,
         'comments': comments,
-        'form': form,
+        'comment_form': comment_form,
+        'rating_form': rating_form,
+        'has_rated': has_rated,
     }
 
     return render(request, 'bookle/discussion.html', context)

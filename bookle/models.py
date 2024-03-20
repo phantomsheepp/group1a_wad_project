@@ -53,26 +53,27 @@ def save_user_profile(sender, instance, **kwargs):
         
 
 class Score(models.Model):
-    scoreID = models.IntegerField(unique=True, primary_key=True)
+    RATING_CHOICES = [(i, i) for i in range(1, 6)]
 
+    scoreID = models.IntegerField(unique=True, primary_key=True)
     userID = models.ForeignKey(User, on_delete=models.CASCADE)
     guesses = models.IntegerField(default = 8)
-    difficulty = models.IntegerField(null=True)
-    popularity = models.IntegerField(null=True)
+    difficulty = models.IntegerField(choices=RATING_CHOICES, null=True)
+    popularity = models.IntegerField(choices=RATING_CHOICES, null=True)
     puzzleID = models.ForeignKey(Puzzle, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('userID', 'puzzleID')
 
     def __str__(self):
         return str(self.guesses)
     
 
 class Comment(models.Model):
-    RATING_CHOICES = [(i, i) for i in range(1, 6)]
-
     commentID = models.IntegerField(unique=True, primary_key=True)
     puzzleID = models.ForeignKey(Puzzle, on_delete=models.CASCADE)
     comment = models.CharField(max_length=300)
     userID = models.ForeignKey(User, on_delete=models.CASCADE)
-    rating = models.IntegerField(choices=RATING_CHOICES, default=1)
 
     def __str__(self):
         return self.comment
