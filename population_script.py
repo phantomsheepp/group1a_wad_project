@@ -7,7 +7,8 @@ import django
 import datetime
 import random
 django.setup()
-from bookle.models import Book, Puzzle, UserProfile, Score, Comment, User
+from django.contrib.auth.models import User
+from bookle.models import Book, Puzzle, UserProfile, Score, Comment
 
 
 def fetch_books(keyword, max_results=20):
@@ -29,26 +30,26 @@ def fetch_books(keyword, max_results=20):
         title = volume_info.get('title', 'No Title')
         author = authors[0] if authors else 'Unknown Author'
         genre = categories[0] if categories else 'Unknown Genre'
-        release_year = publishedDate.split('-')[0]
+        release_year = int(publishedDate.split('-')[0])
         country = sales_info.get('country', 'Unknown Country')
         description = volume_info.get('description', 'No Description')
-        image_url = volume_info.get('imageLinks', {}).get('thumbnail')
+        cover = volume_info.get('imageLinks', {}).get('thumbnail')
         
         # Genre is a bit weird - might need removing
         # print(genre)
 
         if isbn != None:
-            add_book(isbn, title, author, genre, release_year, country, description)
+            add_book(isbn, title, author, genre, release_year, country, description, cover)
 
 def populate():
-    get_books_from_isbns(11)  
+    get_books_from_isbns(15)  
     
-    users = [{'username':"BookLuvr3"},
-             {'username':"bookle__xXx"},
-             {'username':"lotr_is_my_fave"}]
+    users = [{'username':"BookLuvr3", 'password':'secretBooks'},
+             {'username':"bookle__xXx", 'password':'password1'},
+             {'username':"lotr_is_my_fave", 'password':'123456'}]
     
     for u in users:
-        add_user(u['username'])
+        add_user(u['username'], u['password'])
 
     puzzles = []
     for i in range(10):
@@ -84,13 +85,14 @@ def add_puzzle(puzzleID, date, isbn, difficulty=0, popularity=0):
     p.save()
     return p
 
-def add_book(isbn, title, author,genre, release_year, country, description):
+def add_book(isbn, title, author,genre, release_year, country, description, cover=''):
     b = Book.objects.get_or_create(isbn=isbn, title=title)[0]
     b.author=author
     b.genre=genre
     b.release_year=release_year
     b.country=country
     b.description=description
+    b.cover=cover
     b.save()
     return b
 
@@ -100,10 +102,12 @@ def add_comment(commentID, puzzleID, userID, comment=""):
     c.save()
     return c
 
-def add_user(username):
-    u = User.objects.get_or_create(username=username)[0]
-    u.save()
-    return u
+def add_user(username, password):
+    if not User.objects.filter(username=username):
+        u = User.objects.create_user(username=username)
+        u.set_password(password)
+        u.save()
+        return u
 
 def add_score(scoreID, userID, puzzleID, guesses, difficulty=0, popularity=0):
     s = Score.objects.get_or_create(scoreID=scoreID, puzzleID=puzzleID, userID=userID)[0]
@@ -114,7 +118,6 @@ def add_score(scoreID, userID, puzzleID, guesses, difficulty=0, popularity=0):
     return s
 
 def get_books_from_isbns(max=300):
-    """ """
     count = 0
 
     with open("isbns.txt","r") as file:
@@ -127,5 +130,5 @@ def get_books_from_isbns(max=300):
 
 
 if __name__ == '__main__':
-    print('Starting Rango population script...')  
+    print('Starting Bookle population script...')  
     populate()

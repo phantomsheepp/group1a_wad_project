@@ -1,0 +1,7 @@
+<ul>
+    {% if books %}
+        {% for b in books %}
+            <li>{{ b.title }}</li>
+        {% endfor %}
+    {% endif %}
+</ul>
