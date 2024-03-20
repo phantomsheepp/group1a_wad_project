@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 {% load staticfiles %}
 
-<html>
+<html lang="en">
     <head>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         {% block assets_block %}
         {% endblock %}
-        
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="{% static '/css/stylesheet.css' %}" />
         <title>
         Bookle - 
@@ -18,7 +20,6 @@
 
     <body>
         <div id="menuBar">
-            
             <img id="logo" src="{% static 'images/logo.png' %}" 
             alt="bookle logo" /> 
 

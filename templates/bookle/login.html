@@ -7,7 +7,7 @@
 
 
 {% block body_block %}
-    <div class="float-container">
+    <div class="container">
 
         <div class="login-child">
             <h2 id="Login-green-headings">Welcome Back!</h2>
@@ -27,13 +27,12 @@
         </div>
         
 
-        
         <div class="signup-child">
             <h2 id="Signup-green-headings">New Here?</h2>
-            <a id="signup-link" href="/bookle/sign-up/">Sign up</a>
+            <a id="signup-link" href="{% url 'bookle:sign_up' %}">Sign up</a>
             <p id="signup-text">to enter the leaderboard, discuss the daily puzzle with fellow players and more!</p>
         </div>
-    </div>
+    </div> 
 
 {% endblock %}
 

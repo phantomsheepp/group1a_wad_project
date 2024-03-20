@@ -42,6 +42,7 @@ body{
 /* ------------------------------home.html------------------------------------------ */
 #instructionsText{
     position: relative;
+    font-family: 'Times New Roman', Times, serif;
     top: -10px;
     margin: 100px;
     font-size: 24px;
@@ -50,8 +51,8 @@ body{
 
 .instructions{
     position: relative;
-    margin-top: 80px;
-    height: 600px;
+    margin-top: 40px;
+    height: 100%;
     text-align: center;
     background-color: #fbd779;
     width: 100%
@@ -62,6 +63,7 @@ h1{
     top: 20px;
     margin: 30px;
     font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
     text-align: center;
     font-size: 36pt
 }
@@ -81,6 +83,8 @@ h1{
 }
 
 #linkText{
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
     position: relative;
     top: -20px;
     display:inline;
@@ -123,39 +127,44 @@ h1{
 /* ---------------------------------about_us.html------------------------------------ */
 .about-us-main{
     position: relative;
-    top: 9em;
-    left: 11em;
-    height: 350px;
-    text-align: left;
+    margin:auto;
+    top: 4em;
+    height: 60%;
     background-color: #fbd779;
     width: 75%;
 }
 
 #black-headings{
+    font-family:'Times New Roman', Times, serif;
     position:relative;
-    top: 0em;
     font-size: 30pt;
     text-align: center;
 }
 
-#group-1a{
-    line-height: 50px;
-    font-size: 26px;
+.group-1a{
+    font-family:'Times New Roman', Times, serif;
+    line-height: 40px;
+    font-size: 22px;
+    text-align:center;
+}
+
+.jobs{
+    font-family:'Times New Roman', Times, serif;
+    font-size: 16px;
     text-align:center;
 }
 
 /* -------------------------------------login.html----------------------------------- */
-.float-container{
-    position: relative;
-    top: 1em;
-    height:300px;
+
+.container{
+    height: 100%;
 }
 
 .login-child{
     width: 60%;
     float: left;
     padding: 20px;
-    height: 500px;
+    height: 100%;
 }
 
 .signup-child{
@@ -163,15 +172,16 @@ h1{
     float: right;
     padding: 20px;
     border-left: 5px solid black;
-    height: 500px;
+    height: 100%;
 }
 
 #Signup-green-headings{
     position: relative;
     top: 80px;
     margin: 20px;
+    font-weight:bold;
     font-family: 'Times New Roman', Times, serif;
-    float: left;
+    text-align:center;
     color: green;
     font-size: 36pt
 }
