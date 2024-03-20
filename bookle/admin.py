@@ -11,7 +11,7 @@ class PuzzleAdmin(admin.ModelAdmin):
     list_display = ('puzzleID', 'date', 'difficulty', 'popularity')
 
 class ScoreAdmin(admin.ModelAdmin):
-    list_display = ('scoreID', 'userID', 'guesses', 'puzzleID')
+    list_display = ('userID', 'guesses', 'puzzleID')
 
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('commentID', 'userID', 'puzzleID', 'comment')

@@ -12,7 +12,7 @@ from bookle.forms import RegisterForm, ProfileEditForm
 from bookle.models import Score, Book, Puzzle, UserProfile
 from django.views.generic import View
 from bookle.helpers import get_book_names, get_guess_data, check_guess
-from datetime import date
+from datetime import date, datetime
 import json
 
 
@@ -150,16 +150,26 @@ class CheckGuess(View):
         context_dict['correct_guess'] = (correct_guess)
         context_dict['valid_guess'] = (valid_guess)
 
-        # need to notify whether or not successful
         return HttpResponse(json.dumps(context_dict))
-        
+      
 class SaveScore(View):
     def post(self, request):
-        if 'count' in request.PUT:
-            count = request.PUT['count']
-            #s = Score.objects.get_or_create(user=request.user,)
+        data = json.loads(request.body)
+        guesses = data.get('count','')
+        success = data.get('success', False)
 
-            # save score using user and puzzle
-            # save no. of guesses
-        else:
-            count = 0
+        if User.objects.filter(username=data['user']):
+            user = User.objects.get(username=data['user'])
+        
+            if ('date' in data.keys()) and user.is_authenticated:
+                date = datetime.strptime(data['date'], '%Y-%m-%d').date()
+                puzzle = Puzzle.objects.get(date=date)
+
+                s = Score.objects.get_or_create(userID=user, puzzleID=puzzle)[0]
+                s.success = success
+
+                if success:
+                    s.guesses = guesses
+                s.save()
+
+        return redirect('bookle:complete')
