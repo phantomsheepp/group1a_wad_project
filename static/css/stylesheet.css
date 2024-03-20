@@ -42,6 +42,7 @@ body{
 /* ------------------------------home.html------------------------------------------ */
 #instructionsText{
     position: relative;
+    font-family: 'Times New Roman', Times, serif;
     top: -10px;
     margin: 100px;
     font-size: 24px;
@@ -50,8 +51,8 @@ body{
 
 .instructions{
     position: relative;
-    margin-top: 80px;
-    height: 600px;
+    margin-top: 40px;
+    height: auto;
     text-align: center;
     background-color: #fbd779;
     width: 100%
@@ -62,6 +63,7 @@ h1{
     top: 20px;
     margin: 30px;
     font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
     text-align: center;
     font-size: 36pt
 }
@@ -81,6 +83,8 @@ h1{
 }
 
 #linkText{
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
     position: relative;
     top: -20px;
     display:inline;
@@ -90,8 +94,8 @@ h1{
 #leaderboardBackground{
     position: relative;
     top: 9em;
-    left: 11em;
-    height: 35em;
+    height: auto;
+    margin:auto;
     text-align: left;
     background-color: #fbd779;
     width: 75%;
@@ -122,34 +126,39 @@ h1{
 
 
 /* ---------------------------------about_us.html------------------------------------ */
-.aboutUsMain{
+.about-us-main{
     position: relative;
-    top: 9em;
-    left: 11em;
-    height: 350px;
-    text-align: left;
+    margin:auto;
+    top: 4em;
+    height: 60%;
     background-color: #fbd779;
     width: 75%;
 }
 
-#blackHeadings{
+#black-headings{
+    font-family:'Times New Roman', Times, serif;
     position:relative;
-    top: -2em;
     font-size: 30pt;
     text-align: center;
 }
 
-#group1a{
-    line-height: 50px;
-    font-size: 26px;
+.group-1a{
+    font-family:'Times New Roman', Times, serif;
+    line-height: 40px;
+    font-size: 22px;
+    text-align:center;
+}
+
+.jobs{
+    font-family:'Times New Roman', Times, serif;
+    font-size: 16px;
     text-align:center;
 }
 
 /* -------------------------------------login.html----------------------------------- */
-.float-container{
-    position: relative;
-    top: 1em;
-    height:1000px;
+
+.container{
+    height: 100%;
 }
 
 .login-child{
@@ -171,8 +180,9 @@ h1{
     position: relative;
     top: 80px;
     margin: 20px;
+    font-weight:bold;
     font-family: 'Times New Roman', Times, serif;
-    float: left;
+    text-align:center;
     color: green;
     font-size: 36pt
 }
@@ -214,7 +224,13 @@ h1{
 
 /* --------------------------daily_puzzle.html-----------------------------------*/
 
+#text-surrounding-guess{
+    font-family:'Times New Roman', Times, serif;
+    font-size: 18pt;
+}
+
 .guesses{
+    margin:auto;
     position:sticky;
     height: 100px;
     width: 100%;
@@ -224,16 +240,18 @@ h1{
 }
 
 #guessInput{
+    display:inline;
+    visibility: visible;
     position: relative;
-    top: -5px;
+    font-size: 12pt;
     height: 30px;
     width: 300px;
 }
 
 #submitButton{
     position: relative;
-    top: -5px;
-    height: 35px;
+    top:-2px;
+    height: 32px;
     width: 80px;
     font-family: 'Times New Roman', Times, serif;
     font-size: 12pt;
@@ -246,6 +264,7 @@ h1{
 }
 
 #guessResults{
+    font-family:'Times New Roman', Times, serif;
     position: relative;
     top: 2.5em;
     align-content: center;
@@ -263,12 +282,18 @@ h1{
 }
 
 .guessResultsCategories{
+    font-family:'Times New Roman', Times, serif;
     padding-top: 40px;
     width: 48%;
     float: right;
     padding: 20px;
     height: 300px;
     line-height: 60px;
+}
+
+#guess-count{
+    font-family:'Times New Roman', Times, serif;
+    font-size: 18pt;
 }
 
 #options{
@@ -291,9 +316,49 @@ h1{
     background-color: orange;
 }
 
-/* --------------------------profile.html-----------------------------------*/
+/* -------------------------- profile.html -----------------------------------*/
 
 #pfp{
     height: 200px;
     width: 200px;
+}
+
+/* -------------------------- complete.html -----------------------------------*/
+
+#complete-guesses{
+    top: 2em;
+    position:relative;
+    margin: auto;
+    background-color: green;
+    width: 75%;
+    height: auto;
+    color: white;
+    line-height: 80px;
+    font-family:'Times New Roman', Times, serif;
+    font-size: 18pt;
+    overflow:hidden;
+}
+
+.discussion-link, .past-puzzles-link{
+    top:3em;
+    position: relative;
+    display:block;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: right;
+    width: 100%;
+    font-size: 18pt;
+    line-height:60px;
+    font-weight: bold;
+}
+
+.discussion-link a, .discussion-link h2{
+    display:inline;
+}
+
+.past-puzzles-link a, .past-puzzles-link h2{
+    display:inline;
+}
+
+#complete-title{
+    font-family: 'Times New Roman', Times, serif;
 }
