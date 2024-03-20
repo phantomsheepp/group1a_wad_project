@@ -7,19 +7,17 @@
 
 
 {% block body_block %}
-    <h2 id="leaderboard-instructions">See how fellow players have scored today...</h2>
-    <h1 id="green-headings">Leaderboard</h1>
-    <div id="leaderboard-background">
+    <h2 id="leaderboardInstructions">See how fellow players have scored today...</h2>
+    <h1 id="greenHeadings">Leaderboard</h1>
+    <div id="leaderboardBackground">
         <br>
-        <strong class="leaderboard-places">Username:</strong>   &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; <strong class="leaderboard-places">Guesses Used:</strong>
+        <strong class="leaderboardHeaders">Username:</strong>   &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; <strong class="leaderboard-places">Guesses Used:</strong>
         <br>
-        <!--
-        <ol>
-            {% for user in leaderboard_users %}
-            <li>{{leaderboard_users.userID}}</li>
+        <ol class="leaderboardPlaces">
+            {% for user in leaderboard_guesses %}
+            <li>{{user.userID}} &emsp; &emsp; &emsp; {{user.guesses}}</li>
             {% endfor %}
         </ol>
-        -->
 
     </div>
 {% endblock%}
