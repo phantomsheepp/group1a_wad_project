@@ -91,7 +91,7 @@ h1{
 }
 
 /* -----------------------------leaderboard.html------------------------------------ */
-#leaderboard-background{
+#leaderboardBackground{
     position: relative;
     top: 9em;
     left: 11em;
@@ -101,7 +101,7 @@ h1{
     width: 75%;
 }
 
-#green-headings{
+#greenHeadings{
     position: relative;
     top: 0.5em;
     margin: 20px;
@@ -111,18 +111,19 @@ h1{
     font-size: 36pt
 }
 
-#leaderboard-instructions{
+#leaderboardInstructions{
     position:relative;
     top: 0.5em;
     font-size: 30pt;
     text-align: center;
 }
 
-.leaderboard-places{
+.leaderboardHeaders{
     padding-left: 50px;
-    font-size: 16pt;
+    font-size: 20pt;
     display:inline-block;
 }
+
 
 /* ---------------------------------about_us.html------------------------------------ */
 .about-us-main{
@@ -223,6 +224,11 @@ h1{
 
 /* --------------------------daily_puzzle.html-----------------------------------*/
 
+#text-surrounding-guess{
+    font-family:'Times New Roman', Times, serif;
+    font-size: 16pt;
+}
+
 .guesses{
     position:sticky;
     height: 100px;
@@ -233,17 +239,18 @@ h1{
 }
 
 #guessInput{
-    display:block;
+    display:inline-block;
+    visibility: visible;
     position: relative;
-    top: -5px;
+    font-size: 12pt;
     height: 30px;
     width: 300px;
 }
 
 #submitButton{
     position: relative;
-    top: -5px;
-    height: 35px;
+    top:-2px;
+    height: 32px;
     width: 80px;
     font-family: 'Times New Roman', Times, serif;
     font-size: 12pt;
@@ -281,6 +288,11 @@ h1{
     line-height: 60px;
 }
 
+#guess-count{
+    font-family:'Times New Roman', Times, serif;
+    font-size: 16pt;
+}
+
 #options{
     position:absolute;
 }
@@ -299,4 +311,13 @@ h1{
     padding-bottom: 5px;
     padding-right: 5px;
     background-color: orange;
+}
+
+
+
+/* --------------------------profile.html-----------------------------------*/
+
+#pfp{
+    height: 200px;
+    width: 200px;
 }

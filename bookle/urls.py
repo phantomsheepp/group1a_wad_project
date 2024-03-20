@@ -9,18 +9,16 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('about-us/', views.about_us, name='about_us'),
     path('leaderboard/', views.leaderboard, name='leaderboard'),
-    path('home/past-puzzles/', views.past_puzzles, name='past_puzzles'),
+    path('past-puzzles/', views.past_puzzles, name='past_puzzles'),
 
     # Login and Sign Up
     path('login/', views.login, name='login'),
     path('log-out/', views.log_out, name='log_out'),
     path('sign-up/', views.sign_up, name='sign_up'),
 
-    # Profile pages - needs condensing
-    path('profile/', views.profile, name='profile'),
-    path('profile/<str:username>/', views.profile, name='profile'),
-    path('login/view-account/', views.view_account, name='view_account'),
-    path('login/view-account/edit-account/', views.edit_account, name='edit_account'),
+    # Profile pages
+    path('user/<str:username>/', views.profile, name='profile'),
+    path('user/<str:username>/edit/', views.edit_account, name='edit_account'),
     
     # Puzzle pages
     path('puzzle/daily/', views.daily_puzzle, name='daily_puzzle'),
