@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 from bookle.forms import RegisterForm, ProfileEditForm
-from bookle.models import Score, Book, Puzzle
+from bookle.models import Score, Book, Puzzle, UserProfile
 from django.views.generic import View
 from bookle.helpers import get_book_names, get_guess_data, check_guess
 from datetime import date
@@ -30,9 +30,6 @@ def leaderboard(request):
     # context = {'leaderboard_users': leaderboard_data}
     # return render(request, 'bookle/leaderboard.html', context)
     return render(request, 'bookle/leaderboard.html')
-
-def leaderboard(request):
-    return render(request, 'bookle/login.html')
 
 def login(request):
     context_dict = {}
@@ -75,6 +72,21 @@ def sign_up(request):
 
 @login_required
 def profile(request, username=None):
+    user = get_object_or_404(User, username=username)
+    user_profile = UserProfile.objects.filter(user=user)[0]
+    context_dict = {'user':user, 'userProfile':user_profile}
+    return render(request, 'bookle/profile.html', context=context_dict)
+
+def daily_puzzle(request):
+    context_dict = {}
+    return render(request, 'bookle/daily_puzzle.html', context=context_dict)
+
+def past_puzzles(request):
+    context_dict = {}
+    return render(request, 'bookle/past_puzzles.html', context=context_dict)
+
+@login_required
+def edit_account(request, username=None):
     if username is None:
         username = request.user.username
     user = get_object_or_404(User, username=username)
@@ -86,23 +98,7 @@ def profile(request, username=None):
             return redirect('bookle:profile', username=user.username)
     else:  # This is the GET request handler
         form = ProfileEditForm(instance=user.userprofile)
-    return render(request, 'bookle/profile.html', {'form': form, 'user': user})
-
-def daily_puzzle(request):
-    context_dict = {}
-    return render(request, 'bookle/daily_puzzle.html', context=context_dict)
-
-def past_puzzles(request):
-    context_dict = {}
-    return render(request, 'bookle/past_puzzles.html', context=context_dict)
-
-def view_account(request):
-    context_dict = {}
-    return render(request, 'bookle/view_account.html', context=context_dict)
-
-def edit_account(request):
-    context_dict = {}
-    return render(request, 'bookle/edit_account.html', context=context_dict)
+    return render(request, 'bookle/edit_account.html', {'form': form, 'user': user})
 
 def discussion(request):
     context_dict = {}
@@ -114,7 +110,6 @@ def daily_puzzle(request):
         Puzzle.objects.create(puzzleID=puzzleCount+1, date=date.today(), isbn=Book.objects.all()[puzzleCount])
 
     context_dict = {}
-    #context_dict['books'] = Book.objects.all().order_by('title')
     context_dict['puzzleDate'] = str(date.today())
     return render(request, 'bookle/daily_puzzle.html', context=context_dict)
 
@@ -151,10 +146,6 @@ class CheckGuess(View):
         date = request.GET.get('date', '0000-0-0')
 
         correct_guess, valid_guess = check_guess(guess, date)
-        
-        #context_dict['correct_guess'] = json.dumps(correct_guess)
-        #context_dict['valid_guess'] = json.dumps(valid_guess)
-        #context_dict['feedback'] = json.dumps(feedback)
         
         context_dict['correct_guess'] = (correct_guess)
         context_dict['valid_guess'] = (valid_guess)

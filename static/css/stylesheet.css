@@ -289,3 +289,10 @@ h1{
     padding-right: 5px;
     background-color: orange;
 }
+
+/* --------------------------profile.html-----------------------------------*/
+
+#pfp{
+    height: 200px;
+    width: 200px;
+}
