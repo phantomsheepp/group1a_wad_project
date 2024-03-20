@@ -29,7 +29,6 @@ def leaderboard(request):
     leaderboard_data = Score.objects.order_by('guesses')[:5]
     context = {'leaderboard_guesses': leaderboard_data}
     return render(request, 'bookle/leaderboard.html', context)
-    #return render(request, 'bookle/leaderboard.html')
 
 def login(request):
     context_dict = {}
