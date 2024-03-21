@@ -7,15 +7,6 @@
 
 
 {% block body_block %}
-
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-
     <h1>{{ user.username }}'s Profile</h1>
     <p>Email: {{ user.email }}</p>
     <!-- Display other user information here -->
