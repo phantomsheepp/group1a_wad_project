@@ -96,7 +96,7 @@ h1{
     top: 9em;
     height: auto;
     margin:auto;
-    text-align: left;
+    text-align: center;
     background-color: #fbd779;
     width: 75%;
 }
@@ -104,26 +104,29 @@ h1{
 #greenHeadings{
     position: relative;
     top: 0.5em;
-    margin: 20px;
     font-family: 'Times New Roman', Times, serif;
     float: left;
     color: green;
     font-size: 36pt
 }
 
-#leaderboardInstructions{
+#leaderboard-instructions{
+    font-family: 'Times New Roman', Times, serif;
     position:relative;
     top: 0.5em;
     font-size: 30pt;
     text-align: center;
 }
-
-.leaderboardHeaders{
-    padding-left: 50px;
-    font-size: 20pt;
-    display:inline-block;
+.col-sm-4{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 16pt;
 }
-
+.header-column {
+    width: 33.33%;
+    font-weight:bold;
+    font-size: 24pt;
+    font-family: 'Times New Roman', Times, serif;
+}
 
 /* ---------------------------------about_us.html------------------------------------ */
 .about-us-main{

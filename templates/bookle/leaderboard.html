@@ -7,17 +7,24 @@
 
 
 {% block body_block %}
-    <h2 id="leaderboardInstructions">See how fellow players have scored today...</h2>
+    <h2 id="leaderboard-instructions">See how fellow players have scored today...</h2>
     <h1 id="greenHeadings">Leaderboard</h1>
     <div id="leaderboardBackground">
-        <br>
-        <strong class="leaderboardHeaders">Username:</strong>   &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; <strong class="leaderboard-places">Guesses Used:</strong>
-        <br>
-        <ol class="leaderboardPlaces">
-            {% for user in leaderboard_guesses %}
-            <li>{{user.userID}} &emsp; &emsp; &emsp; {{user.guesses}}</li>
-            {% endfor %}
-        </ol>
+        <br> 
 
+        <div class="row">
+            <div class="col-sm-4 header-column">placeholdertitle</div>
+            <div class="col-sm-4 header-column">Username</div>
+            <div class="col-sm-4 header-column">Guesses Used</div>
+        </div>
+        
+        {% for user in leaderboard_guesses %}
+        <div class="row">
+            <div class="col-sm-4">placeholder</div>
+            <div class="col-sm-4">{{user.userID}}</div>
+            <div class="col-sm-4">{{user.guesses}}</div>
+        </div>
+        {% endfor %}
+        <br><br>
     </div>
 {% endblock%}
