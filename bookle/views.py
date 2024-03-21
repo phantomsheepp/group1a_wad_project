@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse, JsonResponse, Http404
+from django.http import HttpResponse
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.urls import reverse
@@ -110,10 +110,11 @@ def puzzle(request, date=None):
 
     try:
         puzzle_date = datetime.strptime(date, '%Y-%m-%d').date()
-        Puzzle.objects.get(date=puzzle_date)
         context_dict['puzzleDate'] = puzzle_date
     except:
         return redirect('bookle:home')
+    
+    get_object_or_404(Puzzle, date=puzzle_date)
     
     return render(request, 'bookle/daily_puzzle.html', context=context_dict)
 
