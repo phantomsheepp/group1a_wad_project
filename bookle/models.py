@@ -53,16 +53,22 @@ def save_user_profile(sender, instance, **kwargs):
         
 
 class Score(models.Model):
-    scoreID = models.IntegerField(unique=True, primary_key=True)
-
     userID = models.ForeignKey(User, on_delete=models.CASCADE)
     guesses = models.IntegerField(null=True)
+    success = models.BooleanField(default=False)
     difficulty = models.IntegerField(null=True)
     popularity = models.IntegerField(null=True)
     puzzleID = models.ForeignKey(Puzzle, on_delete=models.CASCADE)
 
+    
+
     def __str__(self):
         return str(self.guesses)
+    
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['userID', 'puzzleID'], name='unique_score')
+        ]
     
 
 class Comment(models.Model):

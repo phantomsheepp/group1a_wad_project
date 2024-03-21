@@ -62,9 +62,9 @@ def populate():
                 {'commentID':4, 'puzzleID': 3, 'user':User.objects.get(username="bookle__xXx"), 'comment':"THIS IS MY FAVOURITE BOOK"},
                 {'commentID':5, 'puzzleID': 6, 'user':User.objects.get(username="lotr_is_my_fave"), 'comment':"i didn't like this book when i read it ..."}] 
 
-    scores = [{'scoreID':1, 'puzzleID':11, 'user':User.objects.get(username="BookLuvr3"), 'guesses':4, 'difficulty':3, 'popularity':2},
-              {'scoreID':2, 'puzzleID':11, 'user':User.objects.get(username="bookle__xXx"), 'guesses':2, 'difficulty':1, 'popularity':5},
-              {'scoreID':3, 'puzzleID':11, 'user':User.objects.get(username="lotr_is_my_fave"), 'guesses':5, 'difficulty':5, 'popularity':1}]   
+    scores = [{'puzzleID':11, 'user':User.objects.get(username="BookLuvr3"), 'guesses':4, 'difficulty':3, 'popularity':2},
+              {'puzzleID':11, 'user':User.objects.get(username="bookle__xXx"), 'guesses':2, 'difficulty':1, 'popularity':5},
+              {'puzzleID':11, 'user':User.objects.get(username="lotr_is_my_fave"), 'guesses':5, 'difficulty':5, 'popularity':1}]   
 
     for p in puzzles:
         puzzle = add_puzzle(p['puzzleID'], p['date'], p['isbn'], p['difficulty'], p['popularity'])
@@ -75,7 +75,7 @@ def populate():
 
         for s in scores:
             if p['puzzleID'] == s['puzzleID']:
-                add_score(s['scoreID'], s['user'], puzzle, s['guesses'], s['difficulty'], s['popularity'])
+                add_score(s['user'], puzzle, s['guesses'], s['difficulty'], s['popularity'])
 
 
 def add_puzzle(puzzleID, date, isbn, difficulty=0, popularity=0):
@@ -109,8 +109,8 @@ def add_user(username, password):
         u.save()
         return u
 
-def add_score(scoreID, userID, puzzleID, guesses, difficulty=0, popularity=0):
-    s = Score.objects.get_or_create(scoreID=scoreID, puzzleID=puzzleID, userID=userID)[0]
+def add_score(userID, puzzleID, guesses, difficulty=0, popularity=0):
+    s = Score.objects.get_or_create(puzzleID=puzzleID, userID=userID)[0]
     s.guesses=guesses
     s.difficulty=difficulty
     s.popularity=popularity

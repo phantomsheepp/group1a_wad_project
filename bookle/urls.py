@@ -22,7 +22,7 @@ urlpatterns = [
     
     # Puzzle pages
     path('puzzle/daily/', views.daily_puzzle, name='daily_puzzle'),
-    path('puzzle/daily/complete/', views.Complete.as_view(), name='complete'),
+    path('puzzle/daily/complete/', views.complete, name='complete'),
     path('puzzle/daily/complete/discussion/', views.discussion, name='discussion'),
     
     # Views used for AJAX
@@ -30,4 +30,5 @@ urlpatterns = [
     path('check-guess/', views.CheckGuess.as_view(), name="check_guess"),
     path('display-guess/', views.DisplayGuess.as_view(), name="display_guess"),
     path('save-score/', views.SaveScore.as_view(), name="save_score"),
+    path('get-book-data/', views.GetBookData.as_view(), name="get_book_data"),
 ]
