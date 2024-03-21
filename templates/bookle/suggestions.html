@@ -1,0 +1,7 @@
+<datalist id="list-suggestions">
+    {% if books %}
+        {% for b in books %}
+            <option value="{{ b.title }}"></option>
+        {% endfor %}
+    {% endif %}
+</datalist>

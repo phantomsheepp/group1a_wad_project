@@ -1,7 +1,8 @@
 /* --------------------------------------base.html---------------------------------- */
 body{
     background-color: #fdf8ee;
-    margin: 0px
+    padding-left:20%;
+    padding-right:20%;
 }
 
 #logo {
@@ -42,6 +43,7 @@ body{
 /* ------------------------------home.html------------------------------------------ */
 #instructionsText{
     position: relative;
+    font-family: 'Times New Roman', Times, serif;
     top: -10px;
     margin: 100px;
     font-size: 24px;
@@ -50,8 +52,8 @@ body{
 
 .instructions{
     position: relative;
-    margin-top: 80px;
-    height: 600px;
+    margin-top: 40px;
+    height: auto;
     text-align: center;
     background-color: #fbd779;
     width: 100%
@@ -62,6 +64,7 @@ h1{
     top: 20px;
     margin: 30px;
     font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
     text-align: center;
     font-size: 36pt
 }
@@ -81,23 +84,25 @@ h1{
 }
 
 #linkText{
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
     position: relative;
     top: -20px;
     display:inline;
 }
 
 /* -----------------------------leaderboard.html------------------------------------ */
-#leaderboard-background{
+#leaderboardBackground{
     position: relative;
     top: 9em;
-    left: 11em;
-    height: 35em;
+    height: auto;
+    margin:auto;
     text-align: left;
     background-color: #fbd779;
     width: 75%;
 }
 
-#green-headings{
+#greenHeadings{
     position: relative;
     top: 0.5em;
     margin: 20px;
@@ -107,55 +112,62 @@ h1{
     font-size: 36pt
 }
 
-#leaderboard-instructions{
+#leaderboardInstructions{
     position:relative;
     top: 0.5em;
     font-size: 30pt;
     text-align: center;
 }
 
-.leaderboard-places{
+.leaderboardHeaders{
     padding-left: 50px;
-    font-size: 16pt;
+    font-size: 20pt;
     display:inline-block;
 }
 
-/* ---------------------------------aboutus.html------------------------------------ */
+
+/* ---------------------------------about_us.html------------------------------------ */
 .about-us-main{
     position: relative;
-    top: 9em;
-    left: 11em;
-    height: 350px;
-    text-align: left;
+    margin:auto;
+    top: 4em;
+    height: 60%;
     background-color: #fbd779;
     width: 75%;
 }
 
 #black-headings{
+    font-family:'Times New Roman', Times, serif;
     position:relative;
-    top: 0em;
     font-size: 30pt;
     text-align: center;
 }
 
-#group-1a{
-    line-height: 50px;
-    font-size: 26px;
+.group-1a{
+    font-family:'Times New Roman', Times, serif;
+    line-height: 40px;
+    font-size: 22px;
     text-align:center;
 }
 
-/* -------------------------------------login.html----------------------------------- */
-.float-container{
-    position: relative;
-    top: 1em;
-    height:300px;
+.jobs{
+    font-family:'Times New Roman', Times, serif;
+    font-size: 16px;
+    text-align:center;
+}
+
+/* -------------------------------------login.html/signup.html----------------------------------- */
+
+.container{
+    height: 1000px;
 }
 
 .login-child{
+    top: 20em;
     width: 60%;
     float: left;
     padding: 20px;
-    height: 500px;
+    height: auto;
 }
 
 .signup-child{
@@ -163,17 +175,29 @@ h1{
     float: right;
     padding: 20px;
     border-left: 5px solid black;
-    height: 500px;
+    height: 1000px;
 }
 
-#Signup-green-headings{
+.signup-child p {
+    position: relative;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+    font-size: 22px;
+    top: 5em;
+}
+.signup-child a {
+    display: inline; 
+}
+
+#signup-green-headings{
     position: relative;
     top: 80px;
     margin: 20px;
+    font-weight: bold;
     font-family: 'Times New Roman', Times, serif;
-    float: left;
+    text-align:center;
     color: green;
-    font-size: 36pt
+    font-size: 34pt
 }
 
 #signup-link{
@@ -192,7 +216,7 @@ h1{
     font-size: 20pt;
 }
 
-#Login-green-headings{
+#login-green-headings{
     position: relative;
     top: 10px;
     margin: 20px;
@@ -223,9 +247,40 @@ h1{
     align-items: center;
 }
 
-/* --------------------------daily puzzle-----------------------------------*/
+#signup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-.user-guesses-submit{
+#login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-signin{
+    margin-top: 7em;
+}
+
+.helptext{
+    font-family: 'Times New Roman', Times, serif;
+}
+
+#input-label{
+    font-family: 'Times New Roman', Times, serif;
+    font-weight:bold;
+}
+
+/* --------------------------daily_puzzle.html-----------------------------------*/
+
+#text-surrounding-guess{
+    font-family:'Times New Roman', Times, serif;
+    font-size: 18pt;
+}
+
+.guesses{
+    margin:auto;
     position:sticky;
     height: 100px;
     width: 100%;
@@ -234,29 +289,32 @@ h1{
     display: inline;
 }
 
-#user-guess{
+#guessInput{
+    display:inline;
+    visibility: visible;
     position: relative;
-    top: -5px;
+    font-size: 12pt;
     height: 30px;
     width: 300px;
 }
 
-#submit-button{
+#submitButton{
     position: relative;
-    top: -5px;
-    height: 35px;
+    top:-2px;
+    height: 32px;
     width: 80px;
     font-family: 'Times New Roman', Times, serif;
     font-size: 12pt;
 }
 
-#temp-cover{
+#cover{
     float:right;
-    height: 300px;
-    width: 250px;
+    height: 245px;
+    width: 160px;
 }
 
-.user-guess-results{
+#guessResults{
+    font-family:'Times New Roman', Times, serif;
     position: relative;
     top: 2.5em;
     align-content: center;
@@ -266,18 +324,99 @@ h1{
     display:inline;
 }
 
-.user-guess-left-child{
+.guessResultsCover{
     width: 38%;
     float: left;
     padding: 20px;
     height: 300px;
 }
 
-.user-guess-right-child{
+.guessResultsCategories{
+    font-family:'Times New Roman', Times, serif;
     padding-top: 40px;
     width: 48%;
     float: right;
     padding: 20px;
     height: 300px;
     line-height: 60px;
+}
+
+#guess-count{
+    font-family:'Times New Roman', Times, serif;
+    font-size: 18pt;
+}
+
+#options{
+    position:absolute;
+}
+
+.correctGuess{
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    background-color: rgb(35, 179, 35);
+}
+
+.closeGuess{
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    background-color: orange;
+}
+
+/* -------------------------- profile.html -----------------------------------*/
+
+#pfp{
+    height: 200px;
+    width: 200px;
+}
+
+/* -------------------------- complete.html -----------------------------------*/
+
+#complete-guesses{
+    top: 2em;
+    position:relative;
+    margin: auto;
+    background-color: green;
+    width: 75%;
+    height: auto;
+    color: white;
+    line-height: 80px;
+    font-family:'Times New Roman', Times, serif;
+    font-size: 18pt;
+    overflow:hidden;
+}
+
+.discussion-link, .past-puzzles-link{
+    top:2em;
+    position: relative;
+    display:block;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: right;
+    width: 100%;
+    font-size: 18pt;
+    line-height:60px;
+    font-weight: bold;
+}
+
+.discussion-link a, .discussion-link h2{
+    display:inline;
+}
+
+.past-puzzles-link a, .past-puzzles-link h2{
+    display:inline;
+}
+
+#complete-title{
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.final-guess-count{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 18pt;
+    top:3em;
+    display:block;
+    position: relative;
 }

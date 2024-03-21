@@ -12,7 +12,7 @@ class Book(models.Model):
     title = models.CharField(max_length=100)
     author = models.CharField(max_length=100)
     genre = models.CharField(max_length=50)
-    release_year = models.CharField(max_length=4)
+    release_year = models.IntegerField(null=True)
     country = models.CharField(max_length=255)
     cover = models.CharField(max_length=300, default='')
     description = models.TextField(max_length=1000, blank=True, null=True)
@@ -55,18 +55,20 @@ def save_user_profile(sender, instance, **kwargs):
 class Score(models.Model):
     RATING_CHOICES = [(i, i) for i in range(1, 6)]
 
-    scoreID = models.IntegerField(unique=True, primary_key=True)
     userID = models.ForeignKey(User, on_delete=models.CASCADE)
-    guesses = models.IntegerField(default = 8)
+    guesses = models.IntegerField(null=True)
+    success = models.BooleanField(default=False)
     difficulty = models.IntegerField(choices=RATING_CHOICES, null=True)
     popularity = models.IntegerField(choices=RATING_CHOICES, null=True)
     puzzleID = models.ForeignKey(Puzzle, on_delete=models.CASCADE)
 
-    class Meta:
-        unique_together = ('userID', 'puzzleID')
-
     def __str__(self):
         return str(self.guesses)
+    
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['userID', 'puzzleID'], name='unique_score')
+        ]
     
 
 class Comment(models.Model):
@@ -77,4 +79,5 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.comment
+
     

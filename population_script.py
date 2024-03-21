@@ -30,7 +30,7 @@ def fetch_books(keyword, max_results=20):
         title = volume_info.get('title', 'No Title')
         author = authors[0] if authors else 'Unknown Author'
         genre = categories[0] if categories else 'Unknown Genre'
-        release_year = publishedDate.split('-')[0]
+        release_year = int(publishedDate.split('-')[0])
         country = sales_info.get('country', 'Unknown Country')
         description = volume_info.get('description', 'No Description')
         cover = volume_info.get('imageLinks', {}).get('thumbnail')
@@ -42,7 +42,7 @@ def fetch_books(keyword, max_results=20):
             add_book(isbn, title, author, genre, release_year, country, description, cover)
 
 def populate():
-    get_books_from_isbns(11)  
+    get_books_from_isbns(15)  
     
     users = [{'username':"BookLuvr3", 'password':'secretBooks'},
              {'username':"bookle__xXx", 'password':'password1'},
@@ -62,9 +62,9 @@ def populate():
                 {'commentID':4, 'puzzleID': 3, 'user':User.objects.get(username="bookle__xXx"), 'comment':"THIS IS MY FAVOURITE BOOK"},
                 {'commentID':5, 'puzzleID': 6, 'user':User.objects.get(username="lotr_is_my_fave"), 'comment':"i didn't like this book when i read it ..."}] 
 
-    scores = [{'scoreID':1, 'puzzleID':11, 'user':User.objects.get(username="BookLuvr3"), 'guesses':4, 'difficulty':3, 'popularity':2},
-              {'scoreID':2, 'puzzleID':11, 'user':User.objects.get(username="bookle__xXx"), 'guesses':2, 'difficulty':1, 'popularity':5},
-              {'scoreID':3, 'puzzleID':11, 'user':User.objects.get(username="lotr_is_my_fave"), 'guesses':5, 'difficulty':5, 'popularity':1}]   
+    scores = [{'puzzleID':11, 'user':User.objects.get(username="BookLuvr3"), 'guesses':4, 'difficulty':3, 'popularity':2},
+              {'puzzleID':11, 'user':User.objects.get(username="bookle__xXx"), 'guesses':2, 'difficulty':1, 'popularity':5},
+              {'puzzleID':11, 'user':User.objects.get(username="lotr_is_my_fave"), 'guesses':5, 'difficulty':5, 'popularity':1}]   
 
     for p in puzzles:
         puzzle = add_puzzle(p['puzzleID'], p['date'], p['isbn'], p['difficulty'], p['popularity'])
@@ -75,7 +75,7 @@ def populate():
 
         for s in scores:
             if p['puzzleID'] == s['puzzleID']:
-                add_score(s['scoreID'], s['user'], puzzle, s['guesses'], s['difficulty'], s['popularity'])
+                add_score(s['user'], puzzle, s['guesses'], s['difficulty'], s['popularity'])
 
 
 def add_puzzle(puzzleID, date, isbn, difficulty=0, popularity=0):
@@ -103,13 +103,14 @@ def add_comment(commentID, puzzleID, userID, comment=""):
     return c
 
 def add_user(username, password):
-    u = User.objects.create_user(username=username)
-    u.set_password(password)
-    u.save()
-    return u
+    if not User.objects.filter(username=username):
+        u = User.objects.create_user(username=username)
+        u.set_password(password)
+        u.save()
+        return u
 
-def add_score(scoreID, userID, puzzleID, guesses, difficulty=0, popularity=0):
-    s = Score.objects.get_or_create(scoreID=scoreID, puzzleID=puzzleID, userID=userID)[0]
+def add_score(userID, puzzleID, guesses, difficulty=0, popularity=0):
+    s = Score.objects.get_or_create(puzzleID=puzzleID, userID=userID)[0]
     s.guesses=guesses
     s.difficulty=difficulty
     s.popularity=popularity

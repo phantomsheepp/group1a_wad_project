@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 {% load staticfiles %}
 
-<html>
+<html lang="en">
     <head>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        {% block assets_block %}
+        {% endblock %}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="{% static '/css/stylesheet.css' %}" />
         <title>
         Bookle - 
@@ -10,27 +16,26 @@
             Default Title 
         {% endblock %}
         </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
 
     <body>
         <div id="menuBar">
             
-            <img id="logo" src="{% static 'images/logo.png' %}" 
-            alt="bookle logo" /> 
+            <a href="{% url 'bookle:daily_puzzle' %}"><img id="logo" src="{% static 'images/logo.png' %}" 
+            alt="bookle logo"/></a>
 
-            <a href="/bookle/"><img class="topIcons" src="{% static 'images/home.png' %}" 
+            <a href="{% url 'bookle:home' %}"><img class="topIcons" src="{% static 'images/home.png' %}" 
             alt="link to home"/></a>
             {% if user.is_authenticated %}
-                <!-- <a href="/bookle/discussion/"><img class="topIcons" src="{% static 'images/discussion.png' %}" alt="link to discussion"/></a> -->
-                <a href="/bookle/discussion/">Discussion</a>
-                <a href="/bookle/log-out/">LOGOUT</a>
-                <a href="/bookle/profile/"><img class="topIcons" src="{% static 'images/user.png' %}"
+                <a href="{% url 'bookle:log_out' %}"><img class="topIcons" src="{% static 'images/logout.png' %}"></a>
+                <a href="{% url 'bookle:profile' user.username %}"><img class="topIcons" src="{% static 'images/user.png' %}"
                     alt="link to profile" /></a>
             {% else %}
-                <a href="/bookle/login/"><img class="topIcons" src="{% static 'images/user.png' %}"
+                <a href="{% url 'bookle:login' %}"><img class="topIcons" src="{% static 'images/user.png' %}"
                 alt="link to login" /></a>
             {% endif %}
-            <a href="/bookle/leaderboard/"><img class="topIcons" src="{% static 'images/leaderboard.png' %}" 
+            <a href="{% url 'bookle:leaderboard' %}"><img class="topIcons" src="{% static 'images/leaderboard.png' %}" 
             alt="link to leaderboard"/></a>
             <br>
         </div>
@@ -43,7 +48,7 @@
         </div>
 
         <div id ="footer"> 
-            <a href="/bookle/about-us/">Find out more about us</a>
+            <a href="{% url 'bookle:about_us' %}">Find out more about us</a>
         </div>
     </body>
 </html>

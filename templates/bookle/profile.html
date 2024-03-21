@@ -1,27 +1,21 @@
 {% extends 'bookle/base.html' %}
 {% load staticfiles %}
+{% load static %}
+
 {% block title_block %}
     Profile
 {% endblock %}
+
+
 {% block body_block %}
+    {% if user %}
+        <div class="profile-picture">
+            <img id="pfp" src="{% get_media_prefix %}{{ userProfile.user_picture }}">
+        </div>
 
-{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
-
-<h1>{{ user.username }}'s Profile</h1>
-<p>Email: {{ user.email }}</p>
-<!-- Display other user information here -->
-
-<h2>Edit Profile</h2>
-<form id="profile_form" method="post" action="{% url 'bookle:profile' username=user.username %}" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Submit" />
-</form>
-
+        <div>
+            <h3>{{ user.username }}</h3><br />
+            <p>{{ userProfile.bio }}</p></div>
+        </div>
+    {% endif %}
 {% endblock %}
