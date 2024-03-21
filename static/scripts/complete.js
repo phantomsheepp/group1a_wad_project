@@ -22,6 +22,10 @@ $(document).ready(function() {
         $("#author").text(jsonData['author']);
         $("#releaseYear").text(jsonData['release_year']);
         
+
+        if (date != "daily") {
+            $('.discussion-link').hide();
+        }
     });
 
 });

@@ -64,7 +64,7 @@ $(document).ready(function() {
             if (jsonData["valid_guess"]) {
                 $("#validGuess").text("");
                 count++;
-                $("#guessCount").text((maxGuesses-count) + " guesses left");
+                $("#guess-count").text((maxGuesses-count) + " guesses left");
 
                 // Finish puzzle if correct guess, else display guess information
                 if (jsonData["correct_guess"]) {
