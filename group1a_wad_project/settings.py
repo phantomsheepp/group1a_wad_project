@@ -141,3 +141,5 @@ MEDIA_URL = '/media/'
 # Login Redirect URL
 
 LOGIN_URL = '/bookle/login'
+
+CSRF_COOKIE_SECURE = True

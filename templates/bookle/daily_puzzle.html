@@ -16,14 +16,14 @@
 
 {% block body_block %}
     {% csrf_token %}
- <div class="container-fluid">
-    <div class ="guesses">
-        <p id="validGuess"></p>
-        <label id="text-surrounding-guess" for="guessInput">Your Guess: </label>
-        <input name="inputBox" id="guessInput" type="text" list="list-suggestions" placeholder="Enter book here...">
-        <button id="submitButton">Guess</button>
-        &emsp; &emsp; 
-        <label id="guess-count"></label>
+    <div class="container-fluid">
+        <div class ="guesses">
+            <p id="validGuess"></p>
+            <label id="text-surrounding-guess" for="guessInput">Your Guess: </label>
+            <input name="inputBox" id="guessInput" type="text" list="list-suggestions" placeholder="Enter book here...">
+            <button id="submitButton">Guess</button>
+            &emsp; &emsp; 
+            <label id="guess-count"></label>
         <div id="options"></div>
     </div>
 
