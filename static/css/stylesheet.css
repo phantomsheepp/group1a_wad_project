@@ -355,6 +355,7 @@ h1{
 /* -------------------------- profile.html -----------------------------------*/
 
 #pfp{
+    padding-left:10px;
     height: 100px;
     width: 100px;
     display:inline-block;
