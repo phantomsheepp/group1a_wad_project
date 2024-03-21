@@ -7,31 +7,31 @@
 
 
 {% block body_block %}
-    <div class="container">
+    <div class="container-fluid">
 
         <div class="login-child">
-            <h2 id="Login-green-headings">Welcome Back!</h2>
-
+            <h2 id="login-green-headings">Welcome Back!</h2>
             {% if error_message %}
                 <p style="color: red;">{{ error_message }}</p>
             {% endif %}
 
-            <form id="login_form" method="post" action="{% url 'bookle:login' %}">
+            <form class="form-signin" role="form" id="login_form" method="post" action=".">
                 {% csrf_token %}
-                Username: <input type="text" name="username" value="" size="50" />
+                <label for="inputUsername" id="input-label"> Username:</label>
+                <input type="text" name="username" id="id_username" class="form-control" value="" size="50" placeholder="Enter username here..." />
                 <br />
-                Password: <input type="password" name="password" value="" size="50" />
+                <label for="inputPassword" id="input-label">Password:</label> 
+                <input type="password" name="password" id="id_password" class="form-control" value="" size="50" placeholder="Enter password here..."/>
                 <br />
-                <input type="submit" value="Submit" />
+                <button type="submit" class="btn btn-success">Submit</button>
             </form>
         </div> 
 
         <div class="signup-child">
-            <h2 id="Signup-green-headings">New Here?</h2>
-            <a id="signup-link" href="{% url 'bookle:sign_up' %}">Sign up</a>
-            <p id="signup-text">to enter the leaderboard, discuss the daily puzzle with fellow players and more!</p>
+            <h2 id="signup-green-headings">New Here?</h2>
+            <p><a href="{% url 'bookle:sign_up' %}">Sign up</a> to enter the leaderboard, discuss the daily puzzle with fellow players and more!</p>
         </div>
     </div> 
 
-{% endblock %}
+{% endblock %} 
 
