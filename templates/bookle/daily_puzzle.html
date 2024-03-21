@@ -4,7 +4,8 @@
 {% block assets_block %}
     <script src="{% static 'scripts/puzzle.js' %}" 
             defer
-            data-puzzle-date="{{ puzzleDate }}"></script>
+            data-puzzle-date="{{ puzzleDate }}"
+            data-user="{{ user.username }}"></script>
 {% endblock %}
 
 

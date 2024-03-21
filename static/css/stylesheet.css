@@ -340,7 +340,7 @@ h1{
 }
 
 .discussion-link, .past-puzzles-link{
-    top:3em;
+    top:2em;
     position: relative;
     display:block;
     font-family: 'Times New Roman', Times, serif;
@@ -361,4 +361,12 @@ h1{
 
 #complete-title{
     font-family: 'Times New Roman', Times, serif;
+}
+
+.final-guess-count{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 18pt;
+    top:3em;
+    display:block;
+    position: relative;
 }

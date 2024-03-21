@@ -85,3 +85,14 @@ def check_guess(guess, date):
     else:
         return False, True
    
+def get_target_book_data(puzzle):
+    target_book = puzzle.isbn
+
+    data = {}
+
+    data["title"] = target_book.title
+    data["author"] = target_book.author 
+    data["release_year"] = str(target_book.release_year)
+    data["cover"] = target_book.cover
+
+    return data
