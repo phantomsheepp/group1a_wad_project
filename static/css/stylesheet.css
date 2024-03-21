@@ -396,3 +396,27 @@ h1{
     display:block;
     position: relative;
 }
+.past-container{
+    position: relative;
+    top: 1em;
+
+    height:300px;
+}
+
+.pop-child{
+    width: 40%;
+    float: left;
+    padding: 20px;
+    height: 300px;
+    font-size: 20pt;
+    background-color: #fbd779;
+}
+
+.diff-child{
+    width: 40%;
+    float: right;
+    padding: 20px;
+    height: 300px;
+    font-size: 20pt;
+    background-color: #fbd779;
+}

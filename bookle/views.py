@@ -80,10 +80,6 @@ def daily_puzzle(request):
     context_dict = {}
     return render(request, 'bookle/daily_puzzle.html', context=context_dict)
 
-def past_puzzles(request):
-    context_dict = {}
-    return render(request, 'bookle/past_puzzles.html', context=context_dict)
-
 @login_required
 def edit_account(request, username=None):
     if username is None:
@@ -112,6 +108,26 @@ def daily_puzzle(request):
     context_dict['puzzleDate'] = str(date.today())
     return render(request, 'bookle/daily_puzzle.html', context=context_dict)
 
+def past_puzzles(request):
+
+    pop_list = Puzzle.objects.order_by('-popularity')[:6]
+    diff_list = Puzzle.objects.order_by('-difficulty')[:6]
+    for p in pop_list:
+        p.dateurl = str(p.date) 
+    for p in diff_list:
+        p.dateurl = str(p.date)   
+    context_dict = {}
+    context_dict['popular'] = pop_list
+    context_dict['difficult'] = diff_list
+    return render(request, 'bookle/past_puzzles.html', context=context_dict)
+
+def view_account(request):
+    context_dict = {}
+    return render(request, 'bookle/view_account.html', context=context_dict)
+
+def edit_account(request):
+    context_dict = {}
+    return render(request, 'bookle/edit_account.html', context=context_dict)
 """class Complete(View):
     def get(self, request):
         context_dict = {}
