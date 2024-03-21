@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, Http404
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.urls import reverse
@@ -76,10 +76,6 @@ def profile(request, username=None):
     context_dict = {'user':user, 'userProfile':user_profile}
     return render(request, 'bookle/profile.html', context=context_dict)
 
-def daily_puzzle(request):
-    context_dict = {}
-    return render(request, 'bookle/daily_puzzle.html', context=context_dict)
-
 @login_required
 def edit_account(request, username=None):
     if username is None:
@@ -106,6 +102,16 @@ def daily_puzzle(request):
 
     context_dict = {}
     context_dict['puzzleDate'] = str(date.today())
+    return render(request, 'bookle/daily_puzzle.html', context=context_dict)
+
+def puzzle(request, date=None):
+    context_dict = {}
+    print(date)
+    if date:
+        context_dict['puzzleDate'] = date
+    else:
+        return Http404
+    
     return render(request, 'bookle/daily_puzzle.html', context=context_dict)
 
 def past_puzzles(request):
