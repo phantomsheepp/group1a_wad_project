@@ -219,8 +219,9 @@ class GetBookData(View):
 
         context_dict = get_target_book_data(puzzle)
 
-        s = Score.objects.get(userID=request.user, puzzleID=puzzle)
-        context_dict['success'] = s.success
-        context_dict['guesses'] = s.guesses
+        if request.user.is_authenticated:
+            s = Score.objects.get(userID=request.user, puzzleID=puzzle)
+            context_dict['success'] = s.success
+            context_dict['guesses'] = s.guesses
 
         return HttpResponse(json.dumps(context_dict))
