@@ -4,9 +4,8 @@ from bookle.models import Book
 # Create your tests here.
 
 class BookModelTest(TestCase):
-
-  class BookModelTest(TestCase):
-    def setUpTestData(self):
+    @classmethod
+    def setUpTestData(cls):
         Book.objects.create(
             isbn=9780141345635,
             title='The Fault In Our Stars',
@@ -18,7 +17,18 @@ class BookModelTest(TestCase):
             description=''
         )
 
-    def test_first_name_label(self):
+    def test_isbn_value(self):
         book = Book.objects.get(id=1)
         isbn = book.isbn
-        self.assertEqual(isbn, 9780141345635)
+        self.assertEqual(isbn, '9780141345635')
+
+    def test_author_value(self):
+        book = Book.objects.get(id=1)
+        author = book.author
+        self.assertEqual(author, 'John Green')
+
+    def test_country_value(self):
+        book = Book.objects.get(id=1)
+        country = book.country
+        self.assertEqual(country, 'US')
+
