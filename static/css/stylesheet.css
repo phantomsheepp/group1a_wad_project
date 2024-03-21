@@ -93,13 +93,13 @@ h1{
 
 /* -----------------------------leaderboard.html------------------------------------ */
 #leaderboardBackground{
-    position: relative;
-    top: 9em;
+    position: absolute;
+    top: 25em;
     height: auto;
     margin:auto;
     text-align: center;
     background-color: #fbd779;
-    width: 75%;
+    width: 60%;
 }
 
 #greenHeadings{
@@ -120,15 +120,22 @@ h1{
 }
 .col-sm-4{
     font-family: 'Times New Roman', Times, serif;
-    font-size: 14pt;
+    font-size: 20pt;
+    line-height: 60px;;
 }
 .header-column {
-    width: 33.33%;
     font-weight:bold;
-    font-size: 20pt;
+    font-size: 24t;
     font-family: 'Times New Roman', Times, serif;
 }
 
+#line{
+    color:  #fbd779;
+}
+
+#column-headers{
+    height:auto;
+}
 /* ---------------------------------about_us.html------------------------------------ */
 .about-us-main{
     position: relative;
