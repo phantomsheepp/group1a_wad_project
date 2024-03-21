@@ -15,6 +15,7 @@
 
 
 {% block body_block %}
+ {% csrf_token %}
  <div class="container-fluid">
     <div class ="guesses">
         <p id="validGuess"></p>
