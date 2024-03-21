@@ -59,7 +59,7 @@ def sign_up(request):
         if form.is_valid():
             username = form.cleaned_data.get('username')
             if User.objects.filter(username=username).exists():
-                return render(request, 'bookle/signup.html', {'form': form, 'error': 'Username already exists'})
+                return render(request, 'bookle/sign_up.html', {'form': form, 'error': 'Username already exists'})
             user = form.save()
             # Authenticate the user
             user = authenticate(username=user.username, password=form.cleaned_data.get('password1'))
