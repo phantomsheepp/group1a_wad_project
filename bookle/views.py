@@ -107,11 +107,13 @@ def daily_puzzle(request):
 
 def puzzle(request, date=None):
     context_dict = {}
-    print(date)
-    if date:
-        context_dict['puzzleDate'] = date
-    else:
-        return Http404
+
+    try:
+        puzzle_date = datetime.strptime(date, '%Y-%m-%d').date()
+        Puzzle.objects.get(date=puzzle_date)
+        context_dict['puzzleDate'] = puzzle_date
+    except:
+        return redirect('bookle:home')
     
     return render(request, 'bookle/daily_puzzle.html', context=context_dict)
 
