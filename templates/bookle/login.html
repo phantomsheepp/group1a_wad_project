@@ -10,8 +10,7 @@
     <div class="container-fluid">
 
         <div class="login-child">
-            <h2 id="Login-green-headings">Welcome Back!</h2>
-
+            <h2 id="login-green-headings">Welcome Back!</h2>
             {% if error_message %}
                 <p style="color: red;">{{ error_message }}</p>
             {% endif %}
@@ -29,9 +28,8 @@
         </div> 
 
         <div class="signup-child">
-            <h2 id="Signup-green-headings">New Here?</h2>
-            <a id="signup-link" href="{% url 'bookle:sign_up' %}">Sign up</a>
-            <p id="signup-text">to enter the leaderboard, discuss the daily puzzle with fellow players and more!</p>
+            <h2 id="signup-green-headings">New Here?</h2>
+            <p><a href="{% url 'bookle:sign_up' %}">Sign up</a> to enter the leaderboard, discuss the daily puzzle with fellow players and more!</p>
         </div>
     </div> 
 

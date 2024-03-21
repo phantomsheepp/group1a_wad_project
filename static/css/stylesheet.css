@@ -1,7 +1,8 @@
 /* --------------------------------------base.html---------------------------------- */
 body{
     background-color: #fdf8ee;
-    margin: 0px
+    padding-left:20%;
+    padding-right:20%;
 }
 
 #logo {
@@ -177,11 +178,22 @@ h1{
     height: 1000px;
 }
 
-#Signup-green-headings{
+.signup-child p {
+    position: relative;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+    font-size: 22px;
+    top: 5em;
+}
+.signup-child a {
+    display: inline; 
+}
+
+#signup-green-headings{
     position: relative;
     top: 80px;
     margin: 20px;
-    font-weight:bold;
+    font-weight: bold;
     font-family: 'Times New Roman', Times, serif;
     text-align:center;
     color: green;
@@ -204,7 +216,7 @@ h1{
     font-size: 20pt;
 }
 
-#Login-green-headings{
+#login-green-headings{
     position: relative;
     top: 10px;
     margin: 20px;
