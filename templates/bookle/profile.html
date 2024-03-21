@@ -11,10 +11,11 @@
     {% if user %}
         <div class="profile-picture">
             <img id="pfp" src="{% get_media_prefix %}{{ userProfile.user_picture }}">
+            <h3 id="username">Welcome back, {{ user.username }}!</h3><br />
         </div>
 
         <div>
-            <h3>{{ user.username }}</h3><br />
+            <!--<h2 id="username">{{ user.username }}</h2><br /> -->
             <p>{{ userProfile.bio }}</p></div>
         </div>
     {% endif %}

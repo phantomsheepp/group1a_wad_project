@@ -355,8 +355,19 @@ h1{
 /* -------------------------- profile.html -----------------------------------*/
 
 #pfp{
-    height: 200px;
-    width: 200px;
+    height: 100px;
+    width: 100px;
+    display:inline-block;
+}
+
+#username{
+    position:absolute;
+    padding-top:20px;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+    color: green;
+    display:inline-block;
+    font-size: 28pt
 }
 
 /* -------------------------- complete.html -----------------------------------*/

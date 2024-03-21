@@ -20,14 +20,14 @@
         </div>
         <hr id="line"/>
         </div>
-        {% if puzzle.date == today %}
-        {% for user in leaderboard_guesses %}
-        <div class="row">
-            <div class="col-sm-4">placeholder</div>
-            <div class="col-sm-4">{{user.userID}}</div>
-            <div class="col-sm-4">{{user.guesses}}</div>
-        </div>
-        {% endfor %}
+        {% if user %}
+            {% for user in leaderboard_guesses %}
+            <div class="row">
+                <div class="col-sm-4">{{forloop.counter}}</div>
+                <div class="col-sm-4">{{user.userID}}</div>
+                <div class="col-sm-4">{{user.guesses}}</div>
+             </div>
+            {% endfor %}
         {% endif %}
         <br><br>
     </div>
