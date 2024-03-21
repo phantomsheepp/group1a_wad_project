@@ -11,7 +11,7 @@ from django.contrib import messages
 from bookle.forms import RegisterForm, ProfileEditForm
 from bookle.models import Score, Book, Puzzle, UserProfile
 from django.views.generic import View
-from bookle.helpers import get_book_names, get_guess_data, check_guess
+from bookle.helpers import get_book_names, get_guess_data, check_guess, get_target_book_data
 from datetime import date, datetime
 import json
 
@@ -112,10 +112,14 @@ def daily_puzzle(request):
     context_dict['puzzleDate'] = str(date.today())
     return render(request, 'bookle/daily_puzzle.html', context=context_dict)
 
-class Complete(View):
+"""class Complete(View):
     def get(self, request):
         context_dict = {}
-        return render(request, 'bookle/complete.html', context=context_dict)
+        return redirect('bookle:complete', permanent=True)"""
+
+def complete(request):
+    context_dict = {}
+    return render(request, 'bookle/complete.html', context=context_dict)
 
 class BookSuggestions(View):
     def get(self, request):
@@ -172,3 +176,20 @@ class SaveScore(View):
                 s.save()
 
         return redirect('bookle:complete')
+    
+class GetBookData(View):
+    def get(self, request):
+        context_dict = {}
+
+        puzzle_date_str = request.GET.get('date', '0000-0-0')
+        if puzzle_date_str == "daily":
+            puzzle_date_str = str(date.today())
+        
+        puzzle_date = datetime.strptime(puzzle_date_str, '%Y-%m-%d').date()
+        puzzle = Puzzle.objects.get(date=puzzle_date)
+
+        context_dict = get_target_book_data(puzzle)
+
+        #guesses = Score.objects.get(userID=request.user, puzzleID=)
+
+        return HttpResponse(json.dumps(context_dict))

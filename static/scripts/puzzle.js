@@ -1,4 +1,4 @@
-// from django docs
+// getCookie() from Django docs: https://docs.djangoproject.com/en/5.0/howto/csrf/
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -17,10 +17,8 @@ const csrftoken = getCookie('csrftoken');
 
 const maxGuesses = 3;
 let count = 0;
-var data = document.currentScript.dataset;
 var today = (new Date().toJSON().slice(0,10))
-
-
+var data = document.currentScript.dataset;
 
 function finished(success, count, date) {
     var user = data.user;
@@ -34,17 +32,11 @@ function finished(success, count, date) {
         success: function(data) {}
     });
 
-    if (today == date) {
-        $.get('/bookle/puzzle/daily/complete');
-    } else {
-        $.get('/bookle/puzzle/${date}/complete');
-    }
-    
+    window.location.href = "complete";
 }
 
 
 $(document).ready(function() {
-
     var date = data.puzzleDate;
 
     $("#guessCount").text(maxGuesses + " guesses left");
