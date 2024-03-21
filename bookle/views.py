@@ -134,12 +134,8 @@ def view_account(request):
 def edit_account(request):
     context_dict = {}
     return render(request, 'bookle/edit_account.html', context=context_dict)
-"""class Complete(View):
-    def get(self, request):
-        context_dict = {}
-        return redirect('bookle:complete', permanent=True)"""
 
-def complete(request):
+def complete(request, date="daily"):
     context_dict = {}
     return render(request, 'bookle/complete.html', context=context_dict)
 
@@ -212,8 +208,9 @@ class GetBookData(View):
 
         context_dict = get_target_book_data(puzzle)
 
-        s = Score.objects.get(userID=request.user, puzzleID=puzzle)
-        context_dict['success'] = s.success
-        context_dict['guesses'] = s.guesses
+        if request.user.is_authenticated:
+            s = Score.objects.get(userID=request.user, puzzleID=puzzle)
+            context_dict['success'] = s.success
+            context_dict['guesses'] = s.guesses
 
         return HttpResponse(json.dumps(context_dict))

@@ -24,7 +24,9 @@ urlpatterns = [
     path('puzzle/daily/', views.daily_puzzle, name='daily_puzzle'),
     path('puzzle/<str:date>/', views.puzzle, name='puzzle'),
     path('puzzle/daily/complete/', views.complete, name='complete'),
+    path('puzzle/<str:date>/complete', views.complete, name='complete'),
     path('puzzle/daily/complete/discussion/', views.discussion, name='discussion'),
+    path('puzzle/<str:date>/complete/discussion', views.complete, name='complete'),
     
     # Views used for AJAX
     path('suggestions/', views.BookSuggestions.as_view(), name='suggestions'),
