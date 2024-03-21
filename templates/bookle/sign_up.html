@@ -6,19 +6,37 @@
 {% block body_block %}
     <div class="float-container">
         <div class="login-child">
-            <h2 id="Login-green-headings">Sign Up Here!</h2>
-
-            <form method="post" action=".">
+            <h2 id="login-green-headings">Sign Up Here!</h2>
+            <form method="post" class="form-sign-up" role="form" action=".">
               {% csrf_token %}
-              {{ form.as_p }}
-              <button type="submit" class="btn btn-primary">Submit</button>
+                <!--<input type="hidden" name="csrfmiddlewaretoken" value="uGBaspmqvwfC1RDVuLho5uswhzuUZvFQSen3LEMw4mKkNxx0fCQyPZvse8MUZRiv"> -->
+                <br>
+                <label for="id_username" id="input-label">Username:</label> 
+                <input type="text" class="form-control" name="username" maxlength="150" autofocus="" required="" id="id_username">
+                    
+                <label for="id_email" id="input-label">Email:</label> 
+                <input type="email" class="form-control" name="email" required="" id="id_email">
+
+                <label for="id_password1" id="input-label">Password:</label>
+                <input type="password" class="form-control" name="password1" required="" id="id_password1">
+
+                <label for="id_password2" id="input-label">Password confirmation:</label> 
+                <input type="password" class="form-control"name="password2" required="" id="id_password2"> <span class="helptext">Enter the same password as before, for verification.</span></p>
+                
+                <label for="id_user_picture" id="input-label">User picture:</label>
+                <input type="file" name="user_picture" accept="image/*" id="id_user_picture"> <br/>
+
+                <label for="id_bio" id="input-label">Bio:</label> 
+                <input type="text" class="form-control" name="bio" id="id_bio">
+                <br />
+
+                <button type="submit" class="btn btn-success">Submit</button>
             </form>
         </div>
 
         <div class="signup-child">
-            <h2 id="Signup-green-headings">Already got an account?</h2>
-            <a id="signup-link" href="{% url 'bookle:login' %}">Login</a>
-            <p id="signup-text">to view your account or edit too!</p>
+            <h2 id="signup-green-headings">Already got an account?</h2>
+            <p><a href="{% url 'bookle:login' %}">Login</a> to edit or view your existing account!</p>
         </div>
     </div>
 {% endblock %}

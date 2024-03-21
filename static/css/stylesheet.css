@@ -156,7 +156,7 @@ h1{
     text-align:center;
 }
 
-/* -------------------------------------login.html----------------------------------- */
+/* -------------------------------------login.html/signup.html----------------------------------- */
 
 .container{
     height: 1000px;
@@ -197,7 +197,7 @@ h1{
     font-family: 'Times New Roman', Times, serif;
     text-align:center;
     color: green;
-    font-size: 36pt
+    font-size: 34pt
 }
 
 #signup-link{
@@ -237,6 +237,15 @@ h1{
 
 .form-signin{
     margin-top: 7em;
+}
+
+.helptext{
+    font-family: 'Times New Roman', Times, serif;
+}
+
+#input-label{
+    font-family: 'Times New Roman', Times, serif;
+    font-weight:bold;
 }
 
 /* --------------------------daily_puzzle.html-----------------------------------*/
