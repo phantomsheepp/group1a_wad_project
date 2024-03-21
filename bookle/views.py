@@ -163,10 +163,10 @@ class SaveScore(View):
 
         if User.objects.filter(username=data['user']):
             user = User.objects.get(username=data['user'])
-        
+            print("hey")
             if ('date' in data.keys()) and user.is_authenticated:
-                date = datetime.strptime(data['date'], '%Y-%m-%d').date()
-                puzzle = Puzzle.objects.get(date=date)
+                puzzle_date = datetime.strptime(data['date'], '%Y-%m-%d').date()
+                puzzle = Puzzle.objects.get(date=puzzle_date)
 
                 s = Score.objects.get_or_create(userID=user, puzzleID=puzzle)[0]
                 s.success = success
@@ -190,6 +190,8 @@ class GetBookData(View):
 
         context_dict = get_target_book_data(puzzle)
 
-        #guesses = Score.objects.get(userID=request.user, puzzleID=)
+        s = Score.objects.get(userID=request.user, puzzleID=puzzle)
+        context_dict['success'] = s.success
+        context_dict['guesses'] = s.guesses
 
         return HttpResponse(json.dumps(context_dict))

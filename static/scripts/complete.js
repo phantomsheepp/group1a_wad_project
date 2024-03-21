@@ -11,6 +11,11 @@ $(document).ready(function() {
     $.get('/bookle/get-book-data', dataInput, function(data) {
         console.log(data);
         const jsonData = JSON.parse(data);
+        var guesses = jsonData['guesses'];
+
+        if (jsonData['success']) {
+            $(".final-guess-count").text("It took you "+guesses+" guesses");
+        }
 
         $("#cover").attr('src', jsonData['cover']);
         $("#title").text(jsonData['title']);

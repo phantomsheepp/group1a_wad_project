@@ -15,7 +15,7 @@ function getCookie(name) {
 }
 const csrftoken = getCookie('csrftoken');
 
-const maxGuesses = 3;
+const maxGuesses = 5;
 let count = 0;
 var today = (new Date().toJSON().slice(0,10))
 var data = document.currentScript.dataset;
@@ -29,10 +29,11 @@ function finished(success, count, date) {
         method : 'POST',
         data : JSON.stringify(dataInput),
         headers: {'X-CSRFToken': csrftoken},
-        success: function(data) {}
+        success: function(data) {
+            window.location.href = "complete";
+        }
     });
-
-    window.location.href = "complete";
+  
 }
 
 

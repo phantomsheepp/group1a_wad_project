@@ -12,17 +12,19 @@
 
 {% block body_block %}
 <div class="container-fluid">
-    <h2 id="complete-title" >Congratulations! Today's Bookle was...</h2>
+    <h2 id="complete-title" ><strong>Congratulations! Today's Bookle was...</strong></h2>
     <div id="complete-guesses">
         <div class="guessResultsCover">
             <img id = "cover" src=""/>
         </div>
 
-        <p id="finalGuessCount"></p>
         <strong>Title:</strong> <label id="title"></label> <br>
         <strong>Author:</strong> <label id="author"></label><br>
         <strong>Release Year:</strong> <label id="releaseYear"></label><br>
     </div>
+
+    <div class="final-guess-count"></div>
+    
     <div class="discussion-link">
         <h2>..Join the discussion with fellow players</h2>
        <a href="{% url 'bookle:discussion' %}"><strong><h2> here!</h2></strong></a>
