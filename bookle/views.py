@@ -27,7 +27,8 @@ def about_us(request):
 @login_required
 def leaderboard(request):
     leaderboard_data = Score.objects.order_by('guesses')[:5]
-    context = {'leaderboard_guesses': leaderboard_data}
+    puzzle = Puzzle.objects.filter(date=date.today())
+    context = {'leaderboard_guesses': leaderboard_data, 'puzzle': puzzle, 'today': date.today()}
     return render(request, 'bookle/leaderboard.html', context)
 
 def login(request):
