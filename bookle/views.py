@@ -86,19 +86,20 @@ def past_puzzles(request):
     return render(request, 'bookle/past_puzzles.html', context=context_dict)
 
 @login_required
-def edit_account(request, username=None):
-    if username is None:
-        username = request.user.username
-    user = get_object_or_404(User, username=username)
-    if request.method == 'POST':
-        form = ProfileEditForm(request.POST, request.FILES, instance=user.userprofile)
-        if form.is_valid() and request.user.username == username:
-            form.save()
-            messages.success(request, 'Your profile was successfully updated!')
-            return redirect('bookle:profile', username=user.username)
-    else:  # This is the GET request handler
-        form = ProfileEditForm(instance=user.userprofile)
-    return render(request, 'bookle/edit_account.html', {'form': form, 'user': user})
+def edit_account(request, username):
+    if request.user.username == username:
+        user = get_object_or_404(User, username=username)
+        if request.method == 'POST':
+            form = ProfileEditForm(request.POST, request.FILES, instance=user.userprofile)
+            if form.is_valid() and request.user.username == username:
+                form.save()
+                messages.success(request, 'Your profile was successfully updated!')
+                return redirect('bookle:profile', username=user.username)
+        else:  # This is the GET request handler
+            form = ProfileEditForm(instance=user.userprofile)
+            return render(request, 'bookle/edit_account.html', {'form': form, 'user': user})
+    else:
+        return render(request, 'bookle/home.html', {})
 
 def discussion(request):
     context_dict = {}
