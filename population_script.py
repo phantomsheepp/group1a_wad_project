@@ -42,7 +42,7 @@ def fetch_books(keyword, max_results=20):
             add_book(isbn, title, author, genre, release_year, country, description, cover)
 
 def populate():
-    get_books_from_isbns(15)  
+    get_books_from_isbns(100)  
     
     users = [{'username':"BookLuvr3", 'password':'secretBooks'},
              {'username':"bookle__xXx", 'password':'password1'},
