@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.urls import reverse
@@ -29,7 +29,8 @@ def about_us(request):
 @login_required
 def leaderboard(request):
     leaderboard_data = Score.objects.order_by('guesses')[:5]
-    context = {'leaderboard_guesses': leaderboard_data}
+    puzzle = Puzzle.objects.filter(date=date.today())
+    context = {'leaderboard_guesses': leaderboard_data, 'puzzle': puzzle, 'today': date.today()}
     return render(request, 'bookle/leaderboard.html', context)
 
 def login(request):
@@ -77,10 +78,6 @@ def profile(request, username=None):
     user_profile = UserProfile.objects.filter(user=user)[0]
     context_dict = {'user':user, 'userProfile':user_profile}
     return render(request, 'bookle/profile.html', context=context_dict)
-
-def past_puzzles(request):
-    context_dict = {}
-    return render(request, 'bookle/past_puzzles.html', context=context_dict)
 
 @login_required
 def edit_account(request, username=None):
@@ -145,7 +142,33 @@ def daily_puzzle(request):
     context_dict['puzzleDate'] = str(date.today())
     return render(request, 'bookle/daily_puzzle.html', context=context_dict)
 
-def complete(request):
+def puzzle(request, date=None):
+    context_dict = {}
+
+    try:
+        puzzle_date = datetime.strptime(date, '%Y-%m-%d').date()
+        context_dict['puzzleDate'] = puzzle_date
+    except:
+        return redirect('bookle:home')
+    
+    get_object_or_404(Puzzle, date=puzzle_date)
+    
+    return render(request, 'bookle/daily_puzzle.html', context=context_dict)
+
+def past_puzzles(request):
+
+    pop_list = Puzzle.objects.order_by('-popularity')[:6]
+    diff_list = Puzzle.objects.order_by('-difficulty')[:6]
+    for p in pop_list:
+        p.dateurl = str(p.date) 
+    for p in diff_list:
+        p.dateurl = str(p.date)   
+    context_dict = {}
+    context_dict['popular'] = pop_list
+    context_dict['difficult'] = diff_list
+    return render(request, 'bookle/past_puzzles.html', context=context_dict)
+
+def complete(request, date="daily"):
     context_dict = {}
     return render(request, 'bookle/complete.html', context=context_dict)
 

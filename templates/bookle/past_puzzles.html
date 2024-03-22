@@ -1,10 +1,33 @@
 {% extends 'bookle/base.html' %}
 {% load staticfiles %}
-
-{% block title_block %}
-    Past Puzzles
-{% endblock %}
-
+<head>
+    {% block title_block %}
+        Past Puzzles
+    {% endblock %}
+</head>
+</body>
 {% block body_block %}
+<h2 id="leaderboard-instructions">Take a look at our most popular and difficult puzzles, as voted by users!</h2>
 
-{% endblock %}
+    <div class="past-container">
+        <div class="pop-child">
+            <strong>Most popular puzzles:</strong>
+            <ul>
+               {% for pop in popular%}
+               <li><a href="/bookle/puzzle/{{ pop.dateurl }}/">{{ pop.date }}</a></li>
+
+              {% endfor %}
+            </ul>
+        </div>
+        <div class="diff-child"> 
+            <strong>Most difficult puzzles:</strong>
+            <ul>
+                {% for diff in difficult%}
+                <li><a href="/bookle/puzzle/{{ diff.dateurl }}/">{{ diff.date }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+{% endblock%}
+</body>
