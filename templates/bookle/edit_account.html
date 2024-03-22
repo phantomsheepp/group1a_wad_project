@@ -7,15 +7,19 @@
 
 
 {% block body_block %}
-    <h1>{{ user.username }}'s Profile</h1>
-    <p>Email: {{ user.email }}</p>
-    <!-- Display other user information here -->
+    <h1 id="edit-heading"> Edit {{ user.username }}'s Profile</h1>
 
-    <h2>Edit Profile</h2>
+    <div class="form-group">
     <form id="profile_form" method="post" action="{% url 'bookle:edit_account' username=user.username %}" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Submit" />
+        <label for="id_bio" id="input-label"> Edit Bio:</label>
+        <input type="text" name="bio" id="id_bio" class="form-control" value="" size="500" placeholder="Set bio here..." />
+                <br />
+        <label id="input-label" for="id_user_picture" id="input-label">Change User picture:</label>
+        <input type="file" class="form-control-file form-control-sm" name="user_picture" accept="image/*" id="id_user_picture">
+                <br />
+        <button type="submit" class="btn btn-success">Save Changes</button>
+    </div>
     </form>
 
 {% endblock %}
