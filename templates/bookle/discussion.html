@@ -37,8 +37,8 @@
             <form method="post">
                 {% csrf_token %}
                 {{ comment_form.as_p }}
-                <input type="hidden" name="puzzle_id" value="{{ puzzle.id }}">
-                <button type="submit" name="submit_comment" class="btn btn-primary">Submit</button>
+                <input id="input-comment" type="hidden" name="puzzle_id" value="{{ puzzle.id }}">
+                <button id="submit-comment" type="submit" name="submit_comment" class="btn btn-primary">Submit</button>
             </form>
         </div>
     </div>

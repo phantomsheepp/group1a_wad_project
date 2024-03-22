@@ -95,11 +95,14 @@ def edit_account(request, username=None):
     return render(request, 'bookle/edit_account.html', {'form': form, 'user': user})
 
 @login_required
-def discussion(request, puzzle_id=None):
-    if puzzle_id is None:
-        puzzle_id = 1
+def discussion(request, puzzle_date="daily"):
+    context_dict = {}
 
-    puzzle = get_object_or_404(Puzzle, pk=puzzle_id)
+    if puzzle_date == "daily":
+        puzzle_date = str(date.today())
+
+    context_dict['puzzleDate'] = puzzle_date
+    puzzle = get_object_or_404(Puzzle, date=puzzle_date)
     has_rated = Score.objects.filter(userID=request.user, puzzleID=puzzle).exists()
 
     comment_form = CommentForm(user=request.user, puzzle=puzzle)
@@ -110,18 +113,15 @@ def discussion(request, puzzle_id=None):
             comment_form = CommentForm(request.POST, user=request.user, puzzle=puzzle)
             if comment_form.is_valid():
                 comment_form.save()
-            else:
-                print(comment_form.errors)
+                comment_form = CommentForm(user=request.user, puzzle=puzzle)
+                
         elif 'submit_rating' in request.POST:
             rating_form = ScoreForm(request.POST, user=request.user, puzzle=puzzle)
             if rating_form.is_valid() and not has_rated:
                 rating_form.save()
-                return redirect('discussion', puzzle_id=puzzle_id)
-            else:
-                print(rating_form.errors)
+                return redirect('bookle:discussion', puzzle_date=puzzle_date)
 
     comments = Comment.objects.filter(puzzleID=puzzle).order_by('-commentID')
-    print(comments)
 
     context = {
         'puzzle': puzzle,
@@ -147,7 +147,7 @@ def puzzle(request, date=None):
 
     try:
         puzzle_date = datetime.strptime(date, '%Y-%m-%d').date()
-        context_dict['puzzleDate'] = puzzle_date
+        context_dict['puzzleDate'] = str(puzzle_date)
     except:
         return redirect('bookle:home')
     
