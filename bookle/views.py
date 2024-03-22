@@ -172,8 +172,9 @@ def puzzle(request, date=None):
     
     p = get_object_or_404(Puzzle, date=puzzle_date)
 
-    if Score.objects.filter(userID=request.user, puzzleID=p).exists():
-        return complete(request, date=date)
+    if request.user.is_authenticated:
+        if Score.objects.filter(userID=request.user, puzzleID=p).exists():
+            return complete(request, date=date)
     
     return render(request, 'bookle/daily_puzzle.html', context=context_dict)
 
