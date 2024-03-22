@@ -51,6 +51,8 @@ class RegisterForm(UserCreationForm):
     def save(self, commit=True):
         user = super().save(commit=False)
         user.email = self.cleaned_data['email']
+        user.bio = self.bio
+        user.user_picture = self.user_picture
         
         if commit:
             user.save()
@@ -80,17 +82,17 @@ class ScoreForm(forms.ModelForm):
 
     class Meta:
         model = Score
-        fields = ['difficulty', 'popularity']
+        fields = ('difficulty', 'popularity')
 
-    def __init__(self, *args, **kwargs):
+    """def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
         self.puzzle = kwargs.pop('puzzle', None)
-        super().__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)"""
 
-    def save(self, commit=True):
+    """def save(self, commit=True):
         score = super().save(commit=False)
         score.userID = self.user
         score.puzzleID = self.puzzle
         if commit:
             score.save()
-        return score
+        return score"""

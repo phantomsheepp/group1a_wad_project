@@ -1,5 +1,4 @@
-from django.http import HttpResponse
-from bookle.models import Book, Puzzle
+from bookle.models import Book, Puzzle, Score
 from datetime import datetime
 
 
@@ -96,3 +95,8 @@ def get_target_book_data(puzzle):
     data["cover"] = target_book.cover
 
     return data
+
+
+def check_if_complete(user, puzzle):
+    if Score.objects.filter(userID=user, puzzleID=puzzle).exists():
+        return 
