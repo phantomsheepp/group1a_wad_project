@@ -9,6 +9,16 @@
             <h2 id="login-green-headings">Sign Up Here!</h2>
             <form method="post" class="form-sign-up" role="form" action=".">
               {% csrf_token %}
+
+                {% if form.errors %}
+                    </br>
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <p id="error-message">{{ error }}</p>
+                        {% endfor %}
+                    {% endfor %}
+                {% endif %}
+
                 <br>
                 <label for="id_username" id="input-label">Username:</label> 
                 <input type="text" class="form-control" name="username" maxlength="150" autofocus="" required="" id="id_username">
@@ -28,8 +38,7 @@
                 <label for="id_bio" id="input-label">Bio:</label> 
                 <input type="text" class="form-control" name="bio" id="id_bio">
                 <br />
-
-                <p>{{ error }}</p>
+                
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
         </div>

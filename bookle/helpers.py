@@ -95,8 +95,3 @@ def get_target_book_data(puzzle):
     data["cover"] = target_book.cover
 
     return data
-
-
-def check_if_complete(user, puzzle):
-    if Score.objects.filter(userID=user, puzzleID=puzzle).exists():
-        return 

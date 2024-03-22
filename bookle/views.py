@@ -57,6 +57,7 @@ def log_out(request):
     return redirect('bookle:home')
 
 def sign_up(request):
+    context_dict = {}
     if request.method == 'POST':
         form = RegisterForm(request.POST, request.FILES)
         if form.is_valid():
@@ -69,9 +70,12 @@ def sign_up(request):
             # Log the user in
             auth_login(request, user)
             return redirect('bookle:home')
+        else:
+            context_dict['error'] = "Sign up failed"
     else:
         form = RegisterForm()
-    return render(request, 'bookle/sign_up.html', {'form': form})
+    context_dict['form'] = form
+    return render(request, 'bookle/sign_up.html', context=context_dict)
 
 @login_required
 def profile(request, username=None):
