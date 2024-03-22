@@ -40,7 +40,7 @@ function finished(success, count, date) {
 $(document).ready(function() {
     var date = data.puzzleDate;
 
-    $("#guessCount").text(maxGuesses + " guesses left");
+    $("#guess-count").text(maxGuesses + " guesses left");
 
     // Show book suggestions as the user types a guess
     $("#guessInput").keyup(function() {

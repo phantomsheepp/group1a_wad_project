@@ -37,10 +37,10 @@ class RegisterForm(UserCreationForm):
         try:
             validate_email(email)
         except ValidationError:
-            raise ValidationError("Invalid email format.")
+            self.add_error('email', "Invalid email format.")
 
         if User.objects.filter(email=email).exists():
-            raise ValidationError("Email already in use.")
+            self.add_error('email', "Email already in use.")
 
         return email
 
@@ -80,17 +80,17 @@ class ScoreForm(forms.ModelForm):
 
     class Meta:
         model = Score
-        fields = ['difficulty', 'popularity']
+        fields = ('difficulty', 'popularity')
 
-    def __init__(self, *args, **kwargs):
+    """def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
         self.puzzle = kwargs.pop('puzzle', None)
-        super().__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)"""
 
-    def save(self, commit=True):
+    """def save(self, commit=True):
         score = super().save(commit=False)
         score.userID = self.user
         score.puzzleID = self.puzzle
         if commit:
             score.save()
-        return score
+        return score"""

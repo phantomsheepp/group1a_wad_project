@@ -1,5 +1,4 @@
-from django.http import HttpResponse
-from bookle.models import Book, Puzzle
+from bookle.models import Book, Puzzle, Score
 from datetime import datetime
 
 

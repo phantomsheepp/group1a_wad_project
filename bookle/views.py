@@ -57,6 +57,7 @@ def log_out(request):
     return redirect('bookle:home')
 
 def sign_up(request):
+    context_dict = {}
     if request.method == 'POST':
         form = RegisterForm(request.POST, request.FILES)
         if form.is_valid():
@@ -69,9 +70,12 @@ def sign_up(request):
             # Log the user in
             auth_login(request, user)
             return redirect('bookle:home')
+        else:
+            context_dict['error'] = "Sign up failed"
     else:
         form = RegisterForm()
-    return render(request, 'bookle/sign_up.html', {'form': form})
+    context_dict['form'] = form
+    return render(request, 'bookle/sign_up.html', context=context_dict)
 
 @login_required
 def profile(request, username=None):
@@ -105,10 +109,15 @@ def discussion(request, puzzle_date="daily"):
 
     context_dict['puzzleDate'] = puzzle_date
     puzzle = get_object_or_404(Puzzle, date=puzzle_date)
-    has_rated = Score.objects.filter(userID=request.user, puzzleID=puzzle).exists()
+    has_rated = False
+    if not Score.objects.filter(userID=request.user, puzzleID=puzzle).exists():
+        return redirect('bookle:daily_puzzle')
 
+    s = Score.objects.get(userID=request.user, puzzleID=puzzle)
+    has_rated = True if ((s.difficulty != None) or (s.popularity != None)) else False
+    
     comment_form = CommentForm(user=request.user, puzzle=puzzle)
-    rating_form = ScoreForm(user=request.user, puzzle=puzzle)
+    rating_form = ScoreForm(instance=s)
 
     if request.method == 'POST':
         if 'submit_comment' in request.POST:
@@ -118,7 +127,7 @@ def discussion(request, puzzle_date="daily"):
                 comment_form = CommentForm(user=request.user, puzzle=puzzle)
                 
         elif 'submit_rating' in request.POST:
-            rating_form = ScoreForm(request.POST, user=request.user, puzzle=puzzle)
+            rating_form = ScoreForm(request.POST, instance=s)
             if rating_form.is_valid() and not has_rated:
                 rating_form.save()
                 return redirect('bookle:discussion', puzzle_date=puzzle_date)
@@ -138,14 +147,24 @@ def discussion(request, puzzle_date="daily"):
 def daily_puzzle(request):
     if not Puzzle.objects.filter(date=date.today()):
         puzzleCount = len(Puzzle.objects.all())
-        Puzzle.objects.create(puzzleID=puzzleCount+1, date=date.today(), isbn=Book.objects.all()[puzzleCount])
+        p = Puzzle.objects.create(puzzleID=puzzleCount+1, date=date.today(), isbn=Book.objects.all()[puzzleCount])
+    else:
+        p = Puzzle.objects.get(date=date.today())
+        
+    today = str(p.date)
 
-    context_dict = {}
-    context_dict['puzzleDate'] = str(date.today())
+    context_dict = {'puzzleDate':today}
+    if request.user.is_authenticated:
+        if Score.objects.filter(userID=request.user, puzzleID=p).exists():
+            return complete(request, date=today)
+        
     return render(request, 'bookle/daily_puzzle.html', context=context_dict)
 
 def puzzle(request, date=None):
     context_dict = {}
+
+    if Score.objects.filter(userID=request.user, puzzleID=puzzle).exists():
+        return complete(request, date=date)
 
     try:
         puzzle_date = datetime.strptime(date, '%Y-%m-%d').date()
