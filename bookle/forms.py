@@ -37,10 +37,10 @@ class RegisterForm(UserCreationForm):
         try:
             validate_email(email)
         except ValidationError:
-            raise ValidationError("Invalid email format.")
+            self.add_error('email', "Invalid email format.")
 
         if User.objects.filter(email=email).exists():
-            raise ValidationError("Email already in use.")
+            self.add_error('email', "Email already in use.")
 
         return email
 
@@ -51,10 +51,6 @@ class RegisterForm(UserCreationForm):
     def save(self, commit=True):
         user = super().save(commit=False)
         user.email = self.cleaned_data['email']
-        if self.bio:
-            user.bio = self.bio
-        if self.user_picture:
-            user.user_picture = self.user_picture
         
         if commit:
             user.save()
