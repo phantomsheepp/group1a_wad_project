@@ -335,20 +335,22 @@ h1{
 }
 
 .guessResultsCover{
+    position:relative;
+    top:-1em;
     width: 38%;
     float: left;
     padding: 20px;
-    height: 300px;
+    height: auto;
 }
 
 .guessResultsCategories{
     font-family:'Times New Roman', Times, serif;
-    padding-top: 40px;
+    padding-top: 50px;
     width: 48%;
     float: right;
     padding: 20px;
-    height: 300px;
-    line-height: 60px;
+    height: auto;
+    line-height: 50px;
 }
 
 #guess-count{
@@ -441,6 +443,13 @@ h1{
     top:3em;
     display:block;
     position: relative;
+}
+
+#complete-cover{
+    padding-left:30px;
+    padding-top:10px;
+    padding-bottom:10px;
+    float:left
 }
 .past-container{
     position: relative;

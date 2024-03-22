@@ -30,6 +30,7 @@ def about_us(request):
 def leaderboard(request):
     puzzle = Puzzle.objects.filter(date=date.today())[0]
     todays_scores = Score.objects.filter(puzzleID=puzzle)
+    todays_scores.exclude(guesses__isnull=True)
     leaderboard_data = todays_scores.order_by('guesses')[:5]
     context = {'leaderboard_guesses': leaderboard_data}
     return render(request, 'bookle/leaderboard.html', context)
