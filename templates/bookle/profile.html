@@ -11,11 +11,19 @@
     {% if user %}
         <div class="profile-picture">
             <img id="pfp" src="{% get_media_prefix %}{{ userProfile.user_picture }}">
+            &emsp; &emsp; &emsp; <h3 id="username">Welcome back, {{ user.username }}!</h3><br />
         </div>
 
         <div>
-            <h3>{{ user.username }}</h3><br />
-            <p>{{ userProfile.bio }}</p></div>
+            {% if userProfile.bio %}
+                <p>Bio: {{ userProfile.bio }}</p></div>
+            {% else %}
+                <p>Bio: No bio yet!</p>
+            {% endif %}
+        </div>
+
+        <div>
+            <a href="{% url 'bookle:edit_account' userProfile.user.username %}"><button class="btn btn-success">Edit your account here!</button></a>
         </div>
     {% endif %}
 {% endblock %}

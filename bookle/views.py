@@ -26,9 +26,10 @@ def about_us(request):
 
 @login_required
 def leaderboard(request):
-    leaderboard_data = Score.objects.order_by('guesses')[:5]
-    puzzle = Puzzle.objects.filter(date=date.today())
-    context = {'leaderboard_guesses': leaderboard_data, 'puzzle': puzzle, 'today': date.today()}
+    puzzle = Puzzle.objects.filter(date=date.today())[0]
+    todays_scores = Score.objects.filter(puzzleID=puzzle)
+    leaderboard_data = todays_scores.order_by('guesses')[:5]
+    context = {'leaderboard_guesses': leaderboard_data}
     return render(request, 'bookle/leaderboard.html', context)
 
 def login(request):
@@ -59,7 +60,7 @@ def sign_up(request):
         if form.is_valid():
             username = form.cleaned_data.get('username')
             if User.objects.filter(username=username).exists():
-                return render(request, 'bookle/signup.html', {'form': form, 'error': 'Username already exists'})
+                return render(request, 'bookle/sign_up.html', {'form': form, 'error': 'Username already exists'})
             user = form.save()
             # Authenticate the user
             user = authenticate(username=user.username, password=form.cleaned_data.get('password1'))
