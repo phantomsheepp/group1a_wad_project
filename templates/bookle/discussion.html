@@ -10,7 +10,7 @@
     <h2>Discussion</h2>
     <hr>
     {% for comment in comments %}
-    <div class="card mb-3">
+    <div class="comment-box">
         <div class="card-body">
             <h5 class="card-title">{{ comment.userID.username }}</h5>
             <p class="card-text">{{ comment.comment }}</p>
@@ -20,22 +20,27 @@
     <p>No comments yet.</p>
     {% endfor %}
     <hr>
-    <h4>New Comment</h4>
-    <form method="post">
-        {% csrf_token %}
-        {{ comment_form.as_p }}
-        <input type="hidden" name="puzzle_id" value="{{ puzzle.id }}">
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-    {% if not has_rated %}
-    <hr>
-    <h4>Rate this Puzzle</h4>
-    <form method="post">
-        {% csrf_token %}
-        {{ rating_form.as_p }}
-        <input type="hidden" name="puzzle_id" value="{{ puzzle.id }}">
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-    {% endif %}
+    <div class="row">
+        {% if not has_rated %}
+        <div class="col-md-6">
+            <h4>Rate this Puzzle</h4>
+            <form method="post">
+                {% csrf_token %}
+                {{ rating_form.as_p }}
+                <input type="hidden" name="puzzle_id" value="{{ puzzle.id }}">
+                <button type="submit" name="submit_rating" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        {% endif %}
+        <div class="col-md-6">
+            <h4>New Comment</h4>
+            <form method="post">
+                {% csrf_token %}
+                {{ comment_form.as_p }}
+                <input type="hidden" name="puzzle_id" value="{{ puzzle.id }}">
+                <button type="submit" name="submit_comment" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}

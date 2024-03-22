@@ -72,7 +72,7 @@ class Score(models.Model):
     
 
 class Comment(models.Model):
-    commentID = models.IntegerField(unique=True, primary_key=True)
+    commentID = models.AutoField(unique=True, primary_key=True)
     puzzleID = models.ForeignKey(Puzzle, on_delete=models.CASCADE)
     comment = models.CharField(max_length=300)
     userID = models.ForeignKey(User, on_delete=models.CASCADE)

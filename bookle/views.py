@@ -105,27 +105,26 @@ def discussion(request, puzzle_id=None):
     puzzle = get_object_or_404(Puzzle, pk=puzzle_id)
     has_rated = Score.objects.filter(userID=request.user, puzzleID=puzzle).exists()
 
-    comment_form = CommentForm(user=request.user)
+    comment_form = CommentForm(user=request.user, puzzle=puzzle)
     rating_form = ScoreForm(user=request.user, puzzle=puzzle)
 
     if request.method == 'POST':
         if 'submit_comment' in request.POST:
-            comment_form = CommentForm(request.POST, user=request.user)
+            comment_form = CommentForm(request.POST, user=request.user, puzzle=puzzle)
             if comment_form.is_valid():
-                comment = comment_form.save(commit=False)
-                comment.puzzleID = puzzle
-                comment.save()
-            rating_form = ScoreForm(user=request.user, puzzle=puzzle)
+                comment_form.save()
+            else:
+                print(comment_form.errors)
         elif 'submit_rating' in request.POST:
             rating_form = ScoreForm(request.POST, user=request.user, puzzle=puzzle)
             if rating_form.is_valid() and not has_rated:
                 rating_form.save()
-            comment_form = CommentForm(user=request.user)
-    else:
-        comment_form = CommentForm(user=request.user, puzzle=puzzle)
-        rating_form = ScoreForm(user=request.user, puzzle=puzzle)
+                return redirect('discussion', puzzle_id=puzzle_id)
+            else:
+                print(rating_form.errors)
 
     comments = Comment.objects.filter(puzzleID=puzzle).order_by('-commentID')
+    print(comments)
 
     context = {
         'puzzle': puzzle,
