@@ -163,17 +163,17 @@ def daily_puzzle(request):
 
 def puzzle(request, date=None):
     context_dict = {}
-
-    if Score.objects.filter(userID=request.user, puzzleID=puzzle).exists():
-        return complete(request, date=date)
-
+    
     try:
         puzzle_date = datetime.strptime(date, '%Y-%m-%d').date()
         context_dict['puzzleDate'] = str(puzzle_date)
     except:
         return redirect('bookle:home')
     
-    get_object_or_404(Puzzle, date=puzzle_date)
+    p = get_object_or_404(Puzzle, date=puzzle_date)
+
+    if Score.objects.filter(userID=request.user, puzzleID=p).exists():
+        return complete(request, date=date)
     
     return render(request, 'bookle/daily_puzzle.html', context=context_dict)
 
