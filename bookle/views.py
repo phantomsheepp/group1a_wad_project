@@ -131,7 +131,7 @@ def discussion(request, puzzle_date="daily"):
             rating_form = ScoreForm(request.POST, instance=s)
             if rating_form.is_valid() and not has_rated:
                 rating_form.save()
-                return redirect('bookle:discussion', puzzle_date=puzzle_date)
+                return redirect('bookle:discussion')
 
     comments = Comment.objects.filter(puzzleID=puzzle).order_by('-commentID')
 
