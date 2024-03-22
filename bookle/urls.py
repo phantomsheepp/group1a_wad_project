@@ -22,7 +22,9 @@ urlpatterns = [
     
     # Puzzle pages
     path('puzzle/daily/', views.daily_puzzle, name='daily_puzzle'),
+    path('puzzle/<str:date>/', views.puzzle, name='puzzle'),
     path('puzzle/daily/complete/', views.complete, name='complete'),
+    path('puzzle/<str:date>/complete', views.complete, name='complete'),
     path('puzzle/daily/complete/discussion/', views.discussion, name='discussion'),
     
     # Views used for AJAX

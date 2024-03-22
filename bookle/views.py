@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.urls import reverse
@@ -7,7 +7,9 @@ from django.contrib.auth.models import User
 from bookle.models import Score
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
+from bookle.models import Comment
+from bookle.forms import CommentForm, ScoreForm
+from bookle.models import Puzzle, Score
 from bookle.forms import RegisterForm, ProfileEditForm
 from bookle.models import Score, Book, Puzzle, UserProfile
 from django.views.generic import View
@@ -78,14 +80,6 @@ def profile(request, username=None):
     context_dict = {'user':user, 'userProfile':user_profile}
     return render(request, 'bookle/profile.html', context=context_dict)
 
-def daily_puzzle(request):
-    context_dict = {}
-    return render(request, 'bookle/daily_puzzle.html', context=context_dict)
-
-def past_puzzles(request):
-    context_dict = {}
-    return render(request, 'bookle/past_puzzles.html', context=context_dict)
-
 @login_required
 def edit_account(request, username):
     if request.user.username == username:
@@ -102,9 +96,44 @@ def edit_account(request, username):
     else:
         return render(request, 'bookle/home.html', {})
 
-def discussion(request):
+@login_required
+def discussion(request, puzzle_date="daily"):
     context_dict = {}
-    return render(request, 'bookle/discussion.html', context=context_dict)
+
+    if puzzle_date == "daily":
+        puzzle_date = str(date.today())
+
+    context_dict['puzzleDate'] = puzzle_date
+    puzzle = get_object_or_404(Puzzle, date=puzzle_date)
+    has_rated = Score.objects.filter(userID=request.user, puzzleID=puzzle).exists()
+
+    comment_form = CommentForm(user=request.user, puzzle=puzzle)
+    rating_form = ScoreForm(user=request.user, puzzle=puzzle)
+
+    if request.method == 'POST':
+        if 'submit_comment' in request.POST:
+            comment_form = CommentForm(request.POST, user=request.user, puzzle=puzzle)
+            if comment_form.is_valid():
+                comment_form.save()
+                comment_form = CommentForm(user=request.user, puzzle=puzzle)
+                
+        elif 'submit_rating' in request.POST:
+            rating_form = ScoreForm(request.POST, user=request.user, puzzle=puzzle)
+            if rating_form.is_valid() and not has_rated:
+                rating_form.save()
+                return redirect('bookle:discussion', puzzle_date=puzzle_date)
+
+    comments = Comment.objects.filter(puzzleID=puzzle).order_by('-commentID')
+
+    context = {
+        'puzzle': puzzle,
+        'comments': comments,
+        'comment_form': comment_form,
+        'rating_form': rating_form,
+        'has_rated': has_rated,
+    }
+
+    return render(request, 'bookle/discussion.html', context)
 
 def daily_puzzle(request):
     if not Puzzle.objects.filter(date=date.today()):
@@ -115,12 +144,33 @@ def daily_puzzle(request):
     context_dict['puzzleDate'] = str(date.today())
     return render(request, 'bookle/daily_puzzle.html', context=context_dict)
 
-"""class Complete(View):
-    def get(self, request):
-        context_dict = {}
-        return redirect('bookle:complete', permanent=True)"""
+def puzzle(request, date=None):
+    context_dict = {}
 
-def complete(request):
+    try:
+        puzzle_date = datetime.strptime(date, '%Y-%m-%d').date()
+        context_dict['puzzleDate'] = str(puzzle_date)
+    except:
+        return redirect('bookle:home')
+    
+    get_object_or_404(Puzzle, date=puzzle_date)
+    
+    return render(request, 'bookle/daily_puzzle.html', context=context_dict)
+
+def past_puzzles(request):
+
+    pop_list = Puzzle.objects.order_by('-popularity')[:6]
+    diff_list = Puzzle.objects.order_by('-difficulty')[:6]
+    for p in pop_list:
+        p.dateurl = str(p.date) 
+    for p in diff_list:
+        p.dateurl = str(p.date)   
+    context_dict = {}
+    context_dict['popular'] = pop_list
+    context_dict['difficult'] = diff_list
+    return render(request, 'bookle/past_puzzles.html', context=context_dict)
+
+def complete(request, date="daily"):
     context_dict = {}
     return render(request, 'bookle/complete.html', context=context_dict)
 
@@ -193,8 +243,9 @@ class GetBookData(View):
 
         context_dict = get_target_book_data(puzzle)
 
-        s = Score.objects.get(userID=request.user, puzzleID=puzzle)
-        context_dict['success'] = s.success
-        context_dict['guesses'] = s.guesses
+        if request.user.is_authenticated:
+            s = Score.objects.get(userID=request.user, puzzleID=puzzle)
+            context_dict['success'] = s.success
+            context_dict['guesses'] = s.guesses
 
         return HttpResponse(json.dumps(context_dict))

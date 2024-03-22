@@ -245,6 +245,30 @@ h1{
     display: inline;
 }
 
+#signup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#signup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .form-signin{
     margin-top: 7em;
 }
@@ -417,4 +441,39 @@ h1{
     top:3em;
     display:block;
     position: relative;
+}
+.past-container{
+    position: relative;
+    top: 1em;
+
+    height:300px;
+}
+
+.pop-child{
+    width: 40%;
+    float: left;
+    padding: 20px;
+    height: 300px;
+    font-size: 20pt;
+    background-color: #fbd779;
+}
+
+.diff-child{
+    width: 40%;
+    float: right;
+    padding: 20px;
+    height: 300px;
+    font-size: 20pt;
+    background-color: #fbd779;
+}
+
+
+/* -------------------------- discussion.html -----------------------------------*/
+
+.comment-box {
+    border: 1px solid #000; /* Add a border */
+    padding: 10px; /* Add some padding */
+    margin-bottom: 20px; /* Add some margin */
+    max-width: 600px; /* Limit the width */
+    overflow-wrap: break-word; /* Break words to prevent overflow */
 }
